@@ -1,10 +1,12 @@
 import { createHash } from "node:crypto";
-import { mkdir, readFile, readdir, writeFile } from "node:fs/promises";
+import { access, mkdir, readFile, readdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 const sourceRoot = process.argv[2] || "/tmp/codexguide-source-20260720";
 const sourceDir = path.join(sourceRoot, "docs", "recipes");
+const startSourceDir = path.join(sourceRoot, "docs", "start");
 const contentDir = path.resolve("content", "cases");
+const startContentDir = path.resolve("content", "start");
 const assetDir = path.resolve("public", "imported", "codexguide");
 const manifestPath = path.resolve("scripts", "codexguide-import-manifest.json");
 
@@ -29,10 +31,14 @@ const categoryByNumber = {
 };
 
 await mkdir(contentDir, { recursive: true });
+await mkdir(startContentDir, { recursive: true });
 await mkdir(assetDir, { recursive: true });
 
 const files = (await readdir(sourceDir))
   .filter((name) => /^(0[1-9]|1[0-7])-.+\.md$/.test(name))
+  .sort();
+const startFiles = (await readdir(startSourceDir))
+  .filter((name) => /^(0[1-9]|1[0-4])-.+\.md$/.test(name))
   .sort();
 
 const imagePattern = /!\[([^\]]*)\]\((https:\/\/[^)\s]+)(?:\s+"[^"]*")?\)/g;
@@ -46,14 +52,19 @@ function localAssetName(url) {
   return `${base || "case-image"}-${hash}${extension}`;
 }
 
-for (const file of files) {
-  const sourcePath = path.join(sourceDir, file);
-  const original = await readFile(sourcePath, "utf8");
-  const matches = [...original.matchAll(imagePattern)];
+for (const { directory, names } of [
+  { directory: sourceDir, names: files },
+  { directory: startSourceDir, names: startFiles },
+]) {
+  for (const file of names) {
+    const sourcePath = path.join(directory, file);
+    const original = await readFile(sourcePath, "utf8");
+    const matches = [...original.matchAll(imagePattern)];
 
-  for (const match of matches) {
-    const url = match[2];
-    if (!downloads.has(url)) downloads.set(url, localAssetName(url));
+    for (const match of matches) {
+      const url = match[2];
+      if (!downloads.has(url)) downloads.set(url, localAssetName(url));
+    }
   }
 }
 
@@ -63,6 +74,12 @@ const failures = [];
 async function worker() {
   while (queue.length) {
     const [url, filename] = queue.shift();
+    try {
+      await access(path.join(assetDir, filename));
+      continue;
+    } catch {
+      // Download assets that are not already present from a previous import.
+    }
     try {
       const response = await fetch(url, { headers: { "User-Agent": "CodexHub content importer" } });
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
@@ -76,14 +93,29 @@ async function worker() {
 
 await Promise.all(Array.from({ length: 6 }, () => worker()));
 
+for (const file of startFiles) {
+  const sourcePath = path.join(startSourceDir, file);
+  const original = await readFile(sourcePath, "utf8");
+  const rewritten = original
+    .replace(imagePattern, (full, alt, url) => {
+      const filename = downloads.get(url);
+      if (!filename || failures.some((failure) => failure.url === url)) return full;
+      return `![${alt}](/imported/codexguide/${filename})`;
+    })
+    .replace(/[ \t]+$/gm, "");
+  await writeFile(path.join(startContentDir, file), rewritten, "utf8");
+}
+
 for (const file of files) {
   const sourcePath = path.join(sourceDir, file);
   const original = await readFile(sourcePath, "utf8");
-  const rewritten = original.replace(imagePattern, (full, alt, url) => {
-    const filename = downloads.get(url);
-    if (!filename || failures.some((failure) => failure.url === url)) return full;
-    return `![${alt}](/imported/codexguide/${filename})`;
-  });
+  const rewritten = original
+    .replace(imagePattern, (full, alt, url) => {
+      const filename = downloads.get(url);
+      if (!filename || failures.some((failure) => failure.url === url)) return full;
+      return `![${alt}](/imported/codexguide/${filename})`;
+    })
+    .replace(/[ \t]+$/gm, "");
   const category = categoryByNumber[file.slice(0, 2)] || "development";
   const targetDir = path.join(contentDir, category);
   await mkdir(targetDir, { recursive: true });
@@ -104,6 +136,7 @@ await writeFile(
       copyright: "Copyright (c) 2026 canghe",
       revision: revision.trim(),
       importedAt: "2026-07-20",
+      start: startFiles,
       cases: files,
       assets: downloads.size - failures.length,
       failures,
@@ -113,7 +146,9 @@ await writeFile(
   ),
 );
 
-console.log(`Imported ${files.length} cases and ${downloads.size - failures.length} assets.`);
+console.log(
+  `Imported ${startFiles.length} starter articles, ${files.length} cases and ${downloads.size - failures.length} assets.`,
+);
 if (failures.length) {
   console.warn(`${failures.length} assets could not be downloaded and remain remote URLs.`);
 }

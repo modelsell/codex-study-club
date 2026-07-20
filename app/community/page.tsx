@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Check, MessagesSquare, ShieldCheck, Sparkles } from "lucide-react";
 import { CommunityLink } from "@/components/community-link";
 import { SiteFooter } from "@/components/site-footer";
@@ -51,14 +52,20 @@ export default function CommunityPage() {
             <li><Check size={17} />社群动态和案例优先阅读</li>
             <li><Check size={17} />高频问题定期整理</li>
           </ul>
-          {configured ? (
-            <CommunityLink className="primary-button" />
-          ) : (
-            <div className="join-config-note">
-              <strong>加入入口即将开放</strong>
-              <span>部署时配置社群支付或入群链接后，此处将自动启用。</span>
+          <div className="join-qr">
+            <Image
+              alt="加入 Codex 高质量社群的微信二维码"
+              height={761}
+              priority
+              src="/image/me.jpg"
+              width={738}
+            />
+            <div>
+              <strong>微信扫码加入高质量社群</strong>
+              <span>使用微信扫描二维码添加好友，通过后邀请你加入 Codex 实践社群。</span>
             </div>
-          )}
+          </div>
+          {configured ? <CommunityLink className="primary-button" /> : null}
         </section>
       </main>
       <SiteFooter />

@@ -1509,6 +1509,139 @@ textarea:focus-visible {
   color: #9f402f;
 }
 
+.start-article-page {
+  padding-top: 54px;
+}
+
+.start-article-layout {
+  align-items: start;
+  display: grid;
+  gap: 62px;
+  grid-template-columns: 230px minmax(0, 1fr);
+}
+
+.start-article-sidebar {
+  max-height: calc(100svh - 120px);
+  overflow-y: auto;
+  position: sticky;
+  top: 94px;
+}
+
+.start-sidebar-title {
+  align-items: center;
+  border-bottom: 1px solid var(--line-strong);
+  display: flex;
+  font-size: 13px;
+  font-weight: 750;
+  gap: 8px;
+  padding: 0 4px 14px;
+}
+
+.start-sidebar-title svg {
+  color: var(--agent);
+}
+
+.start-article-sidebar ol {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+}
+
+.start-article-sidebar a:not(.start-sidebar-title) {
+  align-items: baseline;
+  border-left: 2px solid transparent;
+  color: var(--muted);
+  display: grid;
+  font-size: 11px;
+  gap: 8px;
+  grid-template-columns: 24px minmax(0, 1fr);
+  line-height: 1.5;
+  padding: 7px 8px;
+}
+
+.start-article-sidebar a:not(.start-sidebar-title):hover {
+  color: var(--ink);
+}
+
+.start-article-sidebar a[aria-current="page"] {
+  background: var(--agent-soft);
+  border-left-color: var(--agent);
+  color: var(--agent-dark);
+  font-weight: 700;
+}
+
+.start-article-sidebar a span {
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 9px;
+}
+
+.start-article {
+  max-width: 800px;
+  min-width: 0;
+  width: 100%;
+}
+
+.start-article .back-link {
+  margin-bottom: 42px;
+}
+
+.start-article-meta {
+  color: var(--muted);
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 11px;
+  gap: 0;
+  margin-bottom: 18px;
+}
+
+.start-article-meta span + span::before {
+  color: var(--line-strong);
+  content: "/";
+  margin: 0 9px;
+}
+
+.start-mobile-index {
+  display: none;
+}
+
+.start-article-credit {
+  border-top: 1px solid var(--line);
+  color: var(--faint);
+  font-size: 11px;
+  line-height: 1.7;
+  margin: 70px 0 0;
+  padding-top: 18px;
+}
+
+.start-article-pagination {
+  border-top: 1px solid var(--line-strong);
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 34px;
+  padding-top: 24px;
+}
+
+.start-article-pagination a {
+  align-items: center;
+  display: flex;
+  font-size: 13px;
+  gap: 10px;
+  line-height: 1.5;
+}
+
+.start-article-pagination a:last-child {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.start-article-pagination small {
+  color: var(--muted);
+  display: block;
+  font-size: 10px;
+  margin-bottom: 3px;
+}
+
 .tutorial-page {
   background: var(--bg);
 }
@@ -1905,28 +2038,43 @@ textarea:focus-visible {
 }
 
 .join-panel > .primary-button,
-.join-config-note {
+.join-qr {
   grid-column: 1 / -1;
+}
+
+.join-panel > .primary-button {
   margin-top: 0;
 }
 
-.join-config-note {
-  background: var(--community-soft);
-  border-left: 3px solid var(--community);
-  border-radius: 3px;
+.join-qr {
+  align-items: center;
+  border-top: 1px solid var(--line);
+  display: flex;
+  gap: 28px;
+  padding-top: 34px;
+}
+
+.join-qr img {
+  border: 1px solid var(--line);
+  height: auto;
+  width: 188px;
+}
+
+.join-qr div {
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  padding: 16px 18px;
+  gap: 8px;
 }
 
-.join-config-note strong {
-  font-size: 14px;
+.join-qr strong {
+  font-size: 18px;
 }
 
-.join-config-note span {
-  color: #8e5044;
-  font-size: 12px;
+.join-qr span {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+  max-width: 360px;
 }
 
 /* Case artwork source. Each panel is captured into a WebP asset. */
@@ -2306,6 +2454,7 @@ textarea:focus-visible {
   .official-note { grid-template-columns: auto 1fr; }
   .official-note a { grid-column: 2; }
   .join-panel { margin-inline: 28px; }
+  .start-article-layout { gap: 34px; grid-template-columns: 200px minmax(0, 1fr); }
 }
 
 @media (max-width: 720px) {
@@ -2316,7 +2465,8 @@ textarea:focus-visible {
   .brand { font-size: 15px; }
   .main-nav { gap: 14px; }
   .main-nav > a:not(.join-nav) { display: none; }
-  .main-nav > a.theme-nav { display: inline-flex; }
+  .main-nav > a.start-nav { display: inline-flex; }
+  .main-nav > a.theme-nav { display: none; }
   .theme-nav-wide { display: none; }
   .theme-nav-short { display: inline; }
   .join-nav { min-height: 36px; padding: 0 12px; }
@@ -2400,6 +2550,20 @@ textarea:focus-visible {
   .page-intro p,
   .community-hero > p { font-size: 15px; }
   .listing-content { padding-bottom: 62px; }
+  .start-article-page { padding-top: 42px; }
+  .start-article-layout { display: block; }
+  .start-article-sidebar { display: none; }
+  .start-article { max-width: none; }
+  .start-article .back-link { margin-bottom: 22px; }
+  .start-mobile-index { border-bottom: 1px solid var(--line); border-top: 1px solid var(--line); display: block; margin-bottom: 30px; padding: 12px 0; }
+  .start-mobile-index summary { color: var(--agent-dark); cursor: pointer; font-size: 12px; font-weight: 750; }
+  .start-mobile-index ol { margin: 14px 0 2px; padding-left: 24px; }
+  .start-mobile-index li { padding: 5px 0; }
+  .start-mobile-index a { color: var(--muted); font-size: 12px; line-height: 1.5; }
+  .start-mobile-index a[aria-current="page"] { color: var(--agent-dark); font-weight: 750; }
+  .start-article-pagination { grid-template-columns: 1fr; }
+  .start-article-pagination > span { display: none; }
+  .start-article-pagination a:last-child { border-top: 1px solid var(--line); justify-content: space-between; padding-top: 18px; text-align: left; }
   .case-category-nav { margin-top: 32px; margin-inline: -18px; padding-inline: 18px; }
   .case-category-nav a { justify-content: flex-start; min-height: 48px; padding: 0 15px; }
   .case-category-nav a:first-child { padding-left: 0; }
@@ -2448,6 +2612,8 @@ textarea:focus-visible {
   .community-value + .community-value { border-left: 0; border-top: 1px solid var(--line); }
   .community-value h2 { margin-top: 20px; }
   .join-panel { gap: 28px; grid-template-columns: 1fr; margin-inline: 18px; margin-top: 64px; padding: 30px 22px; }
+  .join-qr { align-items: flex-start; flex-direction: column; gap: 18px; padding-top: 28px; }
+  .join-qr img { width: min(188px, 100%); }
 }
 
 @media (prefers-reduced-motion: reduce) {

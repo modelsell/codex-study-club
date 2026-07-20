@@ -34,7 +34,7 @@ export default async function UpdateDetailPage({ params }: Props) {
         <article className="article shell-narrow">
           <Link className="back-link" href="/community/updates">
             <ArrowLeft size={16} />
-            返回社群动态
+            返回 Codex 动态
           </Link>
           <div className="update-article-meta">
             <time dateTime={item.date}>{item.date}</time>

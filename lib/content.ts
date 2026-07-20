@@ -44,6 +44,16 @@ export type TutorialDocument = {
   markdown: string;
 };
 
+export type StartArticle = {
+  slug: string;
+  number: string;
+  title: string;
+  description: string;
+  checkedAt?: string;
+  markdown: string;
+  track: "基础入门" | "开发者入门";
+};
+
 export type ThemeDocument = {
   slug: string;
   title: string;
@@ -146,6 +156,27 @@ function readTutorials(): TutorialDocument[] {
     .sort((a, b) => a.slug.localeCompare(b.slug));
 }
 
+function readStartArticles(): StartArticle[] {
+  const startDir = path.join(contentRoot, "start");
+  return listMarkdownFiles(startDir)
+    .map((filePath) => {
+      const parsed = parseMarkdown(filePath);
+      const slug = path.basename(filePath, ".md");
+      const number = slug.match(/^(\d{2})-/)?.[1] || "00";
+      const checkedInBody = parsed.markdown.match(/最后核对日期[：:]\s*(\d{4}-\d{2}-\d{2})/)?.[1];
+      return {
+        slug,
+        number,
+        title: parsed.title,
+        description: String(parsed.data.description || "Codex 新手入门教程"),
+        checkedAt: parsed.data.checkedAt ? String(parsed.data.checkedAt) : checkedInBody,
+        markdown: parsed.markdown,
+        track: Number(number) <= 9 ? "基础入门" : "开发者入门",
+      } satisfies StartArticle;
+    })
+    .sort((a, b) => a.number.localeCompare(b.number));
+}
+
 function readThemes(): ThemeDocument[] {
   const themesDir = path.join(contentRoot, "themes");
   return listMarkdownFiles(themesDir)
@@ -190,6 +221,7 @@ function readAssistantKnowledge(): AssistantKnowledge[] {
 export const cases = readCases();
 export const updates = readUpdates();
 export const tutorials = readTutorials();
+export const startArticles = readStartArticles();
 export const themes = readThemes();
 export const knowledge = readAssistantKnowledge();
 
@@ -203,6 +235,10 @@ export function getUpdate(slug: string) {
 
 export function getTutorial(slug: string) {
   return tutorials.find((item) => item.slug === slug);
+}
+
+export function getStartArticle(slug: string) {
+  return startArticles.find((item) => item.slug === slug);
 }
 
 export function getTheme(slug: string) {

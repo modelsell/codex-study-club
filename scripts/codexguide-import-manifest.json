@@ -5,6 +5,22 @@
   "copyright": "Copyright (c) 2026 canghe",
   "revision": "f1eb20605f600982f161ec39b40abf1e4fb5555d",
   "importedAt": "2026-07-20",
+  "start": [
+    "01-what-is-codex.md",
+    "02-app-installation.md",
+    "03-account-plan.md",
+    "04-third-party-api.md",
+    "05-app-overview.md",
+    "06-first-task.md",
+    "07-task-design.md",
+    "08-task-execution.md",
+    "09-mobile-control.md",
+    "10-cli-installation.md",
+    "11-cli-first-run.md",
+    "12-cli-options.md",
+    "13-ide-vscode.md",
+    "14-cloud.md"
+  ],
   "cases": [
     "01-ppt-skill-walkthrough.md",
     "02-drawio-mcp.md",
@@ -24,6 +40,6 @@
     "16-android-remote-control.md",
     "17-desktop-pet.md"
   ],
-  "assets": 108,
+  "assets": 180,
   "failures": []
 }

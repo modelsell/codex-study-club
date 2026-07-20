@@ -1,10 +1,10 @@
 # Third-party notices
 
-## CodexGuide case library
+## CodexGuide tutorials and case library
 
-The imported case articles under the categorized `content/cases/` directories
-and their associated images under `public/imported/codexguide/` are derived
-from CodexGuide:
+The starter tutorials under `content/start/`, the imported case articles under
+the categorized `content/cases/` directories, and their associated images under
+`public/imported/codexguide/` are derived from CodexGuide:
 
 - Website: https://codexguide.ai/
 - Repository: https://github.com/freestylefly/CodexGuide

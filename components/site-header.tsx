@@ -11,6 +11,7 @@ export function SiteHeader() {
           <span>Codex Study Club</span>
         </Link>
         <nav className="main-nav" aria-label="主导航">
+          <Link className="start-nav" href="/start/01-what-is-codex">新手入门</Link>
           <Link className="theme-nav" href="/themes">
             <span className="theme-nav-wide">Codex 主题</span>
             <span className="theme-nav-short">主题</span>

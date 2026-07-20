@@ -3,7 +3,7 @@ description: "Codex Chrome 浏览器插件案例，说明如何让 AI 控制浏�
 ---
 
 ::: tip 最后核对
-官方资料最后核对日期：2026-05-27。本文参考 [Using Codex with your ChatGPT plan](https://help.openai.com/en/articles/11369540-using-codex-with-your-chatgpt-plan) 与 [Codex use cases](https://developers.openai.com/codex/explore/)。具体插件名称、安装流程和入口位置可能会随客户端版本或工作区配置变化。
+官方资料最后核对日期：2026-07-20。本文参考 [Using Codex with your ChatGPT plan](https://help.openai.com/en/articles/11369540-using-codex-with-your-chatgpt-plan)、[Codex use cases](https://developers.openai.com/codex/explore/) 与 OpenAI Developers 在 X 发布的 [Codex in Chrome 工作流](https://x.com/OpenAIDevs/status/2077468133120766044)。具体插件名称、安装流程和入口位置可能会随客户端版本或工作区配置变化。
 :::
 
 # Codex × Chrome：让 AI 直接控制浏览器
@@ -57,6 +57,27 @@ description: "Codex Chrome 浏览器插件案例，说明如何让 AI 控制浏�
 4. 把它认为最合适的结果链接返回给你。
 
 ![chrome-codex-extension-summary-result](/imported/codexguide/chrome-codex-extension-summary-result-5503c505e6.png)
+
+## 2026 年 7 月官方展示的完整工作流
+
+OpenAI Developers 展示了一个比“搜索并返回链接”更完整的示例：让 Codex 从浏览器里的请求表单开始，整理上线计划，并把多个信息源串成一条可复核的工作流。
+
+1. 从表单提取要求，生成上线检查清单。
+2. 从 Google Drive、Slack 和本地文件补齐上下文。
+3. 标记仍需跟进的信息，而不是自行填补空白。
+4. 更新门户中的执行状态。
+5. 起草回复，但由用户做最终决定。
+
+这个示例最值得复用的不是具体网站，而是任务边界：Codex 负责收集、整理和准备动作，用户保留对外提交与最终决策。
+
+可以把同类任务写成：
+
+```text
+请从当前页面读取这条发布请求，并生成上线检查清单。
+仅从我指定的 Drive 文件、Slack 会话和当前项目读取补充信息。
+无法确认的内容标记为“待跟进”，不要猜测。
+完成后更新草稿状态并起草回复，但不要替我提交或发送。
+```
 
 ## 你要重点检查什么
 

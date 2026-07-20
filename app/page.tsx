@@ -64,9 +64,9 @@ export default function Home() {
               <CircleCheck size={14} />
               回答优先引用官方资料与已发布内容
             </p>
-            <Link className="beginner-link" href="/learn/getting-started">
+            <Link className="beginner-link" href="/start/01-what-is-codex">
               <BookOpen size={14} />
-              15 分钟入门教程
+              完整新手入门
             </Link>
           </div>
         </section>
@@ -107,10 +107,10 @@ export default function Home() {
           <div className="shell">
             <SectionHeading
               action="查看全部"
-              description="从真实群聊中提炼问题、方法和复盘，发布前统一审核与脱敏。"
+              description="筛选官方产品动态与真实社区实践，只保留可核对、可复用的信息。"
               eyebrow="FIELD NOTES"
               href="/community/updates"
-              title="最新社群动态"
+              title="最新 Codex 动态"
             />
             <UpdateList items={updates} />
           </div>

@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { cases, updates } from "@/lib/content";
+import { cases, startArticles, updates } from "@/lib/content";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
@@ -17,6 +17,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(item.checkedAt || "2026-07-20"),
       changeFrequency: "monthly" as const,
       priority: 0.8,
+    })),
+    ...startArticles.map((item) => ({
+      url: `${base}/start/${item.slug}`,
+      lastModified: new Date(item.checkedAt || "2026-07-20"),
+      changeFrequency: "monthly" as const,
+      priority: 0.9,
     })),
     ...updates.map((item) => ({
       url: `${base}/community/updates/${item.slug}`,
