@@ -1,0 +1,29 @@
+{
+  "source": "https://github.com/freestylefly/CodexGuide",
+  "website": "https://codexguide.ai/",
+  "license": "MIT",
+  "copyright": "Copyright (c) 2026 canghe",
+  "revision": "f1eb20605f600982f161ec39b40abf1e4fb5555d",
+  "importedAt": "2026-07-20",
+  "cases": [
+    "01-ppt-skill-walkthrough.md",
+    "02-drawio-mcp.md",
+    "03-playwright-mcp.md",
+    "04-hyperframes-animation.md",
+    "05-obsidian-codex.md",
+    "06-feishu-cli-codex.md",
+    "07-llm-wiki-codex.md",
+    "08-figma-mcp-codex.md",
+    "09-notion-mcp-codex.md",
+    "10-dkfile-deploy-codex.md",
+    "11-remote-bug-fix.md",
+    "12-chrome-browser-plugin.md",
+    "13-github-actions-ci-fix.md",
+    "14-clinical-literature-review.md",
+    "15-hatch-pet-photo.md",
+    "16-android-remote-control.md",
+    "17-desktop-pet.md"
+  ],
+  "assets": 108,
+  "failures": []
+}
