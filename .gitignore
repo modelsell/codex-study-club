@@ -5,3 +5,11 @@ node_modules
 npm-debug.log*
 pnpm-debug.log*
 .DS_Store
+
+# OpenNext
+.open-next
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
