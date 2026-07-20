@@ -54,9 +54,8 @@ property of their respective owners. User-supplied images and third-party
 artwork are not covered by the project's MIT license. The mirrored Arina
 Hashimoto previews and related concept-gallery images are included for visual
 documentation only and do not grant likeness, model-output, trademark, or
-third-party artwork rights. The Passion8 logo remains the property of its
-owner. Downstream redistribution and commercial use require an independent
-rights review.
+third-party artwork rights. Downstream redistribution and commercial use
+require an independent rights review.
 
 MIT License
 

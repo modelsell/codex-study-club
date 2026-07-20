@@ -167,8 +167,4 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\restore-dream-
 - [项目源码与完整图库](https://github.com/Fei-Away/Codex-Dream-Skin)
 - [问题反馈](https://github.com/Fei-Away/Codex-Dream-Skin/issues/new/choose)
 
-项目 README 同时展示了 Passion8 的赞助标识：
-
-[![Passion8 项目赞助标识](/themes/codex-dream-skin/sponsor-passion8.png)](https://passion8.cc/register?aff=TuPe)
-
 本文基于上游提交 `e776fa6d5361a2bdd5c1614674397681e7b00874` 整理，最后核对日期为 2026-07-20。提交问题时不要上传 API Key、`auth.json`、中转 token 或私人对话内容。
