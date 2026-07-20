@@ -12,14 +12,14 @@ import { cases, updates } from "@/lib/content";
 
 export default function Home() {
   const featuredSlugs = [
+    "codex-task-keeps-drifting",
+    "codex-permission-and-network-blocked",
+    "codex-finished-but-not-verified",
     "first-verifiable-task",
     "diagnose-ci-failure",
     "reusable-review-skill",
     "01-ppt-skill-walkthrough",
     "02-drawio-mcp",
-    "03-playwright-mcp",
-    "04-hyperframes-animation",
-    "05-obsidian-codex",
   ];
   const featuredCases = featuredSlugs.flatMap((slug) => cases.filter((item) => item.slug === slug));
   const categoryCounts = Object.fromEntries(

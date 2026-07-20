@@ -9,6 +9,7 @@ content/
 ├── assistant/             # 首页对话助手的本地知识
 ├── cases/                 # 实战案例
 │   ├── getting-started/   # 新手入门
+│   ├── troubleshooting/   # 问题排查
 │   ├── development/       # 开发与自动化
 │   ├── content-design/    # 内容与设计
 │   ├── knowledge/         # 知识与协作

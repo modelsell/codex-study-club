@@ -1,6 +1,45 @@
 {
   "cases": [
     {
+      "slug": "codex-finished-but-not-verified",
+      "title": "Codex 说完成了，但结果还不能用：怎么补上验证闭环",
+      "summary": "把‘代码已修改’和‘问题已解决’分开，用 diff、目标测试、运行时检查和未验证风险建立完成标准。",
+      "category": "troubleshooting",
+      "markdown": "\n::: tip 资料说明\n本文更新于 2026-07-21。命令执行、任务权限和安全边界请参考 [Codex CLI features](https://developers.openai.com/codex/cli/features) 和 [Agent approvals & security](https://developers.openai.com/codex/agent-approvals-security)。具体验收命令应以你的仓库文档和 CI 配置为准。\n:::\n\n“已经写入文件”、“构建通过”和“用户报告的问题已经解决”是三个不同结论。如果任务只停在第一个结论，就容易出现“Codex 说完成了，我打开页面却还是错的”。\n\n## 四层验证\n\n| 层级 | 要回答的问题 | 常见方式 |\n| --- | --- | --- |\n| 改动审查 | 改了什么，是否混入无关变更 | `git diff --check`、阅读 diff |\n| 静态检查 | 代码是否满足项目基本约束 | lint、typecheck、格式检查 |\n| 目标验证 | 原始失败是否真的恢复 | 失败测试、原请求、特定脚本 |\n| 运行时验证 | 用户实际使用时是否正常 | 启动服务、页面操作、API 探测、部署后检查 |\n\n不是每个任务都要跑全仓库所有检查。验证应该与风险成比例：改一段文案与改计费、身份验证或生产部署，所需证据不会相同。\n\n## 在任务开始前写验收标准\n\n模糊的验收：\n\n```text\n改完后测试一下。\n```\n\n可执行的验收：\n\n```text\n完成后：\n1. 运行 npm test -- checkout；\n2. 用失败请求中的相同输入重试；\n3. 确认返回状态为 200，且 amount 与预期一致；\n4. 检查 diff 中没有计费模块之外的改动；\n5. 如果某一步无法执行，说明原因，不要将它写成已验证。\n```\n\n## 没有现成测试时怎么办\n\n没有自动化测试不等于只能相信代码。可以选择离用户报告最近的证据：\n\n- 页面问题：启动本地页面，按原步骤点击并截图。\n- API 问题：用脱敏后的原请求重放，检查状态码和关键字段。\n- 命令行问题：重跑原命令，同时保留退出码和标准错误。\n- 文档链接：检查生成路由、链接状态与移动端排版。\n- 部署问题：区分本地构建成功和公网运行正常，部署后再做一次外部探测。\n\n![Codex 根据实际 diff 进行代码审查](/imported/codexguide/codex-cli-review-diff-result-fd3304aed7.png)\n\n## 如何记录“未验证”\n\n一个可靠的交付总结应该把结果分开：\n\n```text\n已完成：\n- [实际改动]\n\n已验证：\n- [命令或操作] -> [结果]\n\n未验证：\n- [无法执行的检查] -> [原因]\n\n剩余风险：\n- [仍然需要人工或生产环境确认的事项]\n```\n\n## 完成检查\n\n- 验收方式在实施前已经确定。\n- 原始失败路径已经重试，不只是另外一条方便的路径。\n- diff 与验证命令都有实际记录。\n- 构建成功没有被当成所有运行时问题的证明。\n- 未验证项和剩余风险已经说明。\n\n站内延伸阅读：[任务执行与验证闭环](/start/08-task-execution) 和 [从 CI 日志完成修复](/cases/diagnose-ci-failure)。\n",
+      "cover": "/imported/codexguide/codex-cli-review-diff-result-fd3304aed7.png",
+      "imageAlt": "Codex CLI 对代码改动进行审查",
+      "level": "所有用户",
+      "surface": "App / CLI / Cloud",
+      "duration": "9 分钟",
+      "checkedAt": "2026-07-21"
+    },
+    {
+      "slug": "codex-permission-and-network-blocked",
+      "title": "命令被拦、联网失败：读懂 Codex 权限和审批",
+      "summary": "用工作区、文件、网络和外部写操作四层检查法，判断任务卡在哪里，只开放完成任务所需的最小权限。",
+      "category": "troubleshooting",
+      "markdown": "\n::: tip 资料说明\n本文更新于 2026-07-21。权限与界面名称可能随客户端更新，请以 [Codex Permissions](https://developers.openai.com/codex/permissions) 和 [Agent approvals & security](https://developers.openai.com/codex/agent-approvals-security) 为准。本文不建议为了省一次审批而长期开放完全访问权限。\n:::\n\nCodex 能读到代码，不代表它当前一定能写入所有目录、访问网络或更改外部系统。当任务卡住时，先判断是能力问题、环境问题，还是权限边界在发挥作用。\n\n## 四层检查法\n\n### 1. 工作区是否正确\n\n先让 Codex 说明当前目录、目标仓库和需要访问的文件。很多“找不到文件”不是权限问题，而是打开了错误的工作目录。\n\n```text\n先不要修改。请告诉我当前工作目录、仓库根目录，\n以及你为完成任务需要读写的路径。\n```\n\n### 2. 文件系统是否只读或越界\n\n如果能读不能写，记录失败的完整路径和操作。不要笼统地说“给你所有权限”；先确认目标是否确实在当前任务范围内，再只对所需路径放行。\n\n### 3. 网络是否被限制\n\n安装依赖、读取在线文档、访问 API 和拉取 Git 远程都需要网络。请区分：\n\n- DNS、TLS、代理或远程服务器真实失败。\n- 当前任务没有网络访问权限。\n- 命令在等待你确认某个具体网络操作。\n\n最有用的证据是失败命令、完整错误和目标域名，不是“好像上不了网”。\n\n### 4. 是否正在更改外部状态\n\n推送代码、发布网站、发送消息、更改云端数据和删除资源，都不只是本地写文件。这类操作需要明确目标、影响范围和回滚方法；看到审批提示时，先看它准备做什么，不要只看按钮名称。\n\n![Codex CLI 中的具体工具审批提示](/imported/codexguide/playwright-mcp-permission-prompt-96ce3fa014.png)\n\n## 一条更有用的排障指令\n\n```text\n请重试失败的最小步骤，不要扩大操作范围。\n如果仍然失败，请说明：\n1. 执行了什么命令或工具操作；\n2. 访问了哪个路径或域名；\n3. 完整错误是什么；\n4. 需要的是文件、网络还是外部写入权限；\n5. 有没有不需要扩大权限的替代方案。\n```\n\n## 审批时怎么选\n\n- 只需要执行一次：优先单次允许。\n- 当前任务会重复执行同类安全操作：再考虑仅本会话允许。\n- 操作涉及凭据、生产数据、付款、删除或对外发送：逐次确认具体对象。\n- 不知道操作的影响：先拒绝，让 Codex 解释命令、目标和回滚方式。\n\n## 完成检查\n\n- 已经保留最小失败步骤和完整错误。\n- 已确认任务使用的工作区和目标路径。\n- 开放的权限与任务必需操作一致。\n- 重试后用原命令确认问题已解决。\n- 临时权限、测试凭据和临时文件已按需清理。\n\n站内延伸阅读：[任务执行与验证闭环](/start/08-task-execution) 和 [Codex CLI 常用选项](/start/12-cli-options)。\n",
+      "cover": "/imported/codexguide/playwright-mcp-permission-prompt-96ce3fa014.png",
+      "imageAlt": "Codex CLI 请求允许 Playwright MCP 执行操作",
+      "level": "入门排障",
+      "surface": "App / CLI",
+      "duration": "10 分钟",
+      "checkedAt": "2026-07-21"
+    },
+    {
+      "slug": "codex-task-keeps-drifting",
+      "title": "Codex 总是跑偏：先缩小任务边界，再补上下文",
+      "summary": "从目标、范围、现状证据和验收方式逐项排查，让 Codex 从‘大概对’回到可检查的任务轨道。",
+      "category": "troubleshooting",
+      "markdown": "\n::: tip 资料说明\n本文更新于 2026-07-21。关于持久项目指令和 Codex 使用入口，参考 [Codex 文档](https://developers.openai.com/codex/) 与 [AGENTS.md 指南](https://developers.openai.com/codex/guides/agents-md)。本文的排查方法是可复现的工作流程，不对模型内部原因做猜测。\n:::\n\n最常见的“跑偏”不是完全没做，而是做了很多，结果却不是你要的。比如只想改一个错误提示，却连组件结构一起重构；想修一个失败测试，却新增了与根因无关的兼容分支。\n\n## 先看是哪一种跑偏\n\n| 现象 | 先检查什么 |\n| --- | --- |\n| 改了不该改的文件 | 任务是否写明允许修改的目录和禁止范围 |\n| 理解错现有行为 | 是否给了真实错误、复现步骤、请求或截图 |\n| 只做了表面修复 | 是否要求先说明根因和影响路径 |\n| 结果看起来对但不能用 | 是否在开始前定义验收命令或可见结果 |\n| 一直反复修补上一轮 | 当前对话是否混入了已经作废的方案 |\n\n## 用五分钟重置任务\n\n1. 停止继续修改，先让 Codex 只读检查现状。\n2. 用一句话写最终结果，不先写实现方案。\n3. 列出可以修改、不能修改的范围。\n4. 附上一份真实证据：错误日志、URL、截图、请求体或失败测试。\n5. 先定义验收方式，再让它实施。\n\n## 可以直接使用的任务模板\n\n```text\n目标：[用一句话写用户最终能看到的结果]\n\n现状证据：\n- [错误日志 / 请求 ID / URL / 截图 / 失败测试]\n\n范围：\n- 可以修改：[目录或模块]\n- 不要修改：[公开 API、数据库、无关页面等]\n\n执行方式：\n1. 先只读定位实际运行路径和根因。\n2. 说明最小修改方案后直接实施。\n3. 运行 [验证命令]。\n4. 总结根因、改动、验证结果和未验证风险。\n```\n\n## 上下文要精准，不要堆满\n\n不需要一次性上传整个项目的所有文件。对多数排障任务，优先级更高的是：\n\n1. 能稳定复现问题的证据。\n2. 与这份证据对应的真实代码路径。\n3. 项目里已经存在的相似实现。\n4. 最后用来判断成功的命令或页面行为。\n\n![Codex 界面中的上下文使用提示](/imported/codexguide/codex-first-task-context-usage-afcabb14db.png)\n\n## 什么时候应该开新任务\n\n如果目标已经改变、前面的方案已经作废，或当前对话里同时混着多个无关问题，开一个新任务通常更容易重新建立边界。新任务不要只写“继续修”，而要把上面的目标、证据、范围和验收方式重新写清。\n\n## 完成检查\n\n- 最终 diff 中没有无关文件。\n- 实际改动与根因一致，不是只遮住表面现象。\n- 开始时写下的验收方式已经执行。\n- 无法验证的地方被明确记录，没有被当成“已完成”。\n\n站内延伸阅读：[上下文不是越多越好](/community/updates/task-context-is-not-more-files) 和 [任务设计方法](/start/07-task-design)。\n",
+      "cover": "/imported/codexguide/codex-first-task-context-usage-afcabb14db.png",
+      "imageAlt": "Codex 任务完成后的上下文使用界面",
+      "level": "所有用户",
+      "surface": "App / CLI / IDE",
+      "duration": "8 分钟",
+      "checkedAt": "2026-07-21"
+    },
+    {
       "slug": "diagnose-ci-failure",
       "title": "让 Codex 从 CI 日志定位失败并完成修复",
       "summary": "把失败日志、影响范围和验证命令交给 Codex，形成可以审查的修复闭环。",

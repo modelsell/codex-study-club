@@ -5,6 +5,7 @@ export type CaseCategory = {
 };
 
 export const caseCategories: CaseCategory[] = [
+  { id: "troubleshooting", label: "问题排查", description: "任务跑偏、权限受限与结果验证" },
   { id: "getting-started", label: "新手入门", description: "第一次使用、写清任务与完成验证" },
   { id: "development", label: "开发与自动化", description: "工程排障、浏览器、CI 与发布流程" },
   { id: "content-design", label: "内容与设计", description: "演示、动画、图表与设计协作" },

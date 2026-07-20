@@ -23,6 +23,7 @@ export function SiteHeader() {
             <GithubMark />
           </a>
           <Link className="start-nav" href="/start/01-what-is-codex">新手入门</Link>
+          <Link href="/cases#troubleshooting">问题排查</Link>
           <Link className="theme-nav" href="/themes">
             <span className="theme-nav-wide">Codex 主题</span>
             <span className="theme-nav-short">主题</span>
