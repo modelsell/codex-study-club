@@ -44,6 +44,14 @@ export type TutorialDocument = {
   markdown: string;
 };
 
+export type ThemeDocument = {
+  slug: string;
+  title: string;
+  description: string;
+  checkedAt?: string;
+  markdown: string;
+};
+
 export type AssistantKnowledge = {
   slug: string;
   title: string;
@@ -138,6 +146,22 @@ function readTutorials(): TutorialDocument[] {
     .sort((a, b) => a.slug.localeCompare(b.slug));
 }
 
+function readThemes(): ThemeDocument[] {
+  const themesDir = path.join(contentRoot, "themes");
+  return listMarkdownFiles(themesDir)
+    .map((filePath) => {
+      const parsed = parseMarkdown(filePath);
+      return {
+        slug: path.basename(filePath, ".md"),
+        title: parsed.title,
+        description: String(parsed.data.description || "Codex Desktop 主题教程"),
+        checkedAt: parsed.data.checkedAt ? String(parsed.data.checkedAt) : undefined,
+        markdown: parsed.markdown,
+      } satisfies ThemeDocument;
+    })
+    .sort((a, b) => a.slug.localeCompare(b.slug));
+}
+
 function readAssistantKnowledge(): AssistantKnowledge[] {
   const assistantDir = path.join(contentRoot, "assistant");
   return listMarkdownFiles(assistantDir)
@@ -166,6 +190,7 @@ function readAssistantKnowledge(): AssistantKnowledge[] {
 export const cases = readCases();
 export const updates = readUpdates();
 export const tutorials = readTutorials();
+export const themes = readThemes();
 export const knowledge = readAssistantKnowledge();
 
 export function getCase(slug: string) {
@@ -178,4 +203,8 @@ export function getUpdate(slug: string) {
 
 export function getTutorial(slug: string) {
   return tutorials.find((item) => item.slug === slug);
+}
+
+export function getTheme(slug: string) {
+  return themes.find((item) => item.slug === slug);
 }

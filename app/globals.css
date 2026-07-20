@@ -136,6 +136,10 @@ textarea:focus-visible {
   color: var(--ink);
 }
 
+.theme-nav-short {
+  display: none;
+}
+
 .join-nav,
 .primary-button,
 .community-button {
@@ -1431,6 +1435,50 @@ textarea:focus-visible {
   color: var(--ink);
 }
 
+.theme-gallery {
+  display: grid;
+  gap: 22px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 30px 0 42px;
+}
+
+.theme-source-link {
+  align-items: center;
+  border-bottom: 1px solid var(--line-strong);
+  color: var(--agent-dark);
+  display: inline-flex;
+  font-size: 13px;
+  font-weight: 700;
+  gap: 6px;
+  margin-bottom: 6px;
+  padding-bottom: 5px;
+}
+
+.theme-gallery figure {
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  margin: 0;
+  overflow: hidden;
+}
+
+.theme-gallery img {
+  aspect-ratio: 16 / 10;
+  border: 0;
+  border-radius: 0;
+  margin: 0;
+  object-fit: cover;
+  width: 100%;
+}
+
+.theme-gallery figcaption {
+  background: var(--bg);
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.55;
+  min-height: 54px;
+  padding: 10px 12px;
+}
+
 .markdown-callout {
   background: var(--agent-soft);
   border-left: 3px solid var(--agent);
@@ -2268,6 +2316,9 @@ textarea:focus-visible {
   .brand { font-size: 15px; }
   .main-nav { gap: 14px; }
   .main-nav > a:not(.join-nav) { display: none; }
+  .main-nav > a.theme-nav { display: inline-flex; }
+  .theme-nav-wide { display: none; }
+  .theme-nav-short { display: inline; }
   .join-nav { min-height: 36px; padding: 0 12px; }
 
   .hero {
@@ -2373,6 +2424,8 @@ textarea:focus-visible {
   .markdown-content h3 { font-size: 19px; margin-top: 36px; }
   .markdown-content pre { font-size: 12px; padding: 17px; }
   .markdown-callout { padding: 16px; }
+  .theme-gallery { gap: 14px; grid-template-columns: 1fr; }
+  .theme-gallery figcaption { min-height: 0; }
 
   .tutorial-outcome { align-items: start; padding: 18px; }
   .tutorial-step { gap: 10px; grid-template-columns: 1fr; padding: 26px 0; }

@@ -1,8 +1,8 @@
 import "server-only";
 
-import { cases, knowledge, tutorials, updates, type SourceLink } from "@/lib/content";
+import { cases, knowledge, themes, tutorials, updates, type SourceLink } from "@/lib/content";
 
-export type KnowledgeKind = "assistant" | "case" | "tutorial" | "community-update";
+export type KnowledgeKind = "assistant" | "case" | "theme" | "tutorial" | "community-update";
 
 export type KnowledgeEntry = {
   id: string;
@@ -64,7 +64,8 @@ function plainText(markdown: string) {
     .replace(/```[\s\S]*?```/g, " ")
     .replace(/!\[[^\]]*\]\([^)]*\)/g, " ")
     .replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
-    .replace(/^:::\s*\w+.*$/gm, " ")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/^:::(?:\s*\w+.*)?$/gm, " ")
     .replace(/^#{1,6}\s+/gm, "")
     .replace(/^>\s?/gm, "")
     .replace(/^[-*+]\s+/gm, "")
@@ -94,6 +95,16 @@ export const knowledgeBase: KnowledgeEntry[] = [
     href: `/learn/${item.slug}`,
     terms: [item.title, item.level || "", "教程", "入门"].filter(Boolean),
     sources: [{ label: `教程：${item.title}`, href: `/learn/${item.slug}` }],
+  })),
+  ...themes.map((item) => ({
+    id: `theme:${item.slug}`,
+    kind: "theme" as const,
+    title: item.title,
+    summary: item.description,
+    content: item.markdown,
+    href: "/themes",
+    terms: [item.title, "Codex 主题", "Codex 换皮", "Dream Skin", "桌面主题"],
+    sources: [{ label: `主题：${item.title}`, href: "/themes" }],
   })),
   ...cases.map((item) => ({
     id: `case:${item.slug}`,

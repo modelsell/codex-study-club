@@ -3,7 +3,7 @@ import { cases, updates } from "@/lib/content";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-  const staticRoutes = ["", "/learn/getting-started", "/cases", "/community", "/community/updates"];
+  const staticRoutes = ["", "/learn/getting-started", "/themes", "/cases", "/community", "/community/updates"];
 
   return [
     ...staticRoutes.map((route) => ({

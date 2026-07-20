@@ -8,7 +8,7 @@ Codex Study Club is a Chinese learning and practice community for OpenAI Codex. 
 
 - Chat-first homepage for Codex learning questions.
 - Local Markdown knowledge retrieval with optional OpenAI-generated answers.
-- 20 categorized, SEO-friendly case studies with local screenshots.
+- Categorized, SEO-friendly case studies and a standalone Codex theme gallery.
 - Beginner tutorial and curated community updates.
 - Responsive layouts for desktop and mobile.
 - Sitemap, robots metadata, Open Graph metadata, and structured data.
@@ -40,6 +40,7 @@ content/
 │   ├── knowledge/         # Knowledge and collaboration
 │   └── tools-devices/     # Tools and devices
 ├── community-updates/     # Curated community notes
+├── themes/                # Codex desktop themes and visual customization
 └── tutorials/             # Structured tutorials
 ```
 
@@ -65,6 +66,7 @@ Open [http://localhost:3000](http://localhost:3000).
 | Variable | Required | Description |
 | --- | --- | --- |
 | `OPENAI_API_KEY` | No | Enables generated answers through the OpenAI Responses API. Without it, the assistant returns local Markdown answers and excerpts. |
+| `OPENAI_BASE_URL` | No | Server-side Responses API base URL. Defaults to `https://api.openai.com/v1`; custom OpenAI-compatible services can provide their own `/v1` base URL. |
 | `OPENAI_MODEL` | No | Responses API model. Defaults to the value in `.env.example`. |
 | `NEXT_PUBLIC_SITE_URL` | Production | Public origin used for canonical URLs, sitemap entries, and social metadata. |
 | `NEXT_PUBLIC_COMMUNITY_JOIN_URL` | No | Payment or onboarding URL used by the community join action. |
@@ -97,7 +99,7 @@ npm run import:codexguide   # Refresh categorized imported cases
 - Configure `NEXT_PUBLIC_COMMUNITY_JOIN_URL` when community enrollment is available.
 - Configure `OPENAI_API_KEY` only on the server when generated answers are required.
 - Run `npm run lint` and `npm run build`.
-- Verify `/`, `/cases`, `/learn/getting-started`, `/sitemap.xml`, and `/api/chat`.
+- Verify `/`, `/themes`, `/cases`, `/learn/getting-started`, `/sitemap.xml`, and `/api/chat`.
 
 ## Disclaimer
 

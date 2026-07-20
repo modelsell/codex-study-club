@@ -4,10 +4,17 @@ import { FormEvent, KeyboardEvent, useMemo, useRef, useState } from "react";
 import { ArrowUp, BookOpen, RotateCcw, Sparkles } from "lucide-react";
 
 type Message = {
+  id: string;
   role: "user" | "assistant";
   content: string;
   sources?: { label: string; href: string }[];
 };
+
+type StreamEvent =
+  | { type: "sources"; sources: { label: string; href: string }[] }
+  | { type: "delta"; delta: string }
+  | { type: "error"; message?: string }
+  | { type: "done" };
 
 const suggestions = [
   "第一次使用 Codex，应该从哪里开始？",
@@ -20,6 +27,7 @@ export function ChatAssistant() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const requestRef = useRef<AbortController | null>(null);
 
   const canSubmit = useMemo(() => input.trim().length > 0 && !loading, [input, loading]);
 
@@ -27,8 +35,15 @@ export function ChatAssistant() {
     const cleanQuestion = question.trim();
     if (!cleanQuestion || loading) return;
 
-    const nextMessages: Message[] = [...messages, { role: "user", content: cleanQuestion }];
-    setMessages(nextMessages);
+    const requestId = crypto.randomUUID();
+    const nextMessages: Message[] = [
+      ...messages,
+      { id: `user-${requestId}`, role: "user", content: cleanQuestion },
+    ];
+    const assistantId = `assistant-${requestId}`;
+    const controller = new AbortController();
+    requestRef.current = controller;
+    setMessages([...nextMessages, { id: assistantId, role: "assistant", content: "" }]);
     setInput("");
     setLoading(true);
 
@@ -36,30 +51,80 @@ export function ChatAssistant() {
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: nextMessages.slice(-8) }),
+        body: JSON.stringify({
+          messages: nextMessages.slice(-8).map(({ role, content }) => ({ role, content })),
+        }),
+        signal: controller.signal,
       });
 
-      if (!response.ok) throw new Error("request_failed");
-      const data = (await response.json()) as {
-        answer: string;
-        sources?: { label: string; href: string }[];
+      if (!response.ok || !response.body) throw new Error("request_failed");
+
+      const updateAssistant = (update: (message: Message) => Message) => {
+        setMessages((current) =>
+          current.map((message) => (message.id === assistantId ? update(message) : message)),
+        );
       };
-      setMessages((current) => [
-        ...current,
-        { role: "assistant", content: data.answer, sources: data.sources },
-      ]);
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = "";
+      let receivedText = false;
+
+      const consumeLine = (line: string) => {
+        if (!line.trim()) return;
+        const event = JSON.parse(line) as StreamEvent;
+        if (event.type === "sources") {
+          updateAssistant((message) => ({ ...message, sources: event.sources }));
+        } else if (event.type === "delta") {
+          receivedText = receivedText || Boolean(event.delta);
+          updateAssistant((message) => ({ ...message, content: message.content + event.delta }));
+        } else if (event.type === "error") {
+          const errorMessage = event.message || "回答传输中断，请重试。";
+          updateAssistant((message) => ({
+            ...message,
+            content: `${message.content}${message.content ? "\n\n" : ""}${errorMessage}`,
+          }));
+        }
+      };
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split("\n");
+        buffer = lines.pop() || "";
+        for (const line of lines) consumeLine(line);
+      }
+      buffer += decoder.decode();
+      if (buffer) consumeLine(buffer);
+      if (!receivedText) throw new Error("empty_response");
     } catch {
-      setMessages((current) => [
-        ...current,
-        {
-          role: "assistant",
-          content: "刚才没有成功连接学习助手。你可以稍后重试，或先从下方实战案例开始。",
-        },
-      ]);
+      if (!controller.signal.aborted) {
+        setMessages((current) =>
+          current.map((message) =>
+            message.id === assistantId && !message.content
+              ? {
+                  ...message,
+                  content: "刚才没有成功连接学习助手。你可以稍后重试，或先从下方实战案例开始。",
+                }
+              : message,
+          ),
+        );
+      }
     } finally {
-      setLoading(false);
-      textareaRef.current?.focus();
+      if (requestRef.current === controller) {
+        requestRef.current = null;
+        setLoading(false);
+        textareaRef.current?.focus();
+      }
     }
+  }
+
+  function clearConversation() {
+    requestRef.current?.abort();
+    requestRef.current = null;
+    setLoading(false);
+    setMessages([]);
   }
 
   function handleSubmit(event: FormEvent) {
@@ -82,20 +147,27 @@ export function ChatAssistant() {
             <span>当前对话</span>
             <button
               aria-label="清空对话"
-              onClick={() => setMessages([])}
+              onClick={clearConversation}
               title="清空对话"
               type="button"
             >
               <RotateCcw size={16} />
             </button>
           </div>
-          {messages.map((message, index) => (
-            <div className={`message message-${message.role}`} key={`${message.role}-${index}`}>
+          {messages.map((message) => (
+            <div className={`message message-${message.role}`} key={message.id}>
               <div className="message-role">
                 {message.role === "assistant" ? <Sparkles size={15} /> : null}
                 {message.role === "assistant" ? "Codex Study Club" : "你"}
               </div>
-              <p>{message.content}</p>
+              {message.content ? <p>{message.content}</p> : null}
+              {message.role === "assistant" && !message.content && loading ? (
+                <div className="thinking-dots" aria-label="正在整理答案">
+                  <span />
+                  <span />
+                  <span />
+                </div>
+              ) : null}
               {message.sources?.length ? (
                 <div className="message-sources">
                   <BookOpen size={14} />
@@ -108,19 +180,6 @@ export function ChatAssistant() {
               ) : null}
             </div>
           ))}
-          {loading ? (
-            <div className="message message-assistant message-loading">
-              <div className="message-role">
-                <Sparkles size={15} />
-                Codex Study Club
-              </div>
-              <div className="thinking-dots" aria-label="正在整理答案">
-                <span />
-                <span />
-                <span />
-              </div>
-            </div>
-          ) : null}
         </div>
       ) : null}
 

@@ -14,6 +14,7 @@ content/
 │   ├── knowledge/         # 知识与协作
 │   └── tools-devices/     # 工具与设备
 ├── community-updates/     # 社群动态
+├── themes/                # Codex 桌面主题
 └── tutorials/             # 系统教程
 ```
 
@@ -48,6 +49,18 @@ topics:
 ---
 ```
 
+## 主题页面格式
+
+`themes/` 中每个文件是一套独立的主题介绍。正文可以使用 Markdown；需要图片网格时使用带 `theme-gallery` 类名的 HTML `div`，图片仍放在 `public/themes/` 下。
+
+```yaml
+---
+title: "主题名称"
+description: "用于页面和 SEO 的摘要"
+checkedAt: "2026-07-20"
+---
+```
+
 ## 对话知识格式
 
 `assistant/` 中每个文件代表一个可匹配的知识主题。`terms` 用于本地问题匹配，`sources` 用于回答后的来源链接。
@@ -69,12 +82,13 @@ sources:
 
 - `assistant/` 中的定向问答。
 - `tutorials/` 中的教程。
+- `themes/` 中的主题教程与图库说明。
 - `cases/` 下所有分类案例。
 - `community-updates/` 中的社群动态。
 
 用户在首页提问后，系统先用标题、摘要、关键词和正文进行本地相关度检索，只把最相关的文档交给回答模型。
 
-- 配置 `OPENAI_API_KEY` 时：模型根据召回的本地 Markdown 正文生成回答。
+- 配置 `OPENAI_API_KEY` 时：模型根据召回的本地 Markdown 正文生成回答；需要使用兼容服务时可通过服务端 `OPENAI_BASE_URL` 修改请求地址。
 - 未配置 `OPENAI_API_KEY` 时：系统直接返回最相关文档的本地答案或摘要。
 - 两种模式都会返回对应的站内资料链接。
 
