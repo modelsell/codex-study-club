@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { BrandMark } from "@/components/brand-mark";
+import { GithubMark } from "@/components/github-mark";
 
 export function SiteHeader() {
   return (
@@ -11,6 +12,16 @@ export function SiteHeader() {
           <span>Codex Study Club</span>
         </Link>
         <nav className="main-nav" aria-label="主导航">
+          <a
+            className="github-nav"
+            href="https://github.com/modelsell/codex-study-club"
+            rel="noreferrer"
+            target="_blank"
+            title="在 GitHub 查看开源项目"
+            aria-label="在 GitHub 查看开源项目"
+          >
+            <GithubMark />
+          </a>
           <Link className="start-nav" href="/start/01-what-is-codex">新手入门</Link>
           <Link className="theme-nav" href="/themes">
             <span className="theme-nav-wide">Codex 主题</span>

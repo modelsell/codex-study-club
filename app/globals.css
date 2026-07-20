@@ -136,6 +136,20 @@ textarea:focus-visible {
   color: var(--ink);
 }
 
+.github-nav {
+  align-items: center;
+  display: inline-flex;
+  flex: 0 0 30px;
+  height: 30px;
+  justify-content: center;
+  width: 30px;
+}
+
+.github-nav svg {
+  height: 18px;
+  width: 18px;
+}
+
 .theme-nav-short {
   display: none;
 }
@@ -1101,6 +1115,7 @@ textarea:focus-visible {
 }
 
 .footer-links {
+  align-items: center;
   display: flex;
   font-size: 12px;
   gap: 22px;
@@ -1108,6 +1123,39 @@ textarea:focus-visible {
 
 .footer-links a:hover {
   color: var(--agent-dark);
+}
+
+.footer-external-links {
+  align-items: center;
+  display: inline-flex;
+  gap: 7px;
+}
+
+.footer-icon-link {
+  align-items: center;
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  color: var(--muted);
+  display: inline-flex;
+  height: 30px;
+  justify-content: center;
+  transition: border-color 160ms ease, color 160ms ease;
+  width: 30px;
+}
+
+.footer-icon-link:hover {
+  border-color: var(--agent);
+}
+
+.footer-icon-link svg {
+  height: 15px;
+  width: 15px;
+}
+
+.x-icon {
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1;
 }
 
 .footer-inner > p {
@@ -2465,6 +2513,7 @@ textarea:focus-visible {
   .brand { font-size: 15px; }
   .main-nav { gap: 14px; }
   .main-nav > a:not(.join-nav) { display: none; }
+  .main-nav > a.github-nav { display: inline-flex; }
   .main-nav > a.start-nav { display: inline-flex; }
   .main-nav > a.theme-nav { display: none; }
   .theme-nav-wide { display: none; }
