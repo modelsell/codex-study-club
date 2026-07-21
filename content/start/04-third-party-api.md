@@ -72,9 +72,9 @@ disable_response_storage = true
 preferred_auth_method = "apikey"
 
 
-[model_providers.ciyuan]
-name = "ciyuan" # 填你的模型提供商名字或者中转站名字，这里以词元为例
-base_url = "https://ciyuan.today/v1" # 填你的模型提供商的请求 URL
+[model_providers.Modelsell]
+name = "Modelsell" # 填你的模型提供商名字或者中转站名字，这里以Modelsell为例
+base_url = "https://modelsell.com/v1" # 填你的模型提供商的请求 URL
 wire_api = "responses" # 这里不要变
 env_key = "OPENAI_API_KEY" # 这里将会通过环境变量的方式注入并启动Codex APP
 requires_openai_auth = false
@@ -87,7 +87,7 @@ requires_openai_auth = false
 - `wire_api = "responses"` 表示 Codex 以 Responses API 的请求形态访问。
 - `requires_openai_auth = true` 表示使用已有 OpenAI / ChatGPT 登录态。
 
-![](/imported/codexguide/20260529170535-9506c97c49.png)
+![](/imported/codexguide/ScreenShot_2026-07-21_210833_449.png)
 
 
 **第二步，打开终端输入环境变量**
