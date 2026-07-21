@@ -11,6 +11,10 @@ export const metadata: Metadata = {
   },
   description:
     "直接向 Codex 学习助手提问，查看经过验证的实战案例与高质量社群动态。",
+  icons: {
+    icon: "https://modelsell.com/logo.png",
+    apple: "https://modelsell.com/logo.png",
+  },
   keywords: [
     "Codex 教程",
     "Codex 中文",
