@@ -15,6 +15,7 @@ export function SiteFooter() {
           </div>
         </div>
         <nav className="footer-links" aria-label="页脚导航">
+          <Link href="/industry-insights">行业解读</Link>
           <Link href="/cases">实战案例</Link>
           <Link href="/community/updates">社群动态</Link>
           <span className="footer-external-links">

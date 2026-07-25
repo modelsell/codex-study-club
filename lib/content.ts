@@ -68,6 +68,13 @@ export type AssistantKnowledge = {
   sources: SourceLink[];
 };
 
+export type IndustryInsight = {
+  slug: string;
+  title: string;
+  description: string;
+  html: string;
+};
+
 type GeneratedContent = {
   cases: CaseStudy[];
   updates: CommunityUpdate[];
@@ -75,6 +82,7 @@ type GeneratedContent = {
   startArticles: StartArticle[];
   themes: ThemeDocument[];
   knowledge: AssistantKnowledge[];
+  industryInsights: IndustryInsight[];
 };
 
 const content = generatedContent as unknown as GeneratedContent;
@@ -85,6 +93,7 @@ export const tutorials = content.tutorials;
 export const startArticles = content.startArticles;
 export const themes = content.themes;
 export const knowledge = content.knowledge;
+export const industryInsights = content.industryInsights;
 
 export function getCase(slug: string) {
   return cases.find((item) => item.slug === slug);
@@ -104,4 +113,14 @@ export function getStartArticle(slug: string) {
 
 export function getTheme(slug: string) {
   return themes.find((item) => item.slug === slug);
+}
+
+export function getIndustryInsight(slug: string) {
+  let normalizedSlug = slug;
+  try {
+    normalizedSlug = decodeURIComponent(slug);
+  } catch {
+    // Keep the original value so malformed route input simply returns no match.
+  }
+  return industryInsights.find((item) => item.slug === normalizedSlug);
 }

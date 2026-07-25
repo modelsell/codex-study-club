@@ -16,6 +16,26 @@ function listMarkdownFiles(directory) {
   });
 }
 
+function listHtmlFiles(directory) {
+  if (!fs.existsSync(directory)) return [];
+  return fs.readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
+    if (!entry.isFile() || !entry.name.toLowerCase().endsWith(".html")) return [];
+    return [path.join(directory, entry.name)];
+  });
+}
+
+function getHtmlMetadata(html, filePath) {
+  const title = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1]?.trim();
+  const description = html.match(
+    /<meta\s+[^>]*name=["']description["'][^>]*content=["']([^"']*)["'][^>]*>/i,
+  )?.[1]?.trim();
+
+  return {
+    title: title || path.basename(filePath, path.extname(filePath)),
+    description: description || "行业趋势、组织方法与战略判断的深度解读。",
+  };
+}
+
 function parseMarkdown(filePath) {
   const parsed = matter(fs.readFileSync(filePath, "utf8"));
   const heading = parsed.content.match(/^#\s+(.+)$/m)?.[1]?.trim();
@@ -144,6 +164,21 @@ function readAssistantKnowledge() {
     .sort((a, b) => a.slug.localeCompare(b.slug));
 }
 
+function readIndustryInsights() {
+  return listHtmlFiles(contentRoot)
+    .map((filePath) => {
+      const html = fs.readFileSync(filePath, "utf8");
+      const metadata = getHtmlMetadata(html, filePath);
+      return {
+        slug: path.basename(filePath, path.extname(filePath)),
+        title: metadata.title,
+        description: metadata.description,
+        html,
+      };
+    })
+    .sort((a, b) => a.title.localeCompare(b.title, "zh-CN"));
+}
+
 const generated = {
   cases: readCases(),
   updates: readUpdates(),
@@ -151,6 +186,7 @@ const generated = {
   startArticles: readStartArticles(),
   themes: readThemes(),
   knowledge: readAssistantKnowledge(),
+  industryInsights: readIndustryInsights(),
 };
 
 fs.writeFileSync(outputPath, `${JSON.stringify(generated, null, 2)}\n`);

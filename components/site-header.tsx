@@ -28,6 +28,7 @@ export function SiteHeader() {
             <span className="theme-nav-wide">Codex 主题</span>
             <span className="theme-nav-short">主题</span>
           </Link>
+          <Link href="/industry-insights">行业解读</Link>
           <Link href="/cases">实战案例</Link>
           <Link href="/community/updates">社群动态</Link>
           <Link className="join-nav" href="/community">

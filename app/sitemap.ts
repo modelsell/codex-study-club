@@ -1,9 +1,17 @@
 import type { MetadataRoute } from "next";
-import { cases, startArticles, updates } from "@/lib/content";
+import { cases, industryInsights, startArticles, updates } from "@/lib/content";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-  const staticRoutes = ["", "/learn/getting-started", "/themes", "/cases", "/community", "/community/updates"];
+  const staticRoutes = [
+    "",
+    "/learn/getting-started",
+    "/themes",
+    "/industry-insights",
+    "/cases",
+    "/community",
+    "/community/updates",
+  ];
 
   return [
     ...staticRoutes.map((route) => ({
@@ -29,6 +37,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(item.date),
       changeFrequency: "monthly" as const,
       priority: 0.7,
+    })),
+    ...industryInsights.map((item) => ({
+      url: `${base}/industry-insights/${item.slug}`,
+      lastModified: new Date("2026-07-23"),
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
     })),
   ];
 }

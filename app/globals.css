@@ -1197,6 +1197,140 @@ textarea:focus-visible {
   padding-bottom: 110px;
 }
 
+.industry-insights-page {
+  background: #f3f5f6;
+}
+
+.industry-insights-page .eyebrow {
+  color: #1769aa;
+}
+
+.industry-insights-archive {
+  padding-bottom: 110px;
+}
+
+.insight-list {
+  border-top: 1px solid var(--line-strong);
+}
+
+.insight-row {
+  align-items: stretch;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  gap: 40px;
+  grid-template-columns: 250px minmax(0, 1fr);
+  padding: 30px 0;
+}
+
+.insight-preview {
+  background: #171a1c;
+  display: flex;
+  flex-direction: column;
+  min-height: 190px;
+  overflow: hidden;
+  padding: 23px;
+  position: relative;
+}
+
+.insight-preview::after {
+  background: #e8472b;
+  bottom: 0;
+  content: "";
+  position: absolute;
+  right: 18px;
+  top: 38%;
+  width: 18px;
+}
+
+.insight-preview-2::after {
+  background: #1d63d8;
+  right: 46px;
+  top: 22%;
+}
+
+.insight-preview span {
+  color: #fff;
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 750;
+}
+
+.insight-preview i {
+  background: rgba(255, 255, 255, 0.78);
+  display: block;
+  height: 7px;
+  margin-top: 18px;
+  width: 66%;
+}
+
+.insight-preview i:nth-of-type(2) {
+  margin-top: 9px;
+  width: 48%;
+}
+
+.insight-preview i:nth-of-type(3) {
+  background: #efb725;
+  height: 4px;
+  margin-top: auto;
+  width: 32%;
+}
+
+.insight-copy {
+  align-self: center;
+  max-width: 700px;
+}
+
+.insight-label {
+  color: #1769aa;
+  font-size: 11px;
+  font-weight: 750;
+}
+
+.insight-copy h2 {
+  font-size: 25px;
+  line-height: 1.35;
+  margin: 12px 0 10px;
+}
+
+.insight-copy p {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.insight-open {
+  align-items: center;
+  display: inline-flex;
+  font-size: 12px;
+  font-weight: 750;
+  gap: 6px;
+  margin-top: 24px;
+}
+
+.insight-row:hover .insight-open {
+  color: #1769aa;
+}
+
+.html-insight-shell {
+  background: #fff;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.html-insight-page {
+  height: calc(100svh - 68px);
+}
+
+.html-insight-frame {
+  background: #fff;
+  border: 0;
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
 .article-page {
   background: var(--surface);
   min-height: 80svh;
@@ -2621,6 +2755,16 @@ textarea:focus-visible {
   .page-intro p,
   .community-hero > p { font-size: 15px; }
   .listing-content { padding-bottom: 62px; }
+  .industry-insights-archive { padding-bottom: 76px; }
+  .insight-row { gap: 18px; grid-template-columns: 104px minmax(0, 1fr); padding: 22px 0; }
+  .insight-preview { min-height: 138px; padding: 14px; }
+  .insight-preview::after { right: 12px; width: 10px; }
+  .insight-preview-2::after { right: 28px; }
+  .insight-preview i { height: 5px; margin-top: 13px; }
+  .insight-copy h2 { font-size: 18px; margin-top: 8px; }
+  .insight-copy p { display: -webkit-box; font-size: 12px; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 2; }
+  .insight-open { margin-top: 13px; }
+  .html-insight-page { height: calc(100svh - 60px); }
   .start-article-page { padding-top: 42px; }
   .start-article-layout { display: block; }
   .start-article-sidebar { display: none; }

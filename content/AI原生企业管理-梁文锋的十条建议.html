@@ -1,0 +1,938 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="从梁文锋投资者交流会中提炼的 AI 原生企业管理原则、组织模型与 90 天行动清单。">
+  <title>AI 原生企业管理：从梁文锋交流会提炼的十条建议</title>
+  <style>
+    :root {
+      --ink: #151719;
+      --paper: #ffffff;
+      --wash: #f3f5f7;
+      --muted: #626a73;
+      --line: #d7dce1;
+      --red: #e8472b;
+      --blue: #1b63d7;
+      --green: #087a58;
+      --yellow: #efb725;
+      --soft-red: #fff0eb;
+      --soft-blue: #edf4ff;
+      --soft-green: #eaf8f2;
+      --soft-yellow: #fff6d8;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--paper);
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      font-size: 16px;
+      line-height: 1.75;
+      letter-spacing: 0;
+      text-rendering: optimizeLegibility;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button, a { font: inherit; }
+
+    a:focus-visible,
+    button:focus-visible {
+      outline: 3px solid rgba(27, 99, 215, 0.35);
+      outline-offset: 3px;
+    }
+
+    .progress {
+      position: fixed;
+      inset: 0 auto auto 0;
+      z-index: 60;
+      width: 0;
+      height: 4px;
+      background: var(--yellow);
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      border-bottom: 1px solid rgba(215, 220, 225, 0.86);
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+    }
+
+    .topbar-inner {
+      max-width: var(--max);
+      min-height: 60px;
+      margin: 0 auto;
+      padding: 0 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .brand-mark {
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      color: white;
+      background: var(--ink);
+      font-size: 12px;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 680;
+    }
+
+    .nav a:hover { color: var(--red); }
+
+    .print-button {
+      width: 38px;
+      height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 4px;
+      display: grid;
+      place-items: center;
+      color: var(--ink);
+      background: white;
+      cursor: pointer;
+    }
+
+    .print-button:hover {
+      border-color: var(--ink);
+      background: var(--wash);
+    }
+
+    .print-button svg {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 690px;
+      overflow: hidden;
+      color: white;
+      background: var(--ink);
+    }
+
+    .hero-bars {
+      position: absolute;
+      inset: 0 0 0 auto;
+      width: 34%;
+      display: grid;
+      grid-template-columns: 1fr 0.55fr 0.3fr;
+      align-items: end;
+      gap: 14px;
+      opacity: 0.92;
+    }
+
+    .hero-bar:nth-child(1) { height: 58%; background: var(--blue); }
+    .hero-bar:nth-child(2) { height: 78%; background: var(--red); }
+    .hero-bar:nth-child(3) { height: 42%; background: var(--yellow); }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 100px 28px 74px;
+    }
+
+    .eyebrow {
+      margin: 0 0 24px;
+      color: var(--yellow);
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    h1 {
+      max-width: 850px;
+      margin-bottom: 26px;
+      font-size: 64px;
+      line-height: 1.08;
+      font-weight: 860;
+      letter-spacing: 0;
+    }
+
+    .hero-deck {
+      max-width: 720px;
+      margin-bottom: 42px;
+      color: #d8dde2;
+      font-size: 21px;
+      line-height: 1.65;
+    }
+
+    .hero-formula {
+      max-width: 780px;
+      padding: 22px 24px;
+      border-top: 4px solid var(--yellow);
+      border-left: 4px solid var(--red);
+      background: rgba(255, 255, 255, 0.07);
+      font-size: 25px;
+      line-height: 1.55;
+      font-weight: 730;
+    }
+
+    .hero-meta {
+      margin-top: 30px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 26px;
+      color: #aeb5bd;
+      font-size: 13px;
+    }
+
+    .hero-meta span {
+      padding-left: 12px;
+      border-left: 3px solid #4d535a;
+    }
+
+    .layout {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 72px 28px 104px;
+      display: grid;
+      grid-template-columns: 190px minmax(0, 1fr);
+      gap: 72px;
+    }
+
+    .side-nav {
+      position: sticky;
+      top: 92px;
+      align-self: start;
+      padding-top: 14px;
+      border-top: 3px solid var(--ink);
+    }
+
+    .side-nav-label {
+      margin-bottom: 10px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 850;
+    }
+
+    .side-nav a {
+      display: block;
+      padding: 8px 0 8px 12px;
+      border-left: 2px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .side-nav a:hover,
+    .side-nav a.active {
+      color: var(--ink);
+      border-left-color: var(--red);
+    }
+
+    main { min-width: 0; }
+
+    .section {
+      scroll-margin-top: 88px;
+      padding-bottom: 88px;
+    }
+
+    .section + .section {
+      padding-top: 82px;
+      border-top: 1px solid var(--line);
+    }
+
+    .section-label {
+      margin-bottom: 12px;
+      color: var(--red);
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    h2 {
+      margin-bottom: 18px;
+      font-size: 38px;
+      line-height: 1.22;
+      font-weight: 830;
+      letter-spacing: 0;
+    }
+
+    .section-intro {
+      max-width: 780px;
+      margin-bottom: 38px;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .operating-model {
+      border-top: 3px solid var(--ink);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .model-layer {
+      display: grid;
+      grid-template-columns: 150px 1fr 1fr 1fr;
+      min-height: 138px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .model-layer:last-child { border-bottom: 0; }
+
+    .model-name {
+      padding: 24px 20px;
+      color: white;
+      background: var(--ink);
+    }
+
+    .model-layer:nth-child(2) .model-name { background: var(--blue); }
+    .model-layer:nth-child(3) .model-name { background: var(--green); }
+
+    .model-name span {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 11px;
+      font-weight: 760;
+      opacity: 0.72;
+    }
+
+    .model-name strong {
+      display: block;
+      font-size: 20px;
+      line-height: 1.3;
+    }
+
+    .model-item {
+      padding: 24px 20px;
+      border-right: 1px solid var(--line);
+    }
+
+    .model-item:last-child { border-right: 0; }
+
+    .model-item strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 16px;
+    }
+
+    .model-item span {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .principles {
+      counter-reset: principle;
+      border-top: 3px solid var(--ink);
+    }
+
+    .principle {
+      counter-increment: principle;
+      display: grid;
+      grid-template-columns: 62px 220px minmax(0, 1fr);
+      gap: 20px;
+      padding: 28px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .principle::before {
+      content: "0" counter(principle);
+      color: var(--red);
+      font-size: 14px;
+      font-weight: 850;
+    }
+
+    .principle h3 {
+      margin: 0;
+      font-size: 21px;
+      line-height: 1.4;
+    }
+
+    .principle-body p {
+      margin-bottom: 11px;
+      color: #454b52;
+    }
+
+    .principle-ref {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .principle-ref.inferred {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 3px;
+      color: var(--blue);
+      background: var(--soft-blue);
+      font-weight: 720;
+    }
+
+    .comparison {
+      overflow: hidden;
+      border: 1px solid var(--line);
+    }
+
+    .comparison-row {
+      display: grid;
+      grid-template-columns: 150px 1fr 1fr;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .comparison-row:last-child { border-bottom: 0; }
+
+    .comparison-row > div {
+      padding: 18px 20px;
+      border-right: 1px solid var(--line);
+    }
+
+    .comparison-row > div:last-child { border-right: 0; }
+
+    .comparison-head {
+      color: white;
+      background: var(--ink);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .comparison-head > div { border-right-color: #3c4147; }
+
+    .comparison-topic {
+      font-weight: 780;
+      background: var(--wash);
+    }
+
+    .comparison-old { color: var(--muted); }
+    .comparison-new { font-weight: 660; }
+
+    .flywheel {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .flywheel-step {
+      position: relative;
+      min-height: 170px;
+      padding: 24px 20px;
+      border-right: 1px solid var(--line);
+      border-top: 6px solid var(--blue);
+    }
+
+    .flywheel-step:nth-child(2) { border-top-color: var(--red); }
+    .flywheel-step:nth-child(3) { border-top-color: var(--green); }
+    .flywheel-step:nth-child(4) { border-top-color: var(--yellow); border-right: 0; }
+
+    .flywheel-step::after {
+      content: "›";
+      position: absolute;
+      z-index: 2;
+      top: 50%;
+      right: -11px;
+      width: 22px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      color: var(--red);
+      background: white;
+      font-size: 29px;
+      transform: translateY(-50%);
+    }
+
+    .flywheel-step:last-child::after { display: none; }
+
+    .flywheel-step b {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .flywheel-step strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 18px;
+      line-height: 1.4;
+    }
+
+    .flywheel-step span {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .flywheel-note {
+      margin-top: 28px;
+      padding: 22px 24px;
+      border-left: 5px solid var(--red);
+      background: var(--soft-red);
+    }
+
+    .flywheel-note p { margin: 0; }
+
+    .risks {
+      border-top: 3px solid var(--ink);
+    }
+
+    .risk {
+      display: grid;
+      grid-template-columns: 190px 1fr 1fr;
+      gap: 24px;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .risk h3 {
+      margin: 0;
+      font-size: 19px;
+      line-height: 1.4;
+    }
+
+    .risk-block b {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--red);
+      font-size: 11px;
+    }
+
+    .risk-block:last-child b { color: var(--green); }
+
+    .risk-block p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .plan {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      border-top: 3px solid var(--ink);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .plan-phase {
+      padding: 26px 24px;
+      border-right: 1px solid var(--line);
+    }
+
+    .plan-phase:last-child { border-right: 0; }
+
+    .plan-phase:nth-child(1) { border-bottom: 7px solid var(--blue); }
+    .plan-phase:nth-child(2) { border-bottom: 7px solid var(--red); }
+    .plan-phase:nth-child(3) { border-bottom: 7px solid var(--green); }
+
+    .plan-phase span {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 760;
+    }
+
+    .plan-phase h3 {
+      margin-bottom: 18px;
+      font-size: 22px;
+    }
+
+    .plan-phase ol {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    .plan-phase li {
+      margin-bottom: 12px;
+      padding-left: 4px;
+      color: #454b52;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .plan-phase li:last-child { margin-bottom: 0; }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      border-top: 1px solid var(--line);
+      border-left: 1px solid var(--line);
+    }
+
+    .metric {
+      min-height: 160px;
+      padding: 22px;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .metric b {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--blue);
+      font-size: 12px;
+    }
+
+    .metric h3 {
+      margin-bottom: 8px;
+      font-size: 18px;
+      line-height: 1.4;
+    }
+
+    .metric p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .boundary {
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--wash);
+    }
+
+    .boundary h3 {
+      margin-bottom: 12px;
+      font-size: 19px;
+    }
+
+    .boundary p {
+      margin-bottom: 10px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .boundary p:last-child { margin-bottom: 0; }
+
+    footer {
+      border-top: 8px solid var(--ink);
+      background: var(--wash);
+    }
+
+    .footer-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 46px 28px 56px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 42px;
+    }
+
+    .footer-thesis {
+      max-width: 650px;
+      font-size: 25px;
+      line-height: 1.45;
+      font-weight: 820;
+    }
+
+    .footer-meta {
+      color: var(--muted);
+      font-size: 12px;
+      text-align: right;
+    }
+
+    @media (max-width: 980px) {
+      h1 { font-size: 50px; }
+      .hero-bars { width: 27%; opacity: 0.45; }
+      .layout { grid-template-columns: 1fr; gap: 0; }
+      .side-nav { display: none; }
+      .model-layer { grid-template-columns: 140px 1fr; }
+      .model-name { grid-row: span 3; }
+      .model-item { border-right: 0; border-bottom: 1px solid var(--line); }
+      .model-item:last-child { border-bottom: 0; }
+      .principle { grid-template-columns: 52px 200px minmax(0, 1fr); }
+      .flywheel { grid-template-columns: 1fr 1fr; }
+      .flywheel-step:nth-child(2) { border-right: 0; }
+      .flywheel-step:nth-child(3), .flywheel-step:nth-child(4) { border-top-width: 6px; }
+      .flywheel-step::after { display: none; }
+      .metrics { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 680px) {
+      body { font-size: 15px; }
+      .topbar-inner { min-height: 54px; padding: 0 18px; }
+      .brand span:last-child, .nav a { display: none; }
+      .hero { min-height: 640px; }
+      .hero-inner { padding: 72px 18px 58px; }
+      .hero-bars { right: -30px; width: 34%; opacity: 0.32; }
+      h1 { font-size: 40px; line-height: 1.14; }
+      .hero-deck { font-size: 18px; }
+      .hero-formula { padding: 18px; font-size: 20px; }
+      .hero-meta { display: grid; gap: 6px; }
+      .layout { padding: 54px 18px 78px; }
+      .section { padding-bottom: 64px; }
+      .section + .section { padding-top: 60px; }
+      h2 { font-size: 31px; }
+      .section-intro { font-size: 16px; }
+      .model-layer { grid-template-columns: 1fr; }
+      .model-name { grid-row: auto; }
+      .principle { grid-template-columns: 40px minmax(0, 1fr); gap: 12px; }
+      .principle h3 { font-size: 19px; }
+      .principle-body { grid-column: 2; }
+      .comparison { overflow-x: auto; }
+      .comparison-row { min-width: 680px; }
+      .flywheel { grid-template-columns: 1fr; }
+      .flywheel-step { min-height: 0; border-right: 0; border-bottom: 1px solid var(--line); }
+      .flywheel-step:last-child { border-bottom: 0; }
+      .risk { grid-template-columns: 1fr; gap: 10px; }
+      .plan { grid-template-columns: 1fr; }
+      .plan-phase { border-right: 0; border-bottom: 1px solid var(--line); }
+      .metrics { grid-template-columns: 1fr; }
+      .metric { min-height: 0; }
+      .footer-inner { align-items: flex-start; flex-direction: column; }
+      .footer-meta { text-align: left; }
+    }
+
+    @media print {
+      @page { margin: 16mm; }
+      body { color: #000; background: #fff; font-size: 10pt; }
+      .progress, .topbar, .side-nav { display: none !important; }
+      .hero { min-height: auto; break-after: page; color: #000; background: #fff; }
+      .hero-bars { display: none; }
+      .hero-inner { padding: 20mm 0; }
+      .hero-deck, .hero-meta { color: #444; }
+      .hero-formula { background: #fff; }
+      h1 { font-size: 34pt; }
+      .layout { display: block; max-width: none; padding: 0; }
+      .section { padding: 0 0 15mm; }
+      .section + .section { padding-top: 13mm; }
+      .principle, .model-layer, .comparison-row, .risk, .plan-phase, .metric { break-inside: avoid; }
+      footer { border-top-width: 3px; background: #fff; }
+      .footer-inner { padding: 12mm 0 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="progress" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#top" aria-label="返回顶部">
+        <span class="brand-mark">AI</span>
+        <span>NATIVE MANAGEMENT / 2026</span>
+      </a>
+      <nav class="nav" aria-label="快捷导航">
+        <a href="#model">管理模型</a>
+        <a href="#principles">十条建议</a>
+        <a href="#plan">行动清单</a>
+        <a href="#metrics">指标</a>
+        <button class="print-button" type="button" onclick="window.print()" aria-label="打印或导出 PDF" title="打印或导出 PDF">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9V2h12v7"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v8H6z"/></svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero" id="top">
+    <div class="hero-bars" aria-hidden="true"><span class="hero-bar"></span><span class="hero-bar"></span><span class="hero-bar"></span></div>
+    <div class="hero-inner">
+      <p class="eyebrow">从梁文锋投资者交流会提炼的组织方法</p>
+      <h1>AI 原生企业管理：十条建议</h1>
+      <p class="hero-deck">AI 原生公司不是“传统组织加一批 AI 工具”。它需要围绕研究不确定性、人机共同学习和递归式效率提升，重新设计目标、组织与工作流。</p>
+      <div class="hero-formula">管理公式：真实愿景 × 双轨组织 × 人机学习飞轮 × 主动克制的业务边界</div>
+      <div class="hero-meta">
+        <span>基于 42 页交流会文字稿</span>
+        <span>六条直接原则 + 四条延伸洞察</span>
+        <span>附 90 天行动清单</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="layout">
+    <aside class="side-nav" aria-label="目录">
+      <div class="side-nav-label">目录 / INDEX</div>
+      <a href="#model">三层管理模型</a>
+      <a href="#principles">十条建议</a>
+      <a href="#comparison">组织对照</a>
+      <a href="#flywheel">AI 工作飞轮</a>
+      <a href="#risks">适用边界</a>
+      <a href="#plan">90 天清单</a>
+      <a href="#metrics">管理指标</a>
+      <a href="#notes">来源说明</a>
+    </aside>
+
+    <main>
+      <section class="section" id="model">
+        <p class="section-label">01 / OPERATING MODEL</p>
+        <h2>AI 原生企业的三层管理系统</h2>
+        <p class="section-intro">梁文锋的观点并不是几条孤立的管理技巧。把它们放在一起，可以形成一套从方向到组织、再到 AI 工作流的完整操作系统。</p>
+        <div class="operating-model" role="img" aria-label="方向层、组织层和人机工作层三层管理系统">
+          <div class="model-layer">
+            <div class="model-name"><span>LAYER 01</span><strong>方向层</strong></div>
+            <div class="model-item"><strong>真实愿景</strong><span>用实际取舍定义公司为何存在，而不是依赖口号。</span></div>
+            <div class="model-item"><strong>核心主线</strong><span>持续判断哪项工作对最终目标的边际收益最大。</span></div>
+            <div class="model-item"><strong>主动克制</strong><span>不把所有用户、利润和业务环节都收入公司内部。</span></div>
+          </div>
+          <div class="model-layer">
+            <div class="model-name"><span>LAYER 02</span><strong>组织层</strong></div>
+            <div class="model-item"><strong>双轨运行</strong><span>正式项目确保交付，自由探索寻找下一次突破。</span></div>
+            <div class="model-item"><strong>共识决策</strong><span>领导者建立认知一致，而不是单纯依赖职位命令。</span></div>
+            <div class="model-item"><strong>团队稳定</strong><span>把长期协作关系视为最难替代的核心资产。</span></div>
+          </div>
+          <div class="model-layer">
+            <div class="model-name"><span>LAYER 03</span><strong>人机工作层</strong></div>
+            <div class="model-item"><strong>内部先用</strong><span>企业自己成为 AI 的首个深度用户和反馈来源。</span></div>
+            <div class="model-item"><strong>持续上下文</strong><span>让 AI 积累项目、角色、决策与反馈的组织记忆。</span></div>
+            <div class="model-item"><strong>递归提效</strong><span>AI 改善研发，研发产生更强 AI，再反哺工作流。</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="principles">
+        <p class="section-label">02 / TEN PRINCIPLES</p>
+        <h2>十条管理建议</h2>
+        <p class="section-intro">前六条来自文字稿中的直接表达；后四条是把其技术判断转化为企业管理语言后的延伸建议。</p>
+        <div class="principles">
+          <article class="principle"><h3>让愿景成为真实的决策规则</h3><div class="principle-body"><p>愿景必须能够回答“什么钱不赚、什么产品不做、什么利益可以让出去”。只有持续以行动兑现，愿景才能代替部分制度成本，成为研究团队的共同判断基础。</p><span class="principle-ref">直接表达｜文字稿第 2-3 页</span></div></article>
+          <article class="principle"><h3>建立交付与探索并行的双轨组织</h3><div class="principle-body"><p>自上而下的正式项目负责模型发布和工程协同，自下而上的自由探索负责发现尚未形成项目的新机会。不能用同一套排期和考核方式管理两者。</p><span class="principle-ref">直接表达｜第 25-26 页</span></div></article>
+          <article class="principle"><h3>为未知问题保留时间与资源冗余</h3><div class="principle-body"><p>不要把研究者的时间和算力排满。许多突破在早期并不需要大型项目，而需要更多人持续思考、小成本试验和快速放弃错误路线。</p><span class="principle-ref">直接表达｜第 26、35-36 页</span></div></article>
+          <article class="principle"><h3>把团队稳定放在短期业务之前</h3><div class="principle-body"><p>资本和算力可以补充，形成共同语言与高信任协作方式的团队很难重建。长期权益、研究环境和使命认同，应当进入核心人才策略。</p><span class="principle-ref">直接表达｜第 13-14 页</span></div></article>
+          <article class="principle"><h3>用共识建立执行力</h3><div class="principle-body"><p>重大技术与战略决策应先形成认知基础。负责人可以提出倾向、解释利弊并推动讨论，但不能把正式权威误认为真实共识。</p><span class="principle-ref">直接表达｜第 18-19 页</span></div></article>
+          <article class="principle"><h3>按工作性质设计不同组织结构</h3><div class="principle-body"><p>研究部门需要松弛、扁平与自主，基础设施和规模化交付需要明确责任与层级。随着人数增加，必须演化组织，但不要让管理结构侵入所有工作。</p><span class="principle-ref">直接表达｜第 33-34 页</span></div></article>
+          <article class="principle"><h3>让公司成为自己 AI 的第一个客户</h3><div class="principle-body"><p>优先把 AI 嵌入企业最核心、最难的生产流程，而不是先做普遍但浅层的办公助手。模型首先帮助自己的研发，才能形成最短、最真实的反馈回路。</p><span class="principle-ref inferred">延伸洞察｜依据第 31-33 页</span></div></article>
+          <article class="principle"><h3>把组织知识建设成可学习的上下文</h3><div class="principle-body"><p>项目历史、角色关系、决策理由、失败记录和反馈结果，应当逐渐成为 AI 可访问、可授权、可持续更新的组织记忆，否则 AI 只能处理临时任务。</p><span class="principle-ref inferred">延伸洞察｜依据第 9-11 页</span></div></article>
+          <article class="principle"><h3>用业务边界保护组织注意力</h3><div class="principle-body"><p>持续判断一项业务是否必须自己完成。伙伴能够做好的应用和基础设施，可以通过生态协作完成；内部只保留决定核心能力与用户反馈质量的环节。</p><span class="principle-ref inferred">延伸洞察｜依据第 14-15、22-23 页</span></div></article>
+          <article class="principle"><h3>用研究吞吐量衡量 AI 原生程度</h3><div class="principle-body"><p>不要只统计员工使用 AI 的次数。真正重要的是单位能力成本、实验周期、发布速度和 AI 对下一代产品研发的实际贡献。</p><span class="principle-ref inferred">延伸洞察｜依据第 17-18、23-24 页</span></div></article>
+        </div>
+      </section>
+
+      <section class="section" id="comparison">
+        <p class="section-label">03 / BEFORE & AFTER</p>
+        <h2>从传统企业到 AI 原生企业</h2>
+        <p class="section-intro">变化不在于多采购一个工具，而在于管理对象从“确定性执行”扩展到“人机共同探索”。</p>
+        <div class="comparison" role="table" aria-label="传统企业和 AI 原生企业管理方式对照">
+          <div class="comparison-row comparison-head" role="row"><div role="columnheader">管理对象</div><div role="columnheader">传统企业</div><div role="columnheader">AI 原生企业</div></div>
+          <div class="comparison-row" role="row"><div class="comparison-topic" role="rowheader">目标</div><div class="comparison-old" role="cell">分解年度目标，逐层完成指标</div><div class="comparison-new" role="cell">明确长期主线，持续重估当前最高杠杆点</div></div>
+          <div class="comparison-row" role="row"><div class="comparison-topic" role="rowheader">组织</div><div class="comparison-old" role="cell">统一汇报关系和流程</div><div class="comparison-new" role="cell">研究网络、工程组织与服务体系并存</div></div>
+          <div class="comparison-row" role="row"><div class="comparison-topic" role="rowheader">时间</div><div class="comparison-old" role="cell">追求满负荷与人员利用率</div><div class="comparison-new" role="cell">为探索、试错和上下文学习预留空间</div></div>
+          <div class="comparison-row" role="row"><div class="comparison-topic" role="rowheader">AI 使用</div><div class="comparison-old" role="cell">通用助手，降低单个任务成本</div><div class="comparison-new" role="cell">进入核心生产循环，推动下一轮能力进化</div></div>
+          <div class="comparison-row" role="row"><div class="comparison-topic" role="rowheader">知识</div><div class="comparison-old" role="cell">分散在文档、会议和个人经验中</div><div class="comparison-new" role="cell">成为可授权、可追溯、可持续学习的上下文</div></div>
+          <div class="comparison-row" role="row"><div class="comparison-topic" role="rowheader">绩效</div><div class="comparison-old" role="cell">收入、项目数量、工时和使用率</div><div class="comparison-new" role="cell">研究吞吐量、单位能力成本与迭代周期</div></div>
+        </div>
+      </section>
+
+      <section class="section" id="flywheel">
+        <p class="section-label">04 / HUMAN-AI FLYWHEEL</p>
+        <h2>真正的 AI 原生工作飞轮</h2>
+        <p class="section-intro">“内部先用”不是简单的 dogfooding，而是让模型进入下一代模型或产品的生产过程，从而形成递归式加速。</p>
+        <div class="flywheel" role="img" aria-label="AI 进入核心任务、积累反馈、改善研发并产生下一代 AI 的工作飞轮">
+          <div class="flywheel-step"><b>01 / DEPLOY</b><strong>进入核心任务</strong><span>让 AI 承担真实研发、数据、决策准备或交付工作。</span></div>
+          <div class="flywheel-step"><b>02 / LEARN</b><strong>积累组织反馈</strong><span>记录上下文、错误、修正结果和最终业务表现。</span></div>
+          <div class="flywheel-step"><b>03 / IMPROVE</b><strong>改善工作系统</strong><span>优化模型、工具、权限、数据和人机协作边界。</span></div>
+          <div class="flywheel-step"><b>04 / REPEAT</b><strong>产生下一代能力</strong><span>更强 AI 再次进入工作流，进一步缩短迭代周期。</span></div>
+        </div>
+        <div class="flywheel-note"><p><strong>管理重点：</strong>闭环是否形成，取决于反馈能否被保存、归因并进入下一轮改进，而不是员工是否打开过某个 AI 工具。</p></div>
+      </section>
+
+      <section class="section" id="risks">
+        <p class="section-label">05 / WHERE IT CAN FAIL</p>
+        <h2>不要机械复制 DeepSeek</h2>
+        <p class="section-intro">这套方法适合高不确定性、技术驱动且拥有长期资本耐心的组织。落地时至少要防止四种误读。</p>
+        <div class="risks">
+          <article class="risk"><h3>把愿景当作不管理</h3><div class="risk-block"><b>误读</b><p>没有 KPI 就不需要目标、责任和反馈。</p></div><div class="risk-block"><b>正确做法</b><p>探索任务减少预设指标，正式项目仍需清晰责任和交付标准。</p></div></article>
+          <article class="risk"><h3>把扁平当作永久结构</h3><div class="risk-block"><b>误读</b><p>人员增加后仍拒绝建立必要的层级和接口。</p></div><div class="risk-block"><b>正确做法</b><p>保护研究网络，同时为基础设施、合规和规模交付建立结构。</p></div></article>
+          <article class="risk"><h3>把聚焦当作忽视客户</h3><div class="risk-block"><b>误读</b><p>技术领先自然会转化为长期商业优势。</p></div><div class="risk-block"><b>正确做法</b><p>不追逐完整应用闭环，但必须保留真实用户反馈和场景验证。</p></div></article>
+          <article class="risk"><h3>把 AI 使用量当作转型成果</h3><div class="risk-block"><b>误读</b><p>购买工具、统计调用次数就是 AI 原生。</p></div><div class="risk-block"><b>正确做法</b><p>验证 AI 是否缩短核心循环，并把反馈用于下一轮系统改进。</p></div></article>
+        </div>
+      </section>
+
+      <section class="section" id="plan">
+        <p class="section-label">06 / 90-DAY PLAN</p>
+        <h2>一份可执行的 90 天行动清单</h2>
+        <p class="section-intro">不建议一次性重构全公司。先选一个最核心、反馈最密集的流程，验证人机飞轮是否成立。</p>
+        <div class="plan">
+          <div class="plan-phase"><span>DAY 01-30</span><h3>明确主线</h3><ol><li>写出公司唯一的长期主线，以及明确不做的三类事情。</li><li>区分正式交付工作与探索工作，盘点时间占比。</li><li>选择一个最能代表核心能力的内部 AI 使用场景。</li><li>定义团队稳定、迭代速度和单位成本的基线。</li></ol></div>
+          <div class="plan-phase"><span>DAY 31-60</span><h3>建立闭环</h3><ol><li>让 AI 进入真实流程，而不是建立独立演示项目。</li><li>保存任务上下文、错误、人工修正和最终结果。</li><li>明确数据权限、操作权限与人工接管条件。</li><li>每两周复盘一次 AI 实际缩短了哪个环节。</li></ol></div>
+          <div class="plan-phase"><span>DAY 61-90</span><h3>调整组织</h3><ol><li>把已验证的工作流固化为团队默认方式。</li><li>为研究探索保留固定时间和小额实验预算。</li><li>关闭没有形成真实反馈闭环的 AI 项目。</li><li>决定哪些能力自建，哪些交给模型或生态伙伴。</li></ol></div>
+        </div>
+      </section>
+
+      <section class="section" id="metrics">
+        <p class="section-label">07 / MANAGEMENT METRICS</p>
+        <h2>六个比“AI 使用率”更重要的指标</h2>
+        <div class="metrics">
+          <article class="metric"><b>01 / SPEED</b><h3>核心迭代周期</h3><p>从问题提出到得到可信结论或上线结果需要多久。</p></article>
+          <article class="metric"><b>02 / LEVERAGE</b><h3>AI 研发贡献率</h3><p>下一代产品或模型中，有多少有效工作由 AI 协助完成。</p></article>
+          <article class="metric"><b>03 / ECONOMICS</b><h3>单位能力成本</h3><p>达到同等质量、速度和稳定性的总算力与人工成本。</p></article>
+          <article class="metric"><b>04 / LEARNING</b><h3>反馈回流率</h3><p>真实错误与修正中，有多少进入了工具、数据或模型改进。</p></article>
+          <article class="metric"><b>05 / EXPLORATION</b><h3>有效探索密度</h3><p>小成本实验中，产生可复用结论或新方向的比例。</p></article>
+          <article class="metric"><b>06 / PEOPLE</b><h3>核心团队稳定性</h3><p>关键成员留存、协作网络完整度和新人独立产出速度。</p></article>
+        </div>
+      </section>
+
+      <section class="section" id="notes">
+        <p class="section-label">08 / SOURCE & LIMITS</p>
+        <h2>来源说明</h2>
+        <div class="boundary">
+          <h3>这是一份管理视角的二次提炼，不是梁文锋发布的管理手册。</h3>
+          <p>材料来源为《梁文锋投资者交流会 · 录音文字稿》，共 42 页。原文件说明其由语音识别自动转写并经 AI 整理，未区分说话人，个别专有名词与数字可能存在识别误差。</p>
+          <p>页面已明确区分“直接表达”与“延伸洞察”。后四条管理建议和 90 天行动清单属于基于全文逻辑的整理，不应作为梁文锋原话引用。</p>
+          <p>本页没有保留交流会中被提醒不要外传的融资、采购、卡量及未发布模型参数。</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-thesis">AI 原生管理的目标，不是让每个人更忙，而是让组织更快学习，并让 AI 参与创造下一代能力。</div>
+      <div class="footer-meta">AI 原生企业管理 · 梁文锋的十条建议<br>基于投资者交流会文字稿整理 · 2026-07-23</div>
+    </div>
+  </footer>
+
+  <script>
+    const progress = document.querySelector('.progress');
+    const sections = [...document.querySelectorAll('main .section')];
+    const links = [...document.querySelectorAll('.side-nav a')];
+
+    const updateProgress = () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const ratio = max > 0 ? window.scrollY / max : 0;
+      progress.style.width = `${Math.min(100, Math.max(0, ratio * 100))}%`;
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      const visible = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (!visible) return;
+      links.forEach((link) => {
+        link.classList.toggle('active', link.getAttribute('href') === `#${visible.target.id}`);
+      });
+    }, { rootMargin: '-18% 0px -68% 0px', threshold: [0, 0.1, 0.3] });
+
+    sections.forEach((section) => observer.observe(section));
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    window.addEventListener('resize', updateProgress);
+    updateProgress();
+  </script>
+</body>
+</html>
