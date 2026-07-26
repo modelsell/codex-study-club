@@ -7,6 +7,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "",
     "/learn/getting-started",
     "/themes",
+    "/agent-awards",
     "/industry-insights",
     "/cases",
     "/community",

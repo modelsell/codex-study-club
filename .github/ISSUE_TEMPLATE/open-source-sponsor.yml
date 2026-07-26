@@ -1,0 +1,121 @@
+name: Modelsell 开源项目赞助申请
+description: 为不限领域的优质开源项目申请 Modelsell 算力赞助
+title: "[开源赞助申请] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢申请 Modelsell 开源项目赞助。请只填写可以公开的信息，不要提交 API Key、客户数据、内部地址或其他敏感内容。
+
+  - type: dropdown
+    id: project-type
+    attributes:
+      label: 作品类型
+      options:
+        - AI 与 Agent
+        - 开发者工具
+        - 框架、SDK 与基础设施
+        - 桌面、Web 或移动应用
+        - 其他开源项目
+    validations:
+      required: true
+
+  - type: input
+    id: project-name
+    attributes:
+      label: 作品名称
+      placeholder: 例如：Evidence-first Review Skill
+    validations:
+      required: true
+
+  - type: input
+    id: project-url
+    attributes:
+      label: 开源仓库地址
+      description: 请填写公开可访问、包含核心代码的项目仓库。
+      placeholder: https://github.com/
+    validations:
+      required: true
+
+  - type: input
+    id: license
+    attributes:
+      label: 开源协议
+      description: 例如 MIT、Apache-2.0 或 GPL-3.0，需与仓库中的 LICENSE 文件一致。
+      placeholder: MIT
+    validations:
+      required: true
+
+  - type: input
+    id: modelsell-placement
+    attributes:
+      label: Modelsell 展示位置
+      description: 请提供 README、官网或产品 About 页面的公开地址，页面需展示 Modelsell 并链接到 https://modelsell.com/。
+      placeholder: https://github.com/your-project#supported-by-modelsell
+    validations:
+      required: true
+
+  - type: textarea
+    id: one-liner
+    attributes:
+      label: 一句话介绍
+      description: 请说明它为哪类用户解决什么问题。
+      placeholder: 帮助……在……场景中完成……
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: 问题与现有做法
+      description: 目标用户是谁？过去如何处理？最大的成本或困难是什么？
+    validations:
+      required: true
+
+  - type: textarea
+    id: demo
+    attributes:
+      label: 完整演示
+      description: 请提供视频、截图或可复现步骤，展示从输入到结果的完整过程。
+    validations:
+      required: true
+
+  - type: textarea
+    id: result
+    attributes:
+      label: 真实结果与验证方式
+      description: 请提供效率、质量、成本或用户反馈等结果，并说明评审可以如何核验。
+    validations:
+      required: true
+
+  - type: textarea
+    id: stack
+    attributes:
+      label: 技术实现
+      description: 简要说明使用的模型、框架、工具，以及 Agent 如何规划和执行任务。
+    validations:
+      required: true
+
+  - type: textarea
+    id: limits
+    attributes:
+      label: 已知限制与安全边界
+      description: 请说明当前不能做什么，以及数据、权限、隐私或人工确认边界。
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: declaration
+    attributes:
+      label: 申请确认
+      options:
+        - label: 我有权提交并展示以上材料，内容不存在抄袭或虚假数据。
+          required: true
+        - label: 项目核心代码已公开，并在仓库中提供有效、清晰的开源协议。
+          required: true
+        - label: 项目已在 README、官网或 About 页面展示 Modelsell，并链接到 https://modelsell.com/。
+          required: true
+        - label: 我允许平台为审核和项目推荐目的引用以上公开材料。
+          required: true
+        - label: 我理解通过质量与合规审核后可获得价值 500 美元以上的算力赞助，算力额度不可提现或转让。
+          required: true
