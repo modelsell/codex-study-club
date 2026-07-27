@@ -270,6 +270,45 @@
   ],
   "updates": [
     {
+      "slug": "codex-0145-import-guide",
+      "title": "Codex 0.145 迁移指南：从 Cursor / Claude Code 带走配置与近期工作",
+      "excerpt": "Codex 0.145 扩展了导入能力，可迁移指令、Skills、插件、MCP、会话与项目记忆；真正重要的是导入后如何复核权限、认证和 Hooks。",
+      "date": "2026-07-27",
+      "displayDate": "07.27",
+      "topics": [
+        "Codex CLI",
+        "迁移指南",
+        "Skills 与 MCP"
+      ],
+      "markdown": "\n> 来源核对：OpenAI 于 2026 年 7 月 21 日在 [Codex changelog](https://learn.chatgpt.com/docs/changelog) 发布 Codex CLI 0.145.0，并明确扩展 `/import` 对 Cursor 和 Claude Code 的迁移能力；本文于 2026 年 7 月 27 日对照 [Import from another agent 官方文档](https://learn.chatgpt.com/docs/import) 复核导入范围与检查项。\n\n## 为什么这次更新值得单独关注\n\n以前从另一个 coding agent 迁移，最耗时间的往往不是安装工具，而是重新整理指令、MCP、Skills、命令和近期上下文。Codex 0.145.0 把这些内容纳入导入流程，并且不会修改或删除原有 agent 的设置。\n\n这不等于“一键迁移后行为完全相同”。不同工具对权限、Hooks、命令参数和认证方式的解释可能不同，导入完成只代表文件和配置已经转换或关联，不能代替复核。\n\n## 官方列出的迁移映射\n\n| 原有内容 | 导入到 Codex / ChatGPT 后 |\n| --- | --- |\n| 指令文件 | `AGENTS.md` |\n| `settings.json` | `config.toml` |\n| Skills | Skills |\n| Plugins | Plugins |\n| 现有项目文件夹 | 使用原文件夹的 Projects |\n| 最近 30 天聊天 | ChatGPT chats |\n| MCP server 配置 | Codex MCP 配置 |\n| Hooks | Codex hooks |\n| Slash commands | Skills |\n| Subagents | Codex agents |\n\n0.145.0 的发布说明还包括更完整的线程历史与恢复、持久化名称、搜索、子代理和记忆支持，这让迁移后的长期工作更容易继续，而不是只搬走静态配置。\n\n## 两条导入入口\n\n- 在支持的 Codex CLI 版本中使用 `/import`，按提示选择来源与内容。\n- 在 ChatGPT 桌面应用打开 **Settings > Import**；如果还没有独立的 Import 区域，可到 **General > Import other agent setup** 查看。\n\n桌面入口和具体支持来源可能随分批开放而变化。先确认当前客户端已经出现对应入口，不要因为看不到按钮就手动覆盖配置文件。\n\nCLI 可以用下面的命令检查和更新：\n\n```bash\ncodex --version\nnpm install -g @openai/codex@0.145.0\n```\n\n如果团队锁定了 Codex 版本，应先在测试环境评估，不要绕过项目的版本策略。\n\n## 导入完成后必须复核的五类内容\n\n### 1. 权限与工具限制\n\n检查导入的 Skills、Agents 和项目规则是否扩大了命令、目录或网络访问范围。原工具里的“默认允许”不一定对应 Codex 的权限模式。\n\n### 2. MCP 认证与传输方式\n\n使用自定义 Header、环境变量、OAuth 或特殊 transport 的 MCP server 可能需要重新登录。不要把密钥直接写进 `config.toml` 或提交到仓库。\n\n### 3. Hooks 的触发时机\n\n逐个确认 Hooks 在什么生命周期触发、失败时是否阻止任务，以及执行命令的工作目录。导入成功不代表行为完全等价。\n\n### 4. 命令模板与路径占位符\n\nSlash commands 会迁移为 Skills。检查参数、Shell 插值和文件路径占位符，尤其是依赖特定 Shell 或全局目录的命令。\n\n### 5. 项目级与用户级边界\n\n导入流程会同时检查机器上的用户级设置和所选仓库中的项目级设置。确认哪些规则应该全局复用，哪些只应该留在单个仓库，避免把临时项目约束变成全局默认。\n\n## 推荐的最小验证流程\n\n1. 先只导入一个低风险项目和必要设置，不要一次迁移全部工作区。\n2. 打开导入结果中的状态卡，完成仍需授权的插件或连接。\n3. 让 Codex 只读列出已发现的 `AGENTS.md`、Skills、MCP、Hooks 和 Agents，不执行任务。\n4. 运行一个不修改文件的验证任务，检查命令、目录和权限是否符合预期。\n5. 再运行一个可回滚的小改动，复核 diff、测试和 Git 目标仓库。\n\n## 今天可以怎么用\n\n如果你正同时维护 Cursor 或 Claude Code 配置，先把导入当成“生成迁移草稿”，而不是最终切换开关。保留原设置，完成上述复核后再决定哪些规则长期留在 Codex；这比导入后立刻清理旧环境更容易发现行为差异。\n"
+    },
+    {
+      "slug": "codex-multi-folder-projects",
+      "title": "Codex 多目录项目：主目录如何决定 Git 和规则发现",
+      "excerpt": "本地项目现在可以挂载多个相关文件夹；关键不在于多选目录，而在于主目录会决定 Git、AGENTS.md、Skills 与 config.toml 的自动发现边界。",
+      "date": "2026-07-27",
+      "displayDate": "07.27",
+      "topics": [
+        "官方动态",
+        "多目录项目",
+        "AGENTS.md"
+      ],
+      "markdown": "\n> 来源核对：OpenAI 在 2026 年 7 月 23 日的 [Codex changelog](https://learn.chatgpt.com/docs/changelog) 发布本地多目录项目；本文于 2026 年 7 月 27 日对照 [Projects and chats 官方文档](https://learn.chatgpt.com/docs/projects#app-use-local-projects-for-folders-and-codebases) 复核。\n\n## 这次更新真正改变了什么\n\n一个本地项目现在可以挂载多个相关文件夹。Codex 可以搜索、读取和编辑所有已挂载目录，但你必须指定一个 **primary folder（主目录）**。\n\n主目录不是视觉上的排序选项，它决定：\n\n- 新对话的默认工作目录。\n- Git 操作和 Pull Request / worktree 工作流面向的主仓库。\n- `AGENTS.md`、Skills 和 `config.toml` 的自动发现位置。\n\n次要目录仍然可以被搜索、读取和编辑，但 Codex 不会自动发现其中的项目规则文件。\n\n## 哪些项目适合放在一起\n\n适合使用多目录项目：\n\n- Web 应用与单独维护的文档仓库。\n- 前端站点与对应的后端服务。\n- 产品代码与同一交付目标下的部署配置。\n- 主仓库与需要同步更新的示例或 SDK。\n\n应该拆成不同项目：\n\n- 彼此无关、没有共同交付目标的仓库。\n- 权限或敏感级别不同的代码库。\n- 希望每个对话只能访问单一仓库的工作。\n- 需要各自自动加载不同 `AGENTS.md`、Skills 或 `config.toml` 的项目。\n\n官方文档目前说明，远程项目仍只支持一个文件夹。\n\n## 选择主目录的三个判断标准\n\n### 1. 提交最终落在哪个仓库\n\n需要创建分支、检查 diff 或发起 Pull Request 的仓库，通常应该设为主目录。\n\n### 2. 哪套规则必须自动生效\n\n如果任务依赖仓库内的 `AGENTS.md`、项目 Skills 或 `.codex/config.toml`，把包含这些文件的仓库设为主目录。不要假设次要目录里的规则会自动合并进来。\n\n### 3. 哪个目录代表任务的默认语境\n\n新对话会从主目录开始。一个“修改产品并同步文档”的项目，通常以产品仓库为主；一个“根据 API 变更重写文档”的项目，则可能更适合以文档仓库为主。\n\n## 推荐的跨目录任务写法\n\n```text\n主仓库：web-app，负责实现和 Git 提交。\n次要目录：product-docs，只允许同步本次行为变化对应的文档。\n\n先读取主仓库规则并确认影响范围；不要把次要目录中的配置当成自动生效规则。\n修改后分别列出两个目录的变更，并在各自可用的验证路径中检查结果。\n```\n\n这段说明不能替代沙箱权限，但可以把提交归属、规则来源和允许修改范围说清楚。\n\n## 容易踩的四个坑\n\n- **以为挂载等于规则继承**：次要目录可读写，不代表其中的 `AGENTS.md` 会自动生效。\n- **让 Git 操作指向错误仓库**：PR、worktree 和 Git review 以主仓库为目标。\n- **把权限边界和目录组织混为一谈**：项目和 worktree 负责组织工作，真正的本地读写与网络访问仍由沙箱控制。\n- **为了方便一次挂载过多目录**：目录越多，可被搜索和误改的范围越大；只挂载同一交付真正需要的文件夹。\n\n## 今天可以怎么用\n\n从“应用 + 文档”这一类低耦合组合开始。添加目录后先执行一个只读任务，让 Codex 分别说明主目录、可访问目录、自动发现的规则和计划使用的 Git 仓库；这些边界确认无误后，再允许它修改文件。\n"
+    },
+    {
+      "slug": "codex-voice-task-coordination",
+      "title": "Codex 语音协作上线：用说话启动、检查和纠偏任务",
+      "excerpt": "ChatGPT Voice 已能协调 Codex 任务；这份实操指南讲清如何口头分派、追踪阻塞、追加指令，以及屏幕上下文和用量边界。",
+      "date": "2026-07-27",
+      "displayDate": "07.27",
+      "topics": [
+        "官方动态",
+        "ChatGPT Voice",
+        "任务协作"
+      ],
+      "markdown": "\n> 来源核对：OpenAI 在 2026 年 7 月 23 日的 [Codex changelog](https://learn.chatgpt.com/docs/changelog) 发布 ChatGPT Voice；本文于 2026 年 7 月 27 日对照 [ChatGPT Voice 官方文档](https://learn.chatgpt.com/docs/features/voice) 复核。\n\n## 一句话判断\n\n这不是把语音转成一段提示词，而是让你在同一个语音对话中启动独立任务、检查其他线程、追问阻塞并发送后续指令。它更适合走动、通勤或离开键盘时协调工作，不适合代替最终的代码审查。\n\n## 最值得 Codex 用户关注的变化\n\nChatGPT Voice 可以在 Chat、Work 和 Codex 之间协调任务，并把进度、阻塞与结果带回当前语音对话。你可以自然打断、追问或改变方向，后台已经启动的任务仍会继续。\n\n官方给出的能力边界包括：\n\n- 启动一个新的 Codex 任务，例如运行测试并调查失败项。\n- 检查已有线程，汇总当前进度和需要人工决定的问题。\n- 向正在运行的任务发送补充要求，而不必回到键盘逐个打开线程。\n- 在 macOS 开启 **Screen context** 后，用前台窗口的 appshot 补充画面和可访问文本上下文。\n\n## 一个更可靠的语音工作流\n\n### 1. 先说结果，不要只说动作\n\n```text\n新建一个 Codex 任务，检查当前项目的测试失败。\n先复现和定位根因，不要直接修改；完成后告诉我失败命令、根因证据和建议修复范围。\n```\n\n这样可以避免把一句“帮我看看测试”扩展成没有验收标准的长任务。\n\n### 2. 用语音检查阻塞，而不是反复催进度\n\n```text\n检查刚才的测试任务，只汇总已确认的进展、当前阻塞和需要我决定的事项。\n如果还在运行，不要新建重复任务。\n```\n\n### 3. 追加指令时明确是否允许修改\n\n```text\n继续刚才的任务。只修复已经确认的根因，保留无关改动；完成后运行同一组测试和构建。\n```\n\n语音输入更容易省略边界，所以“允许修改什么”和“怎样算完成”仍然应该说出来。\n\n## 开启前必须知道的限制\n\n- 新对话或任务必须从语音模式开始；普通模式启动后只能使用语音听写。以前以语音开始的对话可以继续。\n- 同一时间只能有一个活跃的语音对话。\n- Voice 使用单独的、按套餐计算的滚动五小时额度；通过 Voice 启动的 Codex 任务仍消耗 Codex 使用额度。\n- Voice 指挥的任务沿用对应任务的权限，不会绕过审批和沙箱。\n- macOS appshot 可能包含窗口图像、可访问文本，以及可滚动区域中当前没有显示的内容。不要让含密钥、客户数据或私密消息的窗口成为前台窗口。\n- 功能面向 ChatGPT Plus、Pro、Business、Edu 和 Enterprise 套餐，但实际可用性还受分批开放和工作区设置影响。\n\n## 今天可以怎么用\n\n先选一个低风险、可验证的任务试用，例如“运行测试并整理失败原因”。只在它能正确找到线程、复述阻塞并遵守“不修改”边界后，再把语音用于跨线程协调。高风险操作、合并决策和最终 diff 仍应回到可视界面确认。\n"
+    },
+    {
       "slug": "task-context-is-not-more-files",
       "title": "上下文不是越多越好：群里三次任务跑偏的共同原因",
       "excerpt": "整理本周群聊中三个真实任务，看看无关文件、模糊范围和缺少验收如何拖慢 Codex。",
