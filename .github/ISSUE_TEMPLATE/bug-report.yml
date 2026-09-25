@@ -1,0 +1,23 @@
+name: 问题反馈
+description: 报告教程、页面或代码中可以复现的问题
+title: "[问题] "
+body:
+  - type: textarea
+    id: location
+    attributes:
+      label: 出问题的页面或功能
+      description: 请填写 URL 或仓库文件位置；不要填写密钥和私人信息。
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: 复现步骤、预期结果与实际结果
+      description: 请写出最少的复现步骤，错误信息先脱敏。
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: 环境信息
+      description: 操作系统、浏览器或 Codex 版本；本地开发问题请补充 Node.js 版本。

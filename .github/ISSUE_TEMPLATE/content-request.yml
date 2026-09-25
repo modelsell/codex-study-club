@@ -1,0 +1,20 @@
+name: 内容建议
+description: 提出一个希望通过 Codex 完成的真实任务
+title: "[内容] "
+body:
+  - type: textarea
+    id: task
+    attributes:
+      label: 你想完成什么任务，目前卡在哪里？
+    validations:
+      required: true
+  - type: textarea
+    id: existing
+    attributes:
+      label: 看过哪些现有教程？
+      description: 可提供站内链接，帮助我们改进已有内容、避免重复。
+  - type: textarea
+    id: sources
+    attributes:
+      label: 一手资料或可复现示例
+      description: 官方文档、公开代码或已脱敏的操作步骤；没有也可以提交建议。
