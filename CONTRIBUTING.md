@@ -10,6 +10,8 @@
 4. 检查生成的 `lib/generated-content.json`，把与本次内容相关的生成结果一并提交。
 5. 提交 PR，说明解决了什么问题、参考来源、验证命令及尚未验证的部分。截图仅在有助于说明页面变化时提供，并先脱敏。
 
+主分支推送和 PR 会运行 `Quality checks`（Node.js 24）：安装锁定依赖、Lint、生产构建，以及检查生成内容是否已提交。构建后若 `lib/generated-content.json` 存在差异，请先确认差异与文章改动一致，再一并提交。该检查只验证代码质量，不执行生产部署；Cloudflare 的发布检查独立显示。
+
 不知道如何开始，可以跟随 [从一篇 Markdown 到可验证的内容贡献](content/cases/development/first-content-contribution.md) 完成练习。
 
 ## 反馈问题与建议

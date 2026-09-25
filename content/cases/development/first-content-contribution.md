@@ -72,6 +72,23 @@ git diff -- content/cases/development/first-content-contribution.md
 
 本地构建通过、页面正文可见、PR 包含正确差异，是这次内容练习的验收点。PR 创建、合并和生产页面更新是不同阶段，分别记录状态。没有贡献账号或推送权限时，仍可保留本地差异作为练习结果，但应明确尚未提交 PR。
 
+## 提交后怎样看检查结果
+
+在 GitHub 提交或 PR 页面查看 `Quality checks`。当前工作流使用 Node.js 24，依次运行依赖安装、Lint、生产构建和生成内容一致性检查。
+
+- Lint 失败：按日志中的文件和行号修复，再运行相同命令。
+- 构建失败：确认 Node.js 版本和锁文件一致，查看第一个实际错误，不只看最后的退出码。
+- `Check generated content is committed` 失败：运行 `npm run generate:content`，确认生成差异，再把 `lib/generated-content.json` 与文章一起提交。
+- 检查尚未启动：先确认工作流是否已启用；来自 Fork 的 PR 可能需要维护者批准运行，不要把等待状态当作代码错误。
+
+`Quality checks` 成功说明本轮质量检查通过。生产发布仍要查看 `Workers Builds: codex-study-club` 和实际文章页面；刚推送时短暂返回 404，需要等部署完成再核验。
+
+## 遇到多个 lockfile 的根目录警告
+
+如果日志提示 Next.js 把仓库上层目录当成根目录，先检查项目的 `next.config.ts`。本仓库通过 `turbopack.root` 和 `outputFileTracingRoot` 显式使用仓库根目录，避免上层其他项目的锁文件干扰。不要为了消除警告删除其他项目的文件；如果自己的项目需要引用仓库外的包，则应根据实际目录关系设置范围，不能照搬这个独立仓库的配置。
+
+参考：[Turbopack 根目录说明](https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory)、[输出文件追踪说明](https://nextjs.org/docs/app/api-reference/config/next-config-js/output#caveats)、[GitHub Node.js 工作流说明](https://docs.github.com/en/actions/tutorials/build-and-test-code/nodejs)。核对日期：2026-09-25。
+
 ## 依据与适用范围
 
 核对日期：2026-09-25。本文依据本仓库的 [内容规则](https://github.com/modelsell/codex-study-club/blob/main/content/README.md)、[生成脚本](https://github.com/modelsell/codex-study-club/blob/main/scripts/generate-content-data.mjs) 与 [案例页面](https://github.com/modelsell/codex-study-club/blob/main/app/cases/%5Bslug%5D/page.tsx) 整理。命令针对当前仓库；其他项目应使用各自的构建和测试约定。
