@@ -1,56 +1,48 @@
 ---
-description: "Codex 入口地图，比较 CLI、桌面 App、Cloud、IDE、ChatGPT 和集成生态，帮助选择合适工作入口。"
+title: "Codex 是什么：按任务选择使用入口"
+description: "区分桌面应用中的 Codex、CLI、IDE 和云端任务，从熟悉的工作环境完成第一次可验证练习。"
+checkedAt: "2026-09-26"
 ---
 
-::: tip 最后核对
-官方资料最后核对日期：2026-05-27。参考 [OpenAI Codex 产品页](https://openai.com/codex/)、[Codex 文档入口](https://developers.openai.com/codex/)、[Codex CLI 官方仓库](https://github.com/openai/codex) 与 [Codex in ChatGPT Help Center](https://help.openai.com/en/articles/11369540-codex-in-chatgpt)。
+# Codex 是什么：按任务选择使用入口
+
+Codex 可以帮助你阅读项目、修改代码和运行开发工具。选择入口时，先看代码在哪里、你希望在哪里检查结果，不必先学完所有界面。
+
+::: tip 核对范围
+官方资料最后核对日期：2026-09-26。本页根据当前官方文档整理入口关系，没有对所有系统、账号和入口逐一实测。功能是否显示，以当前版本和工作区权限为准。
 :::
 
-# Codex 是什么
+## 从你熟悉的环境开始
 
-Codex 是一个具备多个产品形态的Agent。涵盖桌面端APP，CLI，Web云端，IDE。
-
-![Codex 使用入口地图](/imported/codexguide/codex-surfaces-5a83643a78.svg)
-
-## 入口对照表
-
-| 入口 | 更适合 | 典型任务 | 学习优先级 |
-| --- | --- | --- | --- |
-| [CLI](../start/10-cli-installation.md) | 本地快速迭代 | 修 bug、补测试、跑命令、解释仓库 | 新手优先 |
-| [桌面 App](../start/05-app-overview.md) | 本地多任务工作台 | 多 agent、Skills、Automations、插件协作 | 进阶优先 |
-| [Cloud / Web](../start/14-cloud.md) | 较长任务和并行任务 | 仓库任务、PR、后台分析 | 团队优先 |
-| [IDE](../start/13-ide-vscode.md) | 编辑器上下文 | 局部修改、解释、代码审查 | 日常高频 |
-| [ChatGPT 中的 Codex](../start/01-what-is-codex.md) | 面向仓库的任务分派 | 连接 GitHub、理解仓库、协作推进 | 按账号能力选择 |
-
-## 如何选择入口
-
-- 任务需要频繁看命令输出：选 CLI。
-- 任务需要多个 agent 并行、Skills 或 Automations：选择桌面 App。
-- 任务时间较长、希望后台跑、可能生成 PR：选 Cloud / Web。
-- 你正在编辑具体文件：选 IDE。
-- 你想从对话里分派仓库级任务：选 ChatGPT 中的 Codex。
-
-## 第一次学习建议
-
-1. 从 CLI 建立最小闭环。
-2. 用桌面 App 体验本地多任务和技能沉淀。
-3. 再进入 Cloud / Web，学习长任务、PR 与团队协作。
-4. 阅读 [CLI 选项](/start/12-cli-options.md) 和 [config.toml](/advanced/09-config-toml.md)，补上配置基本功。
-5. 把高频模板沉淀到 `AGENTS.md`、案例库和团队规范。
-
-## 入口和配置的关系
-
-| 配置主题 | 主要影响入口 | 学习页 |
+| 你的任务 | 可以选择的入口 | 接下来读什么 |
 | --- | --- | --- |
-| `AGENTS.md` | CLI / 桌面 App / Cloud | [AGENTS.md](/advanced/02-agents-md.md) |
-| CLI 选项 | CLI | [CLI 选项与命令](/start/12-cli-options.md) |
-| `config.toml` | CLI | [配置文件 config.toml](/advanced/09-config-toml.md) |
-| Skills | App / CLI | [技能与插件](/advanced/03-skills-plugins-mcp.md) |
-| Worktrees | 桌面 App | [桌面 App](../start/05-app-overview.md) |
-| Environments | Cloud / App | [Cloud / Web](../start/14-cloud.md) |
-| Sandbox 与 Approvals | 全部入口 | [沙盒与审批](/advanced/07-sandbox-approvals.md) |
+| 在本机文件夹中做项目，希望同时查看任务和文件 | 桌面应用中的 Codex | [桌面安装与首次验证](/start/02-app-installation) |
+| 已经在终端工作，希望运行仓库命令或脚本 | Codex CLI | [CLI 官方入门](https://learn.chatgpt.com/docs/codex/cli) |
+| 正在编辑器里阅读和修改代码 | Codex IDE 扩展或对应 IDE 集成 | [IDE 官方入门](https://learn.chatgpt.com/docs/codex/ide) |
+| 希望交给云端编码环境处理任务，稍后审查结果 | Codex cloud | [官方桌面页的入口对照](https://learn.chatgpt.com/docs/app) |
 
+CLI 面向终端中的代码、命令与自动化；IDE 入口适合带着已打开的文件和选区协作。这里没有固定的“先 CLI、后桌面”学习顺序，选择你已经会检查文件差异的环境即可。依据：[CLI 文档](https://learn.chatgpt.com/docs/codex/cli)、[IDE 文档](https://learn.chatgpt.com/docs/codex/ide)。
+
+## 桌面里的 ChatGPT 和 Codex 怎么区分
+
+当前[官方快速开始](https://learn.chatgpt.com/docs/quickstart)以 ChatGPT 桌面应用为入口：编程任务可在应用的产品选择菜单中选择 Codex；ChatGPT 的 Chat 和 Work 是另外的工作方式。旧版教程可能仍称它为“Codex App”，界面和命名应结合自己的版本辨认。
+
+网页上的 ChatGPT 对话与本机已打开的代码文件夹，也不应被默认视作同一份任务上下文。开始前写清项目、目标和允许改动的范围。
+
+## 第一个任务先做到可以核验
+
+在一个你熟悉的示例项目中，尝试下面这段任务描述：
+
+```text
+读取 README 和项目入口，解释这个项目如何启动。
+列出你实际查看的文件、找到的启动命令，以及还不能确认的前提。
+这一步只阅读，不修改文件，也不安装依赖。
+```
+
+这是本站提供的入门练习，预期输出是项目说明和可追溯的文件位置。你应自己打开文件检查依据；回答得很完整，不代表项目已成功启动。
+
+然后选一个小任务，例如修正 README 中的一处错误。约定验收方法，检查 diff，再决定是否保留。需要完整练习时，可继续阅读[第一个任务](/start/06-first-task)或[内容贡献练习](/cases/first-content-contribution)。
 
 ## 下一步
 
-下一步：[Codex 桌面 App 下载与安装](./02-app-installation.md)。
+先完成[桌面安装与首次验证](/start/02-app-installation)，再核对[账号、套餐与可用范围](/start/03-account-plan)。模型与套餐会变化，本文不把某个固定付费档位作为学习前提。
