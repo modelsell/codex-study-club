@@ -45,6 +45,7 @@ Codex Study Club 面向正在学习和使用 OpenAI Codex 的开发者，持续�
 | 完整新手入门 | [新手教程](https://codex.modelsp.com/start/01-what-is-codex) |
 | 桌面安装与首次验证 | [官方入口、登录与只读练习](https://codex.modelsp.com/start/02-app-installation) |
 | 账号与功能范围 | [先核对可用性，再决定是否升级](https://codex.modelsp.com/start/03-account-plan) |
+| 第一个可验收任务 | [本地学习卡片与检查清单](https://codex.modelsp.com/start/06-first-task) |
 | Codex 实战案例 | [案例库](https://codex.modelsp.com/cases) |
 | 问题排查 | [Troubleshooting](https://codex.modelsp.com/cases#troubleshooting) |
 | Codex 主题 | [主题与视觉](https://codex.modelsp.com/themes) |
