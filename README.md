@@ -119,6 +119,8 @@ npm run dev
 ```bash
 npm run dev                 # 启动本地开发服务器
 npm run lint                # 运行 ESLint
+npm run test:links          # 验证链接检查器（Python 3.9+）
+npm run check:links         # 检查本地生产服务的站内链接，见 CONTRIBUTING.md
 npm run build               # 生成内容并构建生产版本
 npm run cf-build            # 构建 Cloudflare Workers 版本
 npm run preview             # 本地预览 OpenNext 构建

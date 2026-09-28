@@ -10,7 +10,26 @@
 4. 检查生成的 `lib/generated-content.json`，把与本次内容相关的生成结果一并提交。
 5. 提交 PR，说明解决了什么问题、参考来源、验证命令及尚未验证的部分。截图仅在有助于说明页面变化时提供，并先脱敏。
 
-主分支推送和 PR 会运行 `Quality checks`（Node.js 24）：安装锁定依赖、Lint、生产构建，以及检查生成内容是否已提交。构建后若 `lib/generated-content.json` 存在差异，请先确认差异与文章改动一致，再一并提交。该检查只验证代码质量，不执行生产部署；Cloudflare 的发布检查独立显示。
+主分支推送和 PR 会运行 `Quality checks`（Node.js 24）：安装锁定依赖、Lint、生产构建，检查生成内容是否已提交，以及本地生产服务上的站内链接检查。构建后若 `lib/generated-content.json` 存在差异，请先确认差异与文章改动一致，再一并提交。该检查只验证代码质量，不执行生产部署；Cloudflare 的发布检查独立显示。
+
+### 检查渲染后的站内链接
+
+链接检查需要 Python 3.9+，只用标准库，无需安装 Python 依赖。先完成构建，在一个终端启动本地生产服务：
+
+```bash
+npm run start -- --hostname 127.0.0.1 --port 3107
+```
+
+另一个终端执行：
+
+```bash
+npm run test:links
+npm run check:links
+```
+
+检查器读取本地 `/sitemap.xml`，打开其中页面，再解析实际 HTML 的链接，因此会覆盖 Markdown 转换后的地址与原始 HTML 链接。网站绝对链接会映射到本地服务，外部网址不请求。非 200 响应、跨站跳转及网络错误分别报告，发现问题返回非零退出码；服务未启动或 Sitemap 不可用也不会算通过。
+
+它检查页面和链接目标是否可访问，不验证页内锚点、图片、浏览器脚本生成的链接、交互效果或外站状态，也不代表生产部署成功。可用 `npm run check:links -- --base-url http://127.0.0.1:其他端口` 指定本地端口。检查完成后停止临时服务。
 
 不知道如何开始，可以跟随 [从一篇 Markdown 到可验证的内容贡献](content/cases/development/first-content-contribution.md) 完成练习。
 

@@ -32,9 +32,23 @@ jobs:
           cache: npm
       - name: Install locked dependencies
         run: npm ci --no-audit --no-fund
+      - name: Test link checker
+        run: npm run test:links
       - name: Lint
         run: npm run lint
       - name: Build pages and generate content
         run: npm run build
       - name: Check generated content is committed
         run: git diff --exit-code -- lib/generated-content.json
+      - name: Check rendered internal links
+        run: |
+          node node_modules/next/dist/bin/next start --hostname 127.0.0.1 --port 3107 > /tmp/codex-study-club-next.log 2>&1 &
+          link_server_pid=$!
+          trap 'kill "$link_server_pid" 2>/dev/null || true' EXIT
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent --max-time 2 http://127.0.0.1:3107/sitemap.xml > /dev/null; then
+              break
+            fi
+            sleep 1
+          done
+          npm run check:links

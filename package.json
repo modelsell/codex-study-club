@@ -13,7 +13,9 @@
     "preview": "npm run cf-build && opennextjs-cloudflare preview",
     "deploy": "npm run cf-build && opennextjs-cloudflare deploy",
     "upload": "npm run cf-build && opennextjs-cloudflare upload",
-    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
+    "check:links": "python3 scripts/check_internal_links.py",
+    "test:links": "python3 -m unittest discover -s scripts/tests -p \"test_*.py\""
   },
   "dependencies": {
     "@opennextjs/cloudflare": "^1.20.1",
