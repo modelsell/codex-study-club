@@ -70,3 +70,10 @@ CSS 放在 HTML 内，不安装依赖，不使用外部字体、图片或脚本�
 完成后在笔记中记录：目标、交付文件、通过的检查、未完成事项。继续同一个结果时可以留在当前任务；另开任务时主动提供这份记录，并核对工作目录。项目里的文件可作为材料，不能假定全部旧对话会自动传入新任务。
 
 想练习真实仓库里的修改与构建，可以继续[第一次内容贡献](/cases/first-content-contribution)；想让任务描述更准确，进入[任务设计](./07-task-design.md)。
+
+## 完成了，或卡在某一步？
+
+- [反馈练习结果](https://github.com/modelsell/codex-study-club/issues/new?template=content-request.yml&title=%5B%E7%BB%83%E4%B9%A0%E5%8F%8D%E9%A6%88%5D+%2Fstart%2F06-first-task&existing=https%3A%2F%2Fcodex.modelsp.com%2Fstart%2F06-first-task)：在“任务与卡点”中写明已完成到哪一步、实际做过的检查、尚未完成的项；全部完成可以注明“无卡点”，也欢迎提出下一步想练习的任务。
+- [报告无法完成的步骤](https://github.com/modelsell/codex-study-club/issues/new?template=bug-report.yml&location=https%3A%2F%2Fcodex.modelsp.com%2Fstart%2F06-first-task)：写出步骤编号、预期与实际结果，并补充环境和脱敏后的错误信息。
+
+两个入口复用现有 GitHub Issue 表单，需要你检查内容后自行提交。只记录真实练习，不必公开私人项目代码、密钥或账号信息；完成本地练习也可以反馈，不要求先发布作品。

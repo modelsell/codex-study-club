@@ -1,99 +1,70 @@
 ---
-description: "Codex CLI 安装与登录教程，覆盖 Node 环境、安装命令、版本检查、登录流程和首次运行准备。"
+title: "安装 Codex CLI：分开验证安装、登录与任务"
+description: "选择官方安装方式，检查 CLI 版本和登录状态，再进入自己的项目执行第一个只读任务。"
+checkedAt: "2026-09-29"
 ---
 
+# 安装 Codex CLI：分开验证安装、登录与任务
+
 ::: tip 最后核对
-官方资料最后核对日期：2026-05-27。CLI 系统要求与安装方式参考 [openai/codex 官方仓库](https://github.com/openai/codex)、[CLI install 文档](https://github.com/openai/codex/blob/main/docs/install.md) 和 [Codex CLI Help Center](https://help.openai.com/en/articles/11096431-openai-codex-cli-getting-started)。
+官方资料最后核对日期：2026-09-29。安装入口依据 [Codex CLI](https://learn.chatgpt.com/docs/codex/cli)，登录与状态检查依据 [Authentication](https://learn.chatgpt.com/docs/auth)。本轮只核对文档，没有重新安装 CLI 或执行账号登录。
 :::
 
-# 安装CLI
+CLI 适合已经愿意使用终端的读者。安装程序能运行、账号能登录、项目任务能完成，是三个独立的检查点，按顺序排查更容易定位问题。
 
-本页先覆盖 Codex CLI 的安装与登录。桌面端、ChatGPT、Cloud 和 IDE 入口会在 [入口地图](/start/01-what-is-codex.md) 中分别展开。
+## 1. 选择与你的环境匹配的安装方式
 
-## 安装前检查
+官方安装页提供 macOS/Linux、Windows、npm 和 Homebrew 选项。不要把 Node.js 或 WSL2 当作所有方式的统一前提；按照你选择的安装页签准备环境。
 
-官方仓库当前给出的 CLI 运行环境建议：
-
-| 项目 | 建议 |
-| --- | --- |
-| 操作系统 | macOS 12+、Ubuntu 20.04+/Debian 10+、Windows 11 通过 WSL2 |
-| Git | 推荐 2.23+，便于 PR 辅助能力 |
-| 内存 | 4GB 起步，8GB 更稳 |
-
-本地先确认：
+macOS 或 Linux 可使用官方独立安装器：
 
 ```bash
-node -v
-npm -v
-git --version
+curl -fsSL https://chatgpt.com/codex/install.sh | sh
 ```
 
-![codex-cli-prerequisite-version-check](/imported/codexguide/codex-cli-prerequisite-version-check-efc06f530a.png)
+这是下载并执行安装脚本的命令，只应使用官方地址，并在自己有权安装软件的环境中执行。更新独立安装器版本也使用这条命令。
 
-## 安装 CLI
+Windows 用户打开[官方安装页的 Windows 选项](https://learn.chatgpt.com/docs/codex/cli#install-codex)，按该页当前命令操作；已有 npm 或 Homebrew 管理习惯的读者可以选择对应页签。后续更新也沿用同一安装方式，避免机器上多个副本造成混淆。
 
-常见安装方式：
+## 2. 确认终端能找到程序
 
-```bash
-npm install -g @openai/codex
-```
-
-更新到最新版本：
-
-```bash
-npm install -g @openai/codex@latest
-```
-
-检查版本：
+安装完成后重新打开终端，运行：
 
 ```bash
 codex --version
 ```
 
-![codex-cli-version-check](/imported/codexguide/codex-cli-version-check-8c2d7d7110.png)
+看到版本信息只说明当前终端能找到 CLI。如果提示命令不存在，先检查安装输出中的失败位置和 PATH 设置；不要通过重复更换安装方式掩盖原来的错误。若机器上已有多个副本，先确认当前终端实际使用哪个，再决定更新方式。
 
-## 登录方式
+这一步不需要输入 API Key，也不能证明账号和网络已就绪。
 
-运行：
+## 3. 登录并检查状态
+
+```bash
+codex login
+codex login status
+```
+
+ChatGPT 登录会打开浏览器；完成后回到终端看结果。CLI 也支持 API Key 登录，但 API 用量使用独立的 API 计费，不能把它当成已包含在 ChatGPT 订阅里。账号方式与第三方配置的区别见[账号与套餐](./03-account-plan.md)和[API 配置](./04-third-party-api.md)。
+
+不要将密钥、登录缓存或完整认证日志贴进 Issue。登录失败时，记录所用方式、失败阶段和脱敏报错；先解决认证问题，再运行实际任务。
+
+## 4. 进入自己的项目
+
+先在终端进入你准备练习的目录，再启动：
 
 ```bash
 codex
 ```
 
-根据终端提示完成登录。官方资料说明 Codex 可以通过 ChatGPT 账号在多个入口中使用，具体可用计划、限额和组织策略以 [Codex in ChatGPT Help Center](https://help.openai.com/en/articles/11369540-codex-in-chatgpt) 为准。
-
-![codex-cli-login-account-selection](/imported/codexguide/codex-cli-login-account-selection-95ffdd7e93.png)
-
-## 第一次只读任务
-
-进入一个本地项目根目录：
-
-```bash
-cd path/to/your/project
-codex
-```
-
-先让 Codex 只读仓库：
+第一条请求只读了解项目：
 
 ```text
-请先阅读这个仓库的目录结构、README、包管理器配置和测试配置。不要修改文件。请总结：
-1. 项目用途
-2. 主要技术栈
-3. 如何安装依赖和运行测试
-4. 你建议我下一步交给你的 3 个低风险任务
+请先阅读项目说明和 AGENTS.md，概括目录结构与可用检查命令。
+不要修改文件、安装依赖、提交或发布。
+若资料不足，明确列出缺少的依据。
 ```
 
-![codex-cli-readonly-first-task](/imported/codexguide/codex-cli-readonly-first-task-d126f7436c.png)
+验收时核对它提到的文件是否存在，命令是否来自当前项目。工具安装成功但项目回复失败时，保留错误，把网络、权限和项目环境分别排查；无需先卸载重装。
 
-## 安装失败时怎么判断
-
-| 现象 | 可能原因 | 处理方式 |
-| --- | --- | --- |
-| `codex` 命令找不到 | npm global bin 未进 PATH | 查看 `npm bin -g`，把目录加入 shell PATH |
-| 登录后仍提示无权限 | 账号计划、组织策略或会话状态问题 | 重新登录，并查看 Help Center 中的计划说明 |
-| Windows 运行异常 | 未使用 WSL2 或 shell 环境不完整 | 按官方建议使用 Windows 11 + WSL2 |
-| 仓库命令跑不起来 | 项目依赖未安装或本地环境缺失 | 先安装项目依赖，再让 Codex 读取测试配置 |
-
-## 下一步
-
-下一步：[第一次让 Codex 改代码](./11-cli-first-run.md)。
+下一章用一个小改动练习[CLI 的第一轮工作](./11-cli-first-run.md)。
