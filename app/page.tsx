@@ -8,18 +8,19 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { UpdateList } from "@/components/update-list";
 import { caseCategories, getCaseCategory } from "@/lib/case-categories";
-import { cases, updates } from "@/lib/content";
+import { cases, startArticles, updates } from "@/lib/content";
 
 export default function Home() {
+  const latestDate = [...updates.map((item) => item.date), ...cases.map((item) => item.checkedAt || ""), ...startArticles.map((item) => item.checkedAt || "")].sort().at(-1);
   const featuredSlugs = [
+    "idea-gacha-lab",
+    "17-desktop-pet",
     "codex-task-keeps-drifting",
     "codex-permission-and-network-blocked",
     "codex-finished-but-not-verified",
     "first-verifiable-task",
     "diagnose-ci-failure",
     "reusable-review-skill",
-    "01-ppt-skill-walkthrough",
-    "02-drawio-mcp",
   ];
   const featuredCases = featuredSlugs.flatMap((slug) => cases.filter((item) => item.slug === slug));
   const categoryCounts = Object.fromEntries(
@@ -54,12 +55,13 @@ export default function Home() {
         <section className="hero shell">
           <div className="hero-status">
             <span />
-            内容核对至 2026.07
+            最近内容更新 {latestDate?.replaceAll("-", ".")}
           </div>
           <h1>Codex Study Club</h1>
           <p className="hero-lead">学习 Codex，交流真实实践。</p>
           <ChatAssistant />
           <div className="hero-guides">
+            <Link className="beginner-link" href="/play">✳ 灵感扭蛋：抽个小项目</Link>
             <p className="assistant-note">
               <CircleCheck size={14} />
               回答优先引用官方资料与已发布内容

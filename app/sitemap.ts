@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import playground from "@/content/playground/idea-gacha.json";
 import { cases, industryInsights, startArticles, updates } from "@/lib/content";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -15,6 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   return [
+    { url: `${base}/play`, lastModified: new Date(playground.checkedAt), changeFrequency: "weekly" as const, priority: 0.8 },
     ...staticRoutes.map((route) => ({
       url: `${base}${route}`,
       lastModified: new Date("2026-07-20"),

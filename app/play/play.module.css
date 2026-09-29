@@ -1,0 +1,36 @@
+.page { padding-top: 56px; padding-bottom: 64px; }
+.intro { max-width: 760px; margin-bottom: 32px; }
+.intro h1 { font-size: clamp(36px, 6vw, 64px); letter-spacing: -2px; margin: 16px 0; line-height: 1.15; }
+.intro h1 span { color: var(--agent-dark); }
+.intro > p { line-height: 1.8; }
+.machine { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 24px; }
+.card { background: #132e29; color: #f2faee; border-radius: 22px; padding: 30px; display: flex; flex-direction: column; min-width: 0; }
+.cardMeta { display: flex; justify-content: space-between; gap: 12px; font-size: 13px; color: #c8ddc8; }
+.symbol { font-family: sans-serif; font-size: 100px; line-height: 1.6; color: #dcf79d; text-align: center; }
+.issue { font-size: 12px; letter-spacing: 2px; color: #c8ddc8; }
+.card h2 { font-size: clamp(26px, 4vw, 36px); line-height: 1.35; margin: 12px 0; }
+.pitch { color: #d1e2d7; line-height: 1.8; margin-bottom: 30px; }
+.draw, .copy { border: 0; border-radius: 10px; padding: 15px 20px; cursor: pointer; font-weight: 650; min-height: 48px; }
+.draw { margin-top: auto; display: flex; justify-content: space-between; background: #dcf79d; color: #132e29; width: 100%; }
+.draw:hover { background: #e9ffbc; }
+.brief { background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: 28px; min-width: 0; }
+.brief h2 { margin-top: 0; font-size: 19px; }
+.brief textarea { width: 100%; height: 280px; resize: vertical; border: 1px solid var(--line); background: #f7f9f7; border-radius: 10px; padding: 16px; font-size: 14px; line-height: 1.8; }
+.copy { margin-top: 16px; background: var(--agent-dark); color: white; }
+.copy:hover { background: #09593b; }
+.message { min-height: 24px; font-size: 13px; line-height: 1.6; color: var(--agent-dark); }
+.note { color: #59676a; font-size: 13px; line-height: 1.8; }
+.shelf { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.shelf button { background: white; border: 1px solid var(--line); border-radius: 10px; text-align: left; padding: 16px; cursor: pointer; font-size: 14px; line-height: 1.5; }
+.shelf button span { color: var(--agent-dark); margin-right: 10px; }
+.shelf button[aria-pressed="true"] { background: var(--agent-soft); border-color: var(--agent-dark); }
+.more { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 20px; font-size: 14px; color: var(--agent-dark); }
+.page button:focus-visible { outline: 3px solid #b26d17; outline-offset: 4px; }
+@media (max-width: 720px) {
+  .page { padding-top: 32px; }
+  .machine { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .card, .brief { padding: 22px; }
+  .symbol { font-size: 72px; line-height: 1.4; }
+  .shelf { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .shelf button { padding: 12px; }
+}

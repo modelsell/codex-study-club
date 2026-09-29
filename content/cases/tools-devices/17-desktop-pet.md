@@ -1,45 +1,60 @@
 ---
-description: "Codex 桌面形象设置教程，记录桌面展示效果、素材准备、配置步骤和适合个性化工作台的用法，便于识别任务状态。"
+title: "给工作台养只宠物：随手聊天，也能认真接单"
+description: "更新桌面 Pets 的选择、唤醒和 Quick Chat 入口，用一个小练习理解宠物状态与项目上下文的边界。"
+level: "初学者"
+surface: "ChatGPT 桌面 / Codex"
+duration: "10 分钟起"
+checkedAt: "2026-09-29"
 ---
 
-::: tip 最后核对
-官方资料最后核对日期：2026-06-29。本文记录 Codex 桌面宠物相关流程，插件入口、Slash Command、状态展示和本地文件位置请以当前 Codex 客户端为准；通用能力说明可参考 [Codex App docs](https://developers.openai.com/codex/app)、[Codex Plugins](https://developers.openai.com/codex/plugins) 与 [Codex Skills](https://developers.openai.com/codex/skills)。
+# 给工作台养只宠物：随手聊天，也能认真接单
+
+想给工作台加一点陪伴感，可以从一只桌面宠物开始。它能成为随手提问的入口，但换一只宠物不会让任务自动变得更聪明。
+
+::: tip 来源与核对
+2026-09-29 核对 [官方 Pets 文档](https://learn.chatgpt.com/docs/pets?surface=app)。本轮更新的是文档，没有在用户设备上创建宠物、开启权限或实测全部快捷键。下方练习是本站设计。
 :::
 
-# 如何设置自己的 Codex 桌面宠物
+## 先把它叫出来
 
-前段时间，Codex 新增了一个会陪你工作的**桌面小宠物**。它不只是一个装饰，还会把 Codex 当前在忙什么实际显示出来。
+在 macOS 或 Windows 的桌面应用中，打开 **Settings → Pets**，选择内置宠物；也可选 **Mini**，仅保留聊天控件。输入 `/pet` 或从命令菜单选择 **Show pet** 显示它。
 
-这个宠物最大的价值在于**状态的可视化**：
+默认快捷键为 macOS 的 **Option + Space**、Windows 的 **Windows + Alt + P**，会显示控件并聚焦 Quick Chat；可在键盘快捷键设置中修改。找不到入口时，先更新应用并检查工作区是否允许 Pets。
 
-1. **任务进度一目了然：** 不用一直切换回 Codex 的界面，就能看到当前任务的进度。
-2. **实时状态反馈：**
-   - 它会在 Codex 忙碌的时候显示忙碌的画面。
-   - 在需要你确认的时候会发出提醒。
-   - 任务完成之后，它也会让你知道可以去检查结果了。
+## 给它一件轻松的小事
 
----
+选择宠物控件里的铅笔按钮，输入请求并发送。例如：
 
-## 1. 安装
+```text
+我做了一个本地午饭抽签页面。请给它想三个中文名字，
+每个不超过八个字，分别偏可爱、复古、一本正经。
+只输出名字和一句理由，不修改文件，不联网发布。
+```
 
-打开”**设置**” → “**外观**”，往下滑到”**宠物**”这一栏。在这里可以选择喜欢的宠物类型并点击”**唤醒**”，桌面上就会出现选定的小宠物了。
+这是一个不依赖项目文件的练习。检查回复有没有满足字数和风格，再挑一个自己喜欢的；不需要为了让它“有事做”交出整个工作目录。
 
-![codex-desktop-pet-plugin-install](/imported/codexguide/codex-desktop-pet-plugin-install-d8e4c86940.png)
+**从宠物控件发起的聊天不属于项目。** 要让 Codex 修改某个仓库，回到主应用里的对应项目，再确认目录与任务范围。别把聊天入口近，误当成项目上下文自动齐全。
 
-**快捷命令方式：** 如果不想进设置，也可以直接在聊天框中输入 `/`，选择”**宠物**”选项，同样可以唤醒或收起桌面宠物。
+## 看状态，也要看结果
 
-![codex-desktop-pet-slash-command](/imported/codexguide/codex-desktop-pet-slash-command-09d4bb7fa5.png)
+点击铃铛查看任务活动，再打开相应对话。官方状态中的 Running 表示正在工作，Needs input 表示需要输入，Ready 表示完成且有未读活动，Blocked 表示失败或系统错误。
 
----
+例如它说完成了午饭抽签页面，你仍应实际打开页面，尝试空候选、单个候选和连续点击。宠物的状态告诉你该去看哪条任务，不替代验收。
 
-## 2. 使用
+## 想养一只原创角色
 
-唤醒之后，像平常一样下达指令，然后去做其他事情。小宠物会在屏幕上陪伴着你，实时显示任务完成进度。
+从 **Settings → Pets → Create pet** 开始，官方流程会安装内置 `hatch-pet` skill 并打开任务；描述角色，完成后回到 Pets 刷新并选择它。本轮没有执行这个流程。
 
-比如下面这个情况：它正在进行搜索，并执行我们的任务。
+可以给一个足够具体的小设定：
 
-![codex-desktop-pet-task-bubble](/imported/codexguide/codex-desktop-pet-task-bubble-9f50a67f38.png)
+```text
+一只原创的薄荷绿邮差小猫，背着小挎包，轮廓简单、表情清楚。
+整体安静友好，忙碌和等待输入时能看出不同状态。
+先说明需要哪些素材和输出，再制作；不要使用现有品牌角色。
+```
 
-任务完成之后，会显示一个**绿色对勾**，提示任务已完成。也就是说，我们可以实时看到它的执行过程以及完成结果，完全不需要盯着 Codex 窗口等待。
+先看缩小后的轮廓是否还认得出，再看状态是否容易区分。选内置角色也完全可以；创作重点是让它成为自己喜欢的工作伙伴。
 
-![codex-desktop-pet-completed-task-bubble](/imported/codexguide/codex-desktop-pet-completed-task-bubble-355b0e16d0.png)
+## 再来一点灵感
+
+不想配置宠物，也可以在[灵感扭蛋机](/play)里选“网页像素猫”：只用一个 HTML 文件做摸摸、喂食和休息交互。它是独立网页玩具，与官方桌面 Pets 是两种不同作品。
