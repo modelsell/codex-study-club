@@ -1,8 +1,8 @@
 ---
 title: "Codex 降智了吗？从体感回归到可验证修复"
 excerpt: "近期公开反馈集中在指令遗漏、假完成、上下文丢失、长会话变慢和额度异常；这份专题把模型、服务、上下文、权限与验收问题拆开，并给出一套 10 分钟排查和恢复流程。"
-date: "2026-10-03"
-displayDate: "10.03"
+date: "2026-10-04"
+displayDate: "10.04"
 topics:
   - "可靠性排查"
   - "Codex 降智"
@@ -13,7 +13,7 @@ topics:
 
 先说结论：**“降智”是一个需要拆分的现象，不是目前已经被官方确认的单一结论。** 同一句提示词有时变差，可能来自模型或路由变化，也可能来自服务事件、上下文膨胀、权限/网络失败、会话状态损坏，或者任务根本没有可执行的验收标准。
 
-本文于 **2026-10-03** 整理。它汇总官方状态、官方模型与配置说明，以及 GitHub 和 Reddit 上的公开反馈；社区案例是线索，不是对所有账号、模型或套餐的统计结论。本文没有在读者账号上执行模型切换、升级、重置或发送反馈。
+本文于 **2026-10-04** 更新。它汇总官方状态、官方模型与配置说明，以及 GitHub 和 Reddit 上的公开反馈；社区案例是线索，不是对所有账号、模型或套餐的统计结论。本文没有在读者账号上执行模型切换、升级、重置或发送反馈。
 
 ## 网络上到底出现了哪些证据
 
@@ -28,6 +28,14 @@ OpenAI 状态页记录了 **2026-09-29** 一次影响 ChatGPT、Codex 和 API �
 - Reddit 的[并行任务对照帖](https://www.reddit.com/r/codex/comments/1whcb1h/gpt6_astra_seems_to_spend_most_of_the_time_in_a/)展示了同类任务一次完成、一次反复做小片段后提前结束的个人对照。它适合启发复现实验，不能作为产品级质量统计。
 
 这些证据共同指向一个更准确的描述：很多人感受到的是**指令遵循、持续执行和完成判定的可靠性下降**，不一定是抽象推理能力整体下降。
+
+### 10 月 4 日复核：版本变化与更可复现的公开报告
+
+- 官方更新日志在 **2026-09-29** 增加了 GPT-6.1 Sol，并说明可用性取决于套餐、客户端和 workspace 设置。它提供了一个应该固定记录的变量：同一任务要写下实际模型和 reasoning effort，不能只写“用了 Codex”。
+- [openai/codex #49211](https://github.com/openai/codex/issues/49211) 于 **2026-09-29** 提交，作者描述了指令遗漏、上下文丢失、无关改动和需要反复纠正，并给出新会话、多约束任务的复现步骤。它仍是单个账号的自述，没有总体样本或官方根因。
+- [openai/codex #46747](https://github.com/openai/codex/issues/46747) 提供了一个更适合复现的“小视觉任务”对照：作者记录了模型、High effort、CLI 版本与会话日志，并报告过度工具活动和上下文回放；同时也明确指出 Astra 的部分运行没有匹配到独立日志。它可以变成自己的基准任务，不能证明所有用户都发生同样回归。
+
+这次新增材料让排查更具体：先固定模型、客户端版本、任务提示词和验收，再把“任务完成得差”与“运行时做了过多无关工作”分别计数。
 
 ## 先用 10 分钟判断是哪一层
 
@@ -110,4 +118,5 @@ codex --config model_reasoning_effort='"medium"'
 - [OpenAI Status：2026-09-29 ChatGPT、Codex 与 API 错误事件](https://status.openai.com/incidents/35y48hbm)：官方服务状态与受影响组件，核对日期 2026-10-03。
 - [OpenAI Models：选择模型、reasoning effort 与 5.5 退休安排](https://learn.chatgpt.com/docs/models)：官方模型与配置说明，核对日期 2026-10-03。
 - [OpenAI Developer settings：`/status`、`/debug-config` 与 CLI 覆盖参数](https://learn.chatgpt.com/docs/developer-settings)：官方配置排查方法，核对日期 2026-10-03。
-- [GitHub #42008](https://github.com/openai/codex/issues/42008)、[GitHub #34971](https://github.com/openai/codex/issues/34971)、[Reddit 对照帖](https://www.reddit.com/r/codex/comments/1whcb1h/gpt6_astra_seems_to_spend_most_of_the_time_in_a/)：公开用户报告，仅作为线索和复现实验材料，不代表官方确认的普遍回归。
+- [ChatGPT & Codex 更新日志](https://learn.chatgpt.com/docs/changelog)：GPT-6.1 Sol 的 2026-09-29 条目，本站核对日期 2026-10-04。
+- [GitHub #42008](https://github.com/openai/codex/issues/42008)、[GitHub #34971](https://github.com/openai/codex/issues/34971)、[GitHub #49211](https://github.com/openai/codex/issues/49211)、[GitHub #46747](https://github.com/openai/codex/issues/46747)、[Reddit 对照帖](https://www.reddit.com/r/codex/comments/1whcb1h/gpt6_astra_seems_to_spend_most_of_the_time_in_a/)：公开用户报告，仅作为线索和复现实验材料，不代表官方确认的普遍回归。
