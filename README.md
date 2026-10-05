@@ -12,11 +12,11 @@ Codex Study Club 面向正在学习和使用 OpenAI Codex 的开发者，持续�
 
 ## 本期新内容（2026-10-05）
 
-- [灵感扭蛋机](https://codex.modelsp.com/play)：七个原创小项目挑战，新增[三扇门推理试玩](https://codex.modelsp.com/play#tiny-mystery)，选门、看解释，再复制提示词改编。
-- [Codex CLI 0.160.0 更新与练习](https://codex.modelsp.com/community/updates/codex-cli-0160-history-workspace)：旧任务浏览、Linux X11 中键粘贴与项目外会话边界。
+- [实用案例：让 Codex 修好网站死链](https://codex.modelsp.com/cases/codex-broken-link-workflow)：三段任务描述、可运行检查与真实维护证据。
 - [Codex 降智排查专题](https://codex.modelsp.com/community/updates/codex-quality-regression-playbook)：从服务、模型、上下文、权限和验收五层定位质量回归。
-- [9 月新玩法](https://codex.modelsp.com/community/updates/codex-0158-creative-playbook)：透明贴纸、随手聊天与最新 CLI 动态。
-- [桌面宠物玩法](https://codex.modelsp.com/cases/17-desktop-pet)：更新 Pets 入口与 Quick Chat 练习。
+- [第一个可验收任务](https://codex.modelsp.com/start/06-first-task)：从明确范围到检查结果，建立正确的使用习惯。
+- [Codex CLI 0.160.0 更新与练习](https://codex.modelsp.com/community/updates/codex-cli-0160-history-workspace)：旧任务浏览与项目外会话边界。
+- [补充练习：灵感扭蛋机](https://codex.modelsp.com/play)：保留已有互动练习，按需动手。
 
 ## 开源赞助活动 / Sponsorship
 
