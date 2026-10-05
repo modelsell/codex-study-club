@@ -1,7 +1,8 @@
 {
   "title": "灵感扭蛋机",
   "description": "不知道用 Codex 做什么？抽一颗灵感，把一个小念头变成能玩的作品。",
-  "checkedAt": "2026-10-04",
+  "checkedAt": "2026-10-05",
+  "demoLabel": "先玩一局：三扇门推理 →",
   "eyebrow": "CODEX PLAYGROUND · VOL. 01",
   "intro": "7 个小挑战，不拼模型、不卷大项目。挑一个喜欢的，带着提示词去试试。",
   "drawLabel": "换一颗灵感",

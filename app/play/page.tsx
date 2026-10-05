@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { IdeaGacha } from "@/components/idea-gacha";
+import { ThreeDoors } from "@/components/three-doors";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import content from "@/content/playground/idea-gacha.json";
@@ -21,12 +22,14 @@ export default function PlayPage() {
         <h1>{content.title}<span aria-hidden="true"> ✳</span></h1>
         <p>{content.description}</p>
         <p className={styles.note}>{content.intro}</p>
+        <a className={styles.playLink} href="#tiny-mystery">{content.demoLabel}</a>
       </header>
       <IdeaGacha />
       <div className={styles.more}>
         <Link href="/cases/idea-gacha-lab">怎么玩、怎么改成自己的版本 →</Link>
         <Link href="/cases/17-desktop-pet">给工作台添一只桌面宠物 →</Link>
       </div>
+      <ThreeDoors />
     </main>
     <SiteFooter />
   </>;

@@ -10,9 +10,9 @@
 
 Codex Study Club 面向正在学习和使用 OpenAI Codex 的开发者，持续整理 **Codex App、Codex CLI、Codex Cloud、AGENTS.md、Skills、MCP、自动化、代码审查与问题排查** 等中文教程和可复现实战案例。项目还提供一个基于本地 Markdown 知识库的问答助手，帮助读者更快找到相关内容。
 
-## 本期新内容（2026-10-04）
+## 本期新内容（2026-10-05）
 
-- [灵感扭蛋机](https://codex.modelsp.com/play)：七个原创小项目挑战，抽题、复制提示词、动手验收。
+- [灵感扭蛋机](https://codex.modelsp.com/play)：七个原创小项目挑战，新增[三扇门推理试玩](https://codex.modelsp.com/play#tiny-mystery)，选门、看解释，再复制提示词改编。
 - [Codex CLI 0.160.0 更新与练习](https://codex.modelsp.com/community/updates/codex-cli-0160-history-workspace)：旧任务浏览、Linux X11 中键粘贴与项目外会话边界。
 - [Codex 降智排查专题](https://codex.modelsp.com/community/updates/codex-quality-regression-playbook)：从服务、模型、上下文、权限和验收五层定位质量回归。
 - [9 月新玩法](https://codex.modelsp.com/community/updates/codex-0158-creative-playbook)：透明贴纸、随手聊天与最新 CLI 动态。

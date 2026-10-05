@@ -61,7 +61,7 @@ export default function Home() {
           <p className="hero-lead">学习 Codex，交流真实实践。</p>
           <ChatAssistant />
           <div className="hero-guides">
-            <Link className="beginner-link" href="/play">✳ 灵感扭蛋：抽个小项目</Link>
+            <Link className="beginner-link" href="/play#tiny-mystery">◇ 三扇门推理：先玩一局</Link>
             <p className="assistant-note">
               <CircleCheck size={14} />
               回答优先引用官方资料与已发布内容

@@ -1,0 +1,22 @@
+{
+  "eyebrow": "PLAYABLE · 01",
+  "title": "三扇门，一把钥匙",
+  "intro": "钥匙藏在一扇门后，三条线索中恰好一条为真。你会打开哪扇门？",
+  "hint": "先假设钥匙在某扇门后，再数一数有几条线索成立。选门后会展开解释。",
+  "doors": [
+    { "id": "A", "clue": "钥匙在 B 门", "target": "B", "isEqual": true },
+    { "id": "B", "clue": "钥匙不在 B 门", "target": "B", "isEqual": false },
+    { "id": "C", "clue": "钥匙不在 A 门", "target": "A", "isEqual": false }
+  ],
+  "correct": "找到了！只有一条线索成立。",
+  "incorrect": "这扇门不符合规则。下面一起检查原因。",
+  "explanation": "A、B 两条线索互为否定，必定一真一假。要让总数恰好为一，C 的线索必须为假，所以钥匙在 A 门。",
+  "resetLabel": "重新开始",
+  "resetMessage": "已清除选择和解释，可以重新推理。",
+  "solutionTitle": "把三种可能全部列出来",
+  "tableHeaders": ["钥匙位置", "A 线索", "B 线索", "C 线索", "真线索数"],
+  "trueLabel": "真",
+  "falseLabel": "假",
+  "guideLabel": "查看验收方法与改编提示 →",
+  "boundary": "本站原创单关示例，答案固定，不联网生成谜面、不保存选择。试玩与复制提示词均无需调用模型。"
+}
