@@ -13,6 +13,7 @@ import { cases, startArticles, updates } from "@/lib/content";
 export default function Home() {
   const latestDate = [...updates.map((item) => item.date), ...cases.map((item) => item.checkedAt || ""), ...startArticles.map((item) => item.checkedAt || "")].sort().at(-1);
   const featuredSlugs = [
+    "codex-progress-or-loop",
     "codex-broken-link-workflow",
     "codex-task-keeps-drifting",
     "codex-permission-and-network-blocked",
@@ -60,7 +61,7 @@ export default function Home() {
           <p className="hero-lead">学习 Codex，交流真实实践。</p>
           <ChatAssistant />
           <div className="hero-guides">
-            <Link className="beginner-link" href="/cases/codex-broken-link-workflow">实用案例：让 Codex 修好网站死链</Link>
+            <Link className="beginner-link" href="/cases/codex-progress-or-loop">Codex 一直在忙？先检查真实进展</Link>
             <p className="assistant-note">
               <CircleCheck size={14} />
               回答优先引用官方资料与已发布内容

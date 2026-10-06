@@ -6,13 +6,13 @@ surface: "App / CLI / Cloud"
 duration: "9 分钟"
 cover: "/imported/codexguide/codex-cli-review-diff-result-fd3304aed7.png"
 imageAlt: "Codex CLI 对代码改动进行审查"
-checkedAt: "2026-07-21"
+checkedAt: "2026-10-06"
 ---
 
 # Codex 说完成了，但结果还不能用：怎么补上验证闭环
 
 ::: tip 资料说明
-本文更新于 2026-07-21。命令执行、任务权限和安全边界请参考 [Codex CLI features](https://developers.openai.com/codex/cli/features) 和 [Agent approvals & security](https://developers.openai.com/codex/agent-approvals-security)。具体验收命令应以你的仓库文档和 CI 配置为准。
+本文于 2026-10-06 核对 [OpenAI Prompting](https://learn.chatgpt.com/docs/prompting) 与 [Long-running work](https://learn.chatgpt.com/docs/long-running-work) 的任务验证建议。以下是方法清单，具体验收命令应以你的仓库文档和 CI 配置为准；旧版界面图片仅供理解，不代表今天的客户端外观。
 :::
 
 “已经写入文件”、“构建通过”和“用户报告的问题已经解决”是三个不同结论。如果任务只停在第一个结论，就容易出现“Codex 说完成了，我打开页面却还是错的”。
@@ -60,6 +60,8 @@ checkedAt: "2026-07-21"
 ![Codex 根据实际 diff 进行代码审查](/imported/codexguide/codex-cli-review-diff-result-fd3304aed7.png)
 
 ## 如何记录“未验证”
+
+如果任务还在执行，先看[该继续等，还是接管任务](/cases/codex-progress-or-loop)，区分推进、等待和阻塞。可以<a href="/templates/codex-progress-check.md" download="codex-progress-check.md">下载进展与验收记录表（Markdown）</a>，在自己的任务中填写，不必每次从长文章中手动摘录。文件包含未验证项与外部动作状态，避免把不确定的提交或部署重复执行。
 
 一个可靠的交付总结应该把结果分开：
 
