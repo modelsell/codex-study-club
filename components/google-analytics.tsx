@@ -2,7 +2,7 @@
 
 import Script from "next/script";
 import { usePathname } from "next/navigation";
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { useEffect, useSyncExternalStore } from "react";
 
 const configuredMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID?.trim() || "";
 // The tag ID is public by design. Keep the fallback restricted to the canonical production host
@@ -52,30 +52,26 @@ export function GoogleAnalytics() {
     () => true,
     () => false,
   );
-  const [scriptReady, setScriptReady] = useState(false);
+  const measurementId = mounted ? activeMeasurementId() : "";
 
   useEffect(() => {
-    if (!scriptReady) return;
+    if (!/^G-[A-Z0-9]+$/i.test(measurementId)) return;
+
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = window.gtag || ((...args: unknown[]) => window.dataLayer?.push(args));
+    window.gtag("js", new Date());
+    window.gtag("config", measurementId, {
+      send_page_view: false,
+      page_location: currentPage(pathname || "/"),
+    });
 
     trackAnalyticsEvent("page_view", {
       page_path: pathname || "/",
       page_location: currentPage(pathname || "/"),
     });
-  }, [pathname, scriptReady]);
+  }, [measurementId, pathname]);
 
-  const measurementId = mounted ? activeMeasurementId() : "";
   if (!/^G-[A-Z0-9]+$/i.test(measurementId)) return null;
-
-  const configScript = `
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){window.dataLayer.push(arguments);}
-    window.gtag = gtag;
-    gtag('js', new Date());
-    gtag('config', '${measurementId}', {
-      send_page_view: false,
-      page_location: window.location.origin + window.location.pathname
-    });
-  `;
 
   return (
     <>
@@ -84,11 +80,7 @@ export function GoogleAnalytics() {
         id="google-analytics-src"
         src={`https://www.googletagmanager.com/gtag/js?id=${measurementId}`}
         strategy="afterInteractive"
-        onLoad={() => setScriptReady(true)}
       />
-      <Script id="google-analytics-config" strategy="afterInteractive">
-        {configScript}
-      </Script>
     </>
   );
 }
