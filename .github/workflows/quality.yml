@@ -32,6 +32,10 @@ jobs:
           cache: npm
       - name: Install locked dependencies
         run: npm ci --no-audit --no-fund
+      - name: Test content snapshot checker
+        run: npm run test:content
+      - name: Check content snapshot before build
+        run: npm run check:content
       - name: Test link checker
         run: npm run test:links
       - name: Lint

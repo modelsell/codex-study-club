@@ -12,6 +12,12 @@
 
 主分支推送和 PR 会运行 `Quality checks`（Node.js 24）：安装锁定依赖、Lint、生产构建，检查生成内容是否已提交，以及本地生产服务上的站内链接检查。构建后若 `lib/generated-content.json` 存在差异，请先确认差异与文章改动一致，再一并提交。该检查只验证代码质量，不执行生产部署；Cloudflare 的发布检查独立显示。
 
+### 提交前检查生成内容
+
+运行 `npm run check:content` 可在不写文件的情况下检查源内容与 `lib/generated-content.json` 是否一致。退出 0 表示一致；缺失或过期返回 1，并提示运行 `npm run generate:content`。生成后审查差异，仅提交本次源文与对应快照。该预检在 CI 构建前执行，原有构建后 Git 差异检查继续保留；它不证明文件已经提交或站点已部署。
+
+`npm run test:content` 在临时目录验证一致、过期、缺失与无效 Frontmatter 场景，不修改工作区内容。完整排查过程见 [CI 失败诊断案例](content/cases/development/diagnose-ci-failure.md)。
+
 ### 检查渲染后的站内链接
 
 链接检查需要 Python 3.9+，只用标准库，无需安装 Python 依赖。先完成构建，在一个终端启动本地生产服务：

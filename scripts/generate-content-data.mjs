@@ -189,5 +189,17 @@ const generated = {
   industryInsights: readIndustryInsights(),
 };
 
-fs.writeFileSync(outputPath, `${JSON.stringify(generated, null, 2)}\n`);
-console.log(`Generated ${path.relative(root, outputPath)}`);
+const serialized = `${JSON.stringify(generated, null, 2)}\n`;
+if (process.argv.includes("--check")) {
+  const current = fs.existsSync(outputPath) ? fs.readFileSync(outputPath, "utf8") : null;
+  if (current !== serialized) {
+    console.error("Content snapshot is missing or stale: lib/generated-content.json");
+    console.error("Run npm run generate:content, review the diff, and commit the intended content and snapshot together.");
+    process.exitCode = 1;
+  } else {
+    console.log("Content snapshot is up to date (no files written).");
+  }
+} else {
+  fs.writeFileSync(outputPath, serialized);
+  console.log(`Generated ${path.relative(root, outputPath)}`);
+}

@@ -10,7 +10,9 @@
 
 Codex Study Club 面向正在学习和使用 OpenAI Codex 的开发者，持续整理 **Codex App、Codex CLI、Codex Cloud、AGENTS.md、Skills、MCP、自动化、代码审查与问题排查** 等中文教程和可复现实战案例。项目还提供一个基于本地 Markdown 知识库的问答助手，帮助读者更快找到相关内容。
 
-## 本期新内容（2026-10-06）
+## 本期新内容（2026-10-07）
+
+- [CI 红了，先别让 Codex 改代码](https://codex.modelsp.com/cases/diagnose-ci-failure)：按失败步骤诊断，附不会改动工作区的生成快照预检与四项隔离实验。
 
 - [Codex 忙了半小时：该继续等，还是接管任务？](https://codex.modelsp.com/cases/codex-progress-or-loop)：四种状态、纠偏提示词、可下载记录表与真实填写示例。
 
@@ -129,6 +131,8 @@ npm run dev
 ```bash
 npm run dev                 # 启动本地开发服务器
 npm run lint                # 运行 ESLint
+npm run check:content       # 只读检查源内容与生成快照是否一致
+npm run test:content        # 验证快照检查器的失败与恢复场景
 npm run test:links          # 验证链接检查器（Python 3.9+）
 npm run check:links         # 检查本地生产服务的站内链接，见 CONTRIBUTING.md
 npm run build               # 生成内容并构建生产版本
