@@ -123,6 +123,7 @@ npm run dev
 | `OPENAI_MODEL` | 否 | 问答助手使用的模型，默认值见 `.env.example`。 |
 | `NEXT_PUBLIC_SITE_URL` | 生产环境 | 用于 Canonical URL、Sitemap 和社交分享元数据的公开域名。 |
 | `NEXT_PUBLIC_COMMUNITY_JOIN_URL` | 否 | 社区加入按钮所使用的支付或引导地址。 |
+| `NEXT_PUBLIC_GA_MEASUREMENT_ID` | 否 | GA4 Measurement ID（`G-...`）；留空则关闭统计。事件边界见 [`docs/operations/ANALYTICS.md`](docs/operations/ANALYTICS.md)。 |
 
 不要提交 `.env.local`、API Key、用户数据或其他敏感信息。
 

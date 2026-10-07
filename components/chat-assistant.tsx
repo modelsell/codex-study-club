@@ -2,6 +2,7 @@
 
 import { FormEvent, KeyboardEvent, useMemo, useRef, useState } from "react";
 import { ArrowUp, BookOpen, RotateCcw, Sparkles } from "lucide-react";
+import { trackAnalyticsEvent } from "@/components/google-analytics";
 
 type Message = {
   id: string;
@@ -31,9 +32,14 @@ export function ChatAssistant() {
 
   const canSubmit = useMemo(() => input.trim().length > 0 && !loading, [input, loading]);
 
-  async function ask(question: string) {
+  async function ask(question: string, source: "typed" | "suggestion" = "typed") {
     const cleanQuestion = question.trim();
     if (!cleanQuestion || loading) return;
+
+    trackAnalyticsEvent("assistant_question_submitted", {
+      question_length: cleanQuestion.length,
+      source,
+    });
 
     const requestId = crypto.randomUUID();
     const nextMessages: Message[] = [
@@ -98,8 +104,11 @@ export function ChatAssistant() {
       buffer += decoder.decode();
       if (buffer) consumeLine(buffer);
       if (!receivedText) throw new Error("empty_response");
-    } catch {
+    } catch (error) {
       if (!controller.signal.aborted) {
+        trackAnalyticsEvent("assistant_response_error", {
+          reason: error instanceof Error && error.message === "empty_response" ? "empty_response" : "request_failed",
+        });
         setMessages((current) =>
           current.map((message) =>
             message.id === assistantId && !message.content
@@ -202,7 +211,7 @@ export function ChatAssistant() {
       {!messages.length ? (
         <div className="suggestion-row" aria-label="常见问题">
           {suggestions.map((suggestion) => (
-            <button onClick={() => void ask(suggestion)} type="button" key={suggestion}>
+            <button onClick={() => void ask(suggestion, "suggestion")} type="button" key={suggestion}>
               {suggestion}
             </button>
           ))}
