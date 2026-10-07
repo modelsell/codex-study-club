@@ -2,7 +2,7 @@
 
 import Script from "next/script";
 import { usePathname } from "next/navigation";
-import { useEffect, useSyncExternalStore } from "react";
+import { useEffect, useRef, useSyncExternalStore } from "react";
 
 const configuredMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID?.trim() || "";
 // The tag ID is public by design. Keep the fallback restricted to the canonical production host
@@ -53,17 +53,22 @@ export function GoogleAnalytics() {
     () => false,
   );
   const measurementId = mounted ? activeMeasurementId() : "";
+  const initialized = useRef(false);
 
   useEffect(() => {
     if (!/^G-[A-Z0-9]+$/i.test(measurementId)) return;
 
-    window.dataLayer = window.dataLayer || [];
-    window.gtag = window.gtag || ((...args: unknown[]) => window.dataLayer?.push(args));
-    window.gtag("js", new Date());
-    window.gtag("config", measurementId, {
-      send_page_view: false,
-      page_location: currentPage(pathname || "/"),
-    });
+    if (!initialized.current) {
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = window.gtag || ((...args: unknown[]) => window.dataLayer?.push(args));
+      window.gtag("js", new Date());
+      window.gtag("config", measurementId, {
+        send_page_view: false,
+        page_location: currentPage(pathname || "/"),
+      });
+      document.documentElement.dataset.analyticsReady = "true";
+      initialized.current = true;
+    }
 
     trackAnalyticsEvent("page_view", {
       page_path: pathname || "/",
