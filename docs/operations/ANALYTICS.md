@@ -1,13 +1,13 @@
 # 网站统计口径
 
-本项目的 GA4 接入默认关闭。只有部署环境显式提供合法的 `NEXT_PUBLIC_GA_MEASUREMENT_ID`（形如 `G-XXXXXXXXXX`）时，页面才会加载 Google tag；本地 `.env.example` 留空，因此开发、构建和当前未配置 Measurement ID 的部署不会发送统计请求。
+本项目的 GA4 接入对本地开发、预览、Fork 和其他域名默认关闭。正式域名 `codex.modelsp.com` 使用一个仅限该主机的公开 Measurement ID 兜底，以便没有 Cloudflare Build variable 权限时，Git 集成构建仍能启用统计；`NEXT_PUBLIC_GA_MEASUREMENT_ID` 若被显式配置则优先覆盖该兜底。Measurement ID 不是 API 密钥，浏览器加载 tag 时本来就会公开它。
 
 ## 配置与验收
 
 1. 在 Google Analytics 的 **Admin → Data collection and modification → Data streams** 中打开本站 Web 数据流，复制 Measurement ID。Google 的[官方设置说明](https://support.google.com/analytics/answer/14183469)要求使用数据流详情中的 ID，核对日期：2026-10-07。
-2. 将 ID 作为部署环境变量 `NEXT_PUBLIC_GA_MEASUREMENT_ID` 配置，不写入仓库、不写进公开复盘。它是公开 tag ID，不是 API 密钥。
-3. 重新部署后，在浏览器网络面板或页面源码确认 `googletagmanager.com/gtag/js?id=...` 只在已配置环境出现；再到 GA4 Realtime 报告确认 `page_view`。代码推送、CI、部署和 GA4 收数是四个独立状态。
-4. 若要撤回收集，删除部署变量并重新部署；空值会让组件返回空节点，不会加载 Google 脚本。
+2. 优先将其他部署的 ID 作为 `NEXT_PUBLIC_GA_MEASUREMENT_ID` 配置；正式站点的公开兜底 ID 已随代码发布，不需要把账号凭据或 API 密钥写入仓库。
+3. 重新部署后，在浏览器网络面板或页面源码确认 `googletagmanager.com/gtag/js?id=...` 只在正式域名或显式配置环境出现；再到 GA4 Realtime 报告确认 `page_view`。代码推送、CI、部署和 GA4 收数是四个独立状态。
+4. 若要撤回正式站点收集，需要移除正式域名兜底 ID 并重新部署；其他环境删除部署变量即可关闭。空值会让非正式域名组件返回空节点，不会加载 Google 脚本。
 
 ## 事件边界
 
@@ -20,7 +20,7 @@
 | `assistant_response_error` | `reason`（`request_failed` 或 `empty_response`） | 观察学习助手的粗粒度失败状态 |
 | `community_cta_click` | `destination`（`external` 或 `community_page`） | 判断加入入口是否被点击，不上传目标地址 |
 
-不会主动发送提问文本、回答文本、原始日志、用户标识、查询字符串或账户用量。未配置 Measurement ID 时，上述事件均不可得；不能用 GitHub Star、Fork 或共享额度窗口代替网站访问和教程完成数据。
+不会主动发送提问文本、回答文本、原始日志、用户标识、查询字符串或账户用量。非正式域名未配置 Measurement ID 时，上述事件均不可得；不能用 GitHub Star、Fork 或共享额度窗口代替网站访问和教程完成数据。
 
 ## 运营使用规则
 

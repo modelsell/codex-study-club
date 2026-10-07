@@ -2,10 +2,12 @@
 
 import Script from "next/script";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 
-const measurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID?.trim() || "";
-const validMeasurementId = /^G-[A-Z0-9]+$/i.test(measurementId);
+const configuredMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID?.trim() || "";
+// The tag ID is public by design. Keep the fallback restricted to the canonical production host
+// so local development, forks, previews, and other deployments stay analytics-free by default.
+const publicProductionMeasurementId = "G-ZVK91RRTTJ";
 
 declare global {
   interface Window {
@@ -16,12 +18,20 @@ declare global {
 
 type EventParams = Record<string, string | number | boolean>;
 
+function activeMeasurementId() {
+  if (configuredMeasurementId) return configuredMeasurementId;
+  if (typeof window !== "undefined" && window.location.hostname === "codex.modelsp.com") {
+    return publicProductionMeasurementId;
+  }
+  return "";
+}
+
 /**
- * Send a small, non-content event when GA4 has been explicitly enabled.
+ * Send a small, non-content event when GA4 is enabled for the canonical host or by env.
  * Never pass prompts, assistant responses, or query strings to this helper.
  */
 export function trackAnalyticsEvent(eventName: string, params?: EventParams) {
-  if (!validMeasurementId || typeof window === "undefined") return;
+  if (!/^G-[A-Z0-9]+$/i.test(activeMeasurementId()) || typeof window === "undefined") return;
 
   if (typeof window.gtag === "function") {
     window.gtag("event", eventName, params ?? {});
@@ -37,6 +47,11 @@ function currentPage(pathname: string) {
 
 export function GoogleAnalytics() {
   const pathname = usePathname();
+  const mounted = useSyncExternalStore(
+    () => () => undefined,
+    () => true,
+    () => false,
+  );
   const [scriptReady, setScriptReady] = useState(false);
 
   useEffect(() => {
@@ -48,7 +63,8 @@ export function GoogleAnalytics() {
     });
   }, [pathname, scriptReady]);
 
-  if (!validMeasurementId) return null;
+  const measurementId = mounted ? activeMeasurementId() : "";
+  if (!/^G-[A-Z0-9]+$/i.test(measurementId)) return null;
 
   const configScript = `
     window.dataLayer = window.dataLayer || [];
