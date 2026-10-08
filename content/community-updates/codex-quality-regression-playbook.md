@@ -1,8 +1,8 @@
 ---
 title: "Codex 降智了吗？从体感回归到可验证修复"
-excerpt: "近期公开反馈集中在指令遗漏、假完成、上下文丢失、长会话变慢和额度异常；这份专题把模型、服务、上下文、权限与验收问题拆开，并给出一套 10 分钟排查和恢复流程。"
-date: "2026-10-04"
-displayDate: "10.04"
+excerpt: "近期公开反馈集中在指令遗漏、假完成、上下文丢失、长会话变慢和额度异常；这次更新加入可下载的断点协议，把 compaction 后的恢复变成可验收步骤。"
+date: "2026-10-08"
+displayDate: "10.08"
 topics:
   - "可靠性排查"
   - "Codex 降智"
@@ -13,7 +13,7 @@ topics:
 
 先说结论：**“降智”是一个需要拆分的现象，不是目前已经被官方确认的单一结论。** 同一句提示词有时变差，可能来自模型或路由变化，也可能来自服务事件、上下文膨胀、权限/网络失败、会话状态损坏，或者任务根本没有可执行的验收标准。
 
-本文于 **2026-10-04** 更新。它汇总官方状态、官方模型与配置说明，以及 GitHub 和 Reddit 上的公开反馈；社区案例是线索，不是对所有账号、模型或套餐的统计结论。本文没有在读者账号上执行模型切换、升级、重置或发送反馈。
+本文于 **2026-10-08** 更新。它汇总官方状态、官方模型与配置说明，以及 GitHub、Reddit 和 X 上的公开反馈；社区案例是线索，不是对所有账号、模型或套餐的统计结论。本文没有在读者账号上执行模型切换、升级、重置或发送反馈。
 
 ## 网络上到底出现了哪些证据
 
@@ -36,6 +36,14 @@ OpenAI 状态页记录了 **2026-09-29** 一次影响 ChatGPT、Codex 和 API �
 - [openai/codex #46747](https://github.com/openai/codex/issues/46747) 提供了一个更适合复现的“小视觉任务”对照：作者记录了模型、High effort、CLI 版本与会话日志，并报告过度工具活动和上下文回放；同时也明确指出 Astra 的部分运行没有匹配到独立日志。它可以变成自己的基准任务，不能证明所有用户都发生同样回归。
 
 这次新增材料让排查更具体：先固定模型、客户端版本、任务提示词和验收，再把“任务完成得差”与“运行时做了过多无关工作”分别计数。
+
+### 10 月 8 日复核：先保住执行前沿，再谈模型变笨
+
+长任务的“降智感”常常发生在上下文被压缩或任务被打断之后：目标还在，但已完成什么、为什么放弃某条路、下一步该做什么变得模糊。OpenAI 的 [GPT-6 Astra 提示与 Skill 指南](https://developers.openai.com/blog/rethinking-skills-and-prompts-for-gpt-6-astra)（2026-09-11）提醒，过长或过多的 Skill 描述会被截短；渐进式披露和按任务读取文档可以减少无关上下文。官方 [Codex Prompting Guide](https://developers.openai.com/cookbook/examples/gpt-5/codex_prompting_guide)（本站 2026-10-08 核对）也说明 `AGENTS.md` 会按目录层级注入，并介绍 compaction 如何携带压缩后的状态。
+
+两条公开 Issue 让这个痛点更具体，但仍不构成官方根因结论：[#34095](https://github.com/openai/codex/issues/34095) 的作者报告多次自动 compaction 后反复回到“完成最后几项、运行验证、提交”的循环；[#36721](https://github.com/openai/codex/issues/36721) 提议保存结构化 checkpoint 和一小段不可丢失的操作尾部，并记录“尝试了 X，因为 Y 失败，除非 Z 改变不要重试”。它们适合设计复现和记录格式，不能证明所有账户都会出现同样行为。
+
+因此这次新增的是**断点协议**，不是“让模型变聪明”的提示词：把目标、范围、已完成证据、失败结论、待办、下一动作和停止条件写进一个短文件。它能让新会话先恢复可检查的工作状态，也让你判断是上下文问题、工具阻塞还是任务本身没有验收标准。
 
 ## 先用 10 分钟判断是哪一层
 
@@ -65,6 +73,39 @@ codex --config model_reasoning_effort='"medium"'
 ### 1. 先切到新会话，缩小上下文
 
 长线程里已经反复失败时，不要继续叠加“再试一次”。新开会话，只带入：目标、当前状态、相关文件、失败命令、验收标准和明确的未完成项。大截图、整段日志和重复的工具输出改成摘要或文件路径，避免把历史噪音一起喂回去。
+
+### 1.5 用一个短 checkpoint 接住 compaction
+
+下载[断点记录模板](/templates/codex-task-checkpoint.md)，放在仓库的 `.codex/task-checkpoint.md`（或项目约定的安全位置）。它不应包含 API Key、Cookie、客户代码或整段私有聊天；只保留继续工作必需的状态：
+
+```text
+目标：让读者最终看到什么变化？
+范围 / 非目标：这轮允许和禁止改什么？
+已完成证据：文件、命令、页面或提交分别证明了什么？
+失败与排除：尝试了什么，为什么失败，除非什么变化不要重试？
+待完成：按验收项列出仍缺的结果。
+下一动作：只写一个能产生新证据的动作。
+停止条件：什么情况应停止、开新会话或交给人工？
+```
+
+首轮任务可以这样写：
+
+```text
+先读取 .codex/task-checkpoint.md、git status --short 和 git diff --stat。
+复述当前目标、允许范围、已完成证据和 Pending 的第一项；不要重做 Done。
+本轮只处理 Pending 的第一项，完成后把实际命令、退出码和产物写回 checkpoint。
+发现新问题先标记 deferred，不扩大范围；验收不通过就保留失败证据。
+如果连续两轮没有新增文件、测试或页面证据，停止并报告，不要继续循环。
+```
+
+发生 compaction、卡住或跨线程恢复时，按这个顺序操作：
+
+1. 先读 checkpoint，再看 `git status --short`、`git diff --stat` 和最近一次失败命令。
+2. 只从 Pending 的第一项继续；已完成项必须能指向证据，不能只引用模型总结。
+3. 每个 reviewer 意见分成 `accepted`、`deferred` 或 `dismissed`，并写出对应验收项；没有映射到验收标准的意见不自动阻塞交付。
+4. 连续两轮没有新证据，或上下文已经接近阈值，就保存现场、开新会话，只带 checkpoint、diff 摘要和失败命令摘要。
+
+这是本站整理的恢复协议，不是 OpenAI 的自动修复功能；本站没有在独立读者账号上做 compaction 前后对照，也没有量化它能节省多少时间或额度。
 
 ### 2. 明确选择模型和 reasoning effort
 
@@ -119,4 +160,8 @@ codex --config model_reasoning_effort='"medium"'
 - [OpenAI Models：选择模型、reasoning effort 与 5.5 退休安排](https://learn.chatgpt.com/docs/models)：官方模型与配置说明，核对日期 2026-10-03。
 - [OpenAI Developer settings：`/status`、`/debug-config` 与 CLI 覆盖参数](https://learn.chatgpt.com/docs/developer-settings)：官方配置排查方法，核对日期 2026-10-03。
 - [ChatGPT & Codex 更新日志](https://learn.chatgpt.com/docs/changelog)：GPT-6.1 Sol 的 2026-09-29 条目，本站核对日期 2026-10-04。
+- [Rethinking skills and prompts for GPT-6 Astra](https://developers.openai.com/blog/rethinking-skills-and-prompts-for-gpt-6-astra)：长 Skill 描述、渐进式披露、按需读取文档和完成条件，官方发布日期 2026-09-11，本站核对日期 2026-10-08。
+- [Codex Prompting Guide](https://developers.openai.com/cookbook/examples/gpt-5/codex_prompting_guide)：`AGENTS.md` 层级注入与 compaction 说明，本站核对日期 2026-10-08。
+- [GitHub #34095](https://github.com/openai/codex/issues/34095) 与 [GitHub #36721](https://github.com/openai/codex/issues/36721)：公开用户报告与功能提议，分别于 2026-07-19、2026-08-03 发布；用于设计 checkpoint 字段，不代表官方确认根因或通用效果。
+- [X：Nick Dobos 的长会话建议](https://x.com/NickADobos/status/2039800787216547915)：2026-04-02 的个人经验，建议接近上下文限制时让旧会话总结后开启新会话；本站未在作者账号复现，不用于推导因果或量化收益。
 - [GitHub #42008](https://github.com/openai/codex/issues/42008)、[GitHub #34971](https://github.com/openai/codex/issues/34971)、[GitHub #49211](https://github.com/openai/codex/issues/49211)、[GitHub #46747](https://github.com/openai/codex/issues/46747)、[Reddit 对照帖](https://www.reddit.com/r/codex/comments/1whcb1h/gpt6_astra_seems_to_spend_most_of_the_time_in_a/)：公开用户报告，仅作为线索和复现实验材料，不代表官方确认的普遍回归。
