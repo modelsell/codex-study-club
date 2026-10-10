@@ -10,9 +10,11 @@
 
 Codex Study Club 面向正在学习和使用 OpenAI Codex 的开发者，持续整理 **Codex App、Codex CLI、Codex Cloud、AGENTS.md、Skills、MCP、自动化、代码审查与问题排查** 等中文教程和可复现实战案例。项目还提供一个基于本地 Markdown 知识库的问答助手，帮助读者更快找到相关内容。
 
-## 本期新内容（2026-10-08）
+## 本期新内容（2026-10-10）
 
-- [Codex 降智排查专题：新增长任务断点协议](https://codex.modelsp.com/community/updates/codex-quality-regression-playbook)：把 compaction、卡住和跨会话恢复拆成 checkpoint、最小证据与停止条件。
+- [Codex 降智排查专题：Goal + checkpoint 长任务契约](https://codex.modelsp.com/community/updates/codex-quality-regression-playbook)：把官方 Goal 的完成条件和本地 checkpoint 证据接起来，减少长任务空转和假完成。
+
+- [下载 Goal 契约模板](https://codex.modelsp.com/templates/codex-goal-contract.md)：填写结果、验证面、边界、迭代策略和阻塞停止条件，再开始长任务。
 
 - [CI 红了，先别让 Codex 改代码](https://codex.modelsp.com/cases/diagnose-ci-failure)：按失败步骤诊断，附不会改动工作区的生成快照预检与四项隔离实验。
 

@@ -1,8 +1,8 @@
 ---
 title: "Codex 降智了吗？从体感回归到可验证修复"
-excerpt: "近期公开反馈集中在指令遗漏、假完成、上下文丢失、长会话变慢和额度异常；这次更新加入可下载的断点协议，把 compaction 后的恢复变成可验收步骤。"
-date: "2026-10-08"
-displayDate: "10.08"
+excerpt: "近期公开反馈集中在指令遗漏、假完成、上下文丢失、长会话变慢和额度异常；这次更新把 Goal 的完成契约与可下载的断点协议接起来，让长任务更容易验收和接管。"
+date: "2026-10-10"
+displayDate: "10.10"
 topics:
   - "可靠性排查"
   - "Codex 降智"
@@ -107,6 +107,24 @@ codex --config model_reasoning_effort='"medium"'
 
 这是本站整理的恢复协议，不是 OpenAI 的自动修复功能；本站没有在独立读者账号上做 compaction 前后对照，也没有量化它能节省多少时间或额度。
 
+### 1.6 长任务：让 Goal 管目标，让 checkpoint 管证据
+
+如果任务的下一步取决于刚刚发现的结果，可以在支持该功能的 Codex 版本中使用 Goal。OpenAI 的 [Using Goals in Codex](https://developers.openai.com/cookbook/examples/codex/using_goals_in_codex)（官方发布日期 **2026-05-09**，本站核对日期 **2026-10-10**）把 Goal 定义为线程级、可暂停和可恢复的持久目标：它要有明确结果、验证面、约束、边界、迭代策略和阻塞停止条件。官方示例使用 `/goal`、`/goal pause`、`/goal resume` 和 `/goal clear` 管理生命周期，并注明 Goals 从 Codex **0.128.0** 起可用；实际能否使用仍取决于你的客户端和账号。
+
+这两个东西分工不同：Goal 让 Codex 在当前线程里记住“做到什么才算完成”，checkpoint 文件让人和新会话看见“已经有什么证据、还缺什么”。Goal 不是无限循环开关，checkpoint 也不是模型记忆；每次继续前都要回到文件、命令、测试、页面或基准结果。
+
+可以下载[长任务 Goal 契约模板](/templates/codex-goal-contract.md)，复制到项目约定的位置后再填写。一个可审计的起始指令如下：
+
+```text
+/goal 让 checkout 窄屏页面在 375px 下通过验收，
+以 scrollWidth 等于 clientWidth、目标测试通过和生产构建成功为证据；
+只允许修改 app/checkout、对应样式和测试，不改支付接口。
+每轮把实际命令、结果和下一实验写入 .codex/task-checkpoint.md；
+如果测试无法运行、连续两轮没有新证据或达到预算，暂停并报告阻塞，不要宣称完成。
+```
+
+验收时先用 `/goal` 查看当前目标，再检查 checkpoint、`git diff --stat`、测试/构建结果和页面；短任务、一次性解释和简单改动继续用普通提示词。本站没有在本机 Codex 客户端上确认 `/goal` 可用，也没有据此声称它能改善模型质量或减少额度。
+
 ### 2. 明确选择模型和 reasoning effort
 
 官方模型文档说明：可以在桌面端或 CLI 选择模型与 reasoning effort；更高 effort 可能改善复杂任务结果，但会增加时间和 token 使用。复杂的跨文件任务可以从可用的 GPT-6.1 Sol 或 Astra 开始；清晰、重复、范围小的任务可以使用 Luna。不要把“更贵”当作“必然更可靠”，用同一验收任务做对照。
@@ -162,6 +180,7 @@ codex --config model_reasoning_effort='"medium"'
 - [ChatGPT & Codex 更新日志](https://learn.chatgpt.com/docs/changelog)：GPT-6.1 Sol 的 2026-09-29 条目，本站核对日期 2026-10-04。
 - [Rethinking skills and prompts for GPT-6 Astra](https://developers.openai.com/blog/rethinking-skills-and-prompts-for-gpt-6-astra)：长 Skill 描述、渐进式披露、按需读取文档和完成条件，官方发布日期 2026-09-11，本站核对日期 2026-10-08。
 - [Codex Prompting Guide](https://developers.openai.com/cookbook/examples/gpt-5/codex_prompting_guide)：`AGENTS.md` 层级注入与 compaction 说明，本站核对日期 2026-10-08。
+- [Using Goals in Codex](https://developers.openai.com/cookbook/examples/codex/using_goals_in_codex)：Goal 的线程级完成契约、生命周期命令与证据标准，官方发布日期 2026-05-09，本站核对日期 2026-10-10；实际可用性取决于客户端和账号。
 - [GitHub #34095](https://github.com/openai/codex/issues/34095) 与 [GitHub #36721](https://github.com/openai/codex/issues/36721)：公开用户报告与功能提议，分别于 2026-07-19、2026-08-03 发布；用于设计 checkpoint 字段，不代表官方确认根因或通用效果。
 - [X：Nick Dobos 的长会话建议](https://x.com/NickADobos/status/2039800787216547915)：2026-04-02 的个人经验，建议接近上下文限制时让旧会话总结后开启新会话；本站未在作者账号复现，不用于推导因果或量化收益。
 - [GitHub #42008](https://github.com/openai/codex/issues/42008)、[GitHub #34971](https://github.com/openai/codex/issues/34971)、[GitHub #49211](https://github.com/openai/codex/issues/49211)、[GitHub #46747](https://github.com/openai/codex/issues/46747)、[Reddit 对照帖](https://www.reddit.com/r/codex/comments/1whcb1h/gpt6_astra_seems_to_spend_most_of_the_time_in_a/)：公开用户报告，仅作为线索和复现实验材料，不代表官方确认的普遍回归。
