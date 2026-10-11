@@ -12,7 +12,7 @@ Codex Study Club 面向正在学习和使用 OpenAI Codex 的开发者，持续�
 
 ## 本期新内容（2026-10-11）
 
-- [Codex 降智排查专题：Goal + checkpoint 长任务契约](https://codex.modelsp.com/community/updates/codex-quality-regression-playbook)：新增一次临时仓库跨会话续做练习，证明新会话只执行 Pending，不重做已完成标记（不等于证明模型质量改善）。
+- [Codex 降智排查专题：Goal + checkpoint 长任务契约](https://codex.modelsp.com/community/updates/codex-quality-regression-playbook)：补充两轮临时目录交接练习；第二轮有提交基线和前后哈希，但仍不等于证明模型质量改善。
 
 - [下载 Goal 契约模板](https://codex.modelsp.com/templates/codex-goal-contract.md)：填写结果、验证面、边界、迭代策略和阻塞停止条件，再开始长任务。
 
