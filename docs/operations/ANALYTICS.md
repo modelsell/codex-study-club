@@ -9,6 +9,10 @@
 3. 重新部署后，在浏览器网络面板或页面源码确认 `googletagmanager.com/gtag/js?id=...` 只在正式域名或显式配置环境出现；再到 GA4 Realtime 报告确认 `page_view`。代码推送、CI、部署和 GA4 收数是四个独立状态。
 4. 若要撤回正式站点收集，需要移除正式域名兜底 ID 并重新部署；其他环境删除部署变量即可关闭。空值会让非正式域名组件返回空节点，不会加载 Google 脚本。
 
+2026-10-15 核对 [Google 官方 gtag.js 安装示例](https://developers.google.com/tag-platform/gtagjs)：用普通函数的 `arguments` 对象入队，初始化与事件 fallback 共用 `createGtagQueue`。`npm run test:analytics`（Node.js 22.6+，CI 使用 24）检查命令类型、参数、顺序和原队列保留；不发送网络请求。此前普通数组写法与官方示例不同，这次按标准形式修正，但尚未确认它是否导致数据流未收数。
+
+`data-analytics-ready` 仅表示本地初始化与命令入队，**不表示 Google 脚本加载成功、请求发出或 GA4 已收到事件**。验收依次区分这些状态，并从对应本站数据流读取结果；维护者测试访问不能计为自然增长。
+
 ## 事件边界
 
 当前只发送以下低粒度事件：

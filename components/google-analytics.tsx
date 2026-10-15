@@ -3,6 +3,7 @@
 import Script from "next/script";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useSyncExternalStore } from "react";
+import { createGtagQueue } from "@/lib/analytics-queue";
 
 const configuredMeasurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID?.trim() || "";
 // The tag ID is public by design. Keep the fallback restricted to the canonical production host
@@ -38,7 +39,9 @@ export function trackAnalyticsEvent(eventName: string, params?: EventParams) {
     return;
   }
 
-  window.dataLayer?.push(["event", eventName, params ?? {}]);
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = createGtagQueue(window.dataLayer);
+  window.gtag("event", eventName, params ?? {});
 }
 
 function currentPage(pathname: string) {
@@ -60,7 +63,7 @@ export function GoogleAnalytics() {
 
     if (!initialized.current) {
       window.dataLayer = window.dataLayer || [];
-      window.gtag = window.gtag || ((...args: unknown[]) => window.dataLayer?.push(args));
+      window.gtag = window.gtag || createGtagQueue(window.dataLayer);
       window.gtag("js", new Date());
       window.gtag("config", measurementId, {
         send_page_view: false,

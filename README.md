@@ -10,7 +10,9 @@
 
 Codex Study Club 面向正在学习和使用 OpenAI Codex 的开发者，持续整理 **Codex App、Codex CLI、Codex Cloud、AGENTS.md、Skills、MCP、自动化、代码审查与问题排查** 等中文教程和可复现实战案例。项目还提供一个基于本地 Markdown 知识库的问答助手，帮助读者更快找到相关内容。
 
-## 本期新内容（2026-10-11）
+## 本期新内容（2026-10-15）
+
+- [Codex 说完成了，但结果还不能用](https://codex.modelsp.com/cases/codex-finished-but-not-verified)：新增“空 diff 为什么会漏检”隔离练习、只读验收提示词与工作区基线模板，区分未跟踪、暂存和原有改动。
 
 - [Codex 降智排查专题：Goal + checkpoint 长任务契约](https://codex.modelsp.com/community/updates/codex-quality-regression-playbook)：补充两轮临时目录交接练习；第二轮有提交基线和前后哈希，但仍不等于证明模型质量改善。
 
@@ -127,7 +129,7 @@ npm run dev
 | `OPENAI_MODEL` | 否 | 问答助手使用的模型，默认值见 `.env.example`。 |
 | `NEXT_PUBLIC_SITE_URL` | 生产环境 | 用于 Canonical URL、Sitemap 和社交分享元数据的公开域名。 |
 | `NEXT_PUBLIC_COMMUNITY_JOIN_URL` | 否 | 社区加入按钮所使用的支付或引导地址。 |
-| `NEXT_PUBLIC_GA_MEASUREMENT_ID` | 否 | GA4 Measurement ID（`G-...`）；留空则关闭统计。事件边界见 [`docs/operations/ANALYTICS.md`](docs/operations/ANALYTICS.md)。 |
+| `NEXT_PUBLIC_GA_MEASUREMENT_ID` | 否 | GA4 Measurement ID（`G-...`）；正式域名使用主机限定的公开兜底，其他域名未配置时关闭。事件边界与撤回方式见 [`docs/operations/ANALYTICS.md`](docs/operations/ANALYTICS.md)。 |
 
 不要提交 `.env.local`、API Key、用户数据或其他敏感信息。
 

@@ -38,6 +38,8 @@ jobs:
         run: npm run check:content
       - name: Test link checker
         run: npm run test:links
+      - name: Test analytics command queue
+        run: npm run test:analytics
       - name: Lint
         run: npm run lint
       - name: Build pages and generate content
