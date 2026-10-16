@@ -1,55 +1,92 @@
 ---
-description: "在 VS Code 中使用 Codex 的教程，介绍插件入口、文件上下文、局部修改、解释代码和编辑器内协作方式。"
+title: "在 VS Code 中使用 Codex：安装、上下文与消息排队"
+description: "从官方入口安装扩展，用文件依据完成只读任务；分清发送、排队、当前轮纠偏与未送达，附可下载的消息故障记录表。"
+checkedAt: "2026-10-16"
 ---
 
-::: tip 最后核对
-官方资料最后核对日期：2026-06-29。本文以 VS Code 为例演示 Codex IDE 入口，插件安装、登录、界面名称和可用功能请以当前编辑器插件与 [Codex 文档入口](https://developers.openai.com/codex/) 为准；CLI 基础能力可参考 [Codex CLI features](https://developers.openai.com/codex/cli/features)。
-:::
+# 在 VS Code 中使用 Codex：安装、上下文与消息排队
 
-# 在 VS Code 中使用 Codex
+适合已经在 VS Code 中打开项目、想让 Codex 解释代码或完成局部任务的读者。读完后，你应能找到官方扩展、带上相关文件发送任务，并判断补充消息是在等下一轮，还是需要检查送达状态。
 
+**验证范围**：本站于 2026-10-16 核对官方说明和下文的社区原帖。本次没有实测 VS Code 扩展安装、运行中发送或客户端故障修复；下面的练习供你在自己的版本上核对，不代表本站已复现成功。
 
-本章介绍如何在 VS Code 代码编辑器中安装 Codex 插件，并通过插件完成开发任务。相比桌面 App，在 VS Code 中使用 Codex 可以更直接地看到文件目录结构和修改前后的对比，适合习惯在编辑器里工作的开发者。
+## 从官方入口安装，再打开正确的项目
 
-## 安装 Codex 插件
+从 [OpenAI 的 IDE 入口文档](https://learn.chatgpt.com/docs/codex/ide)进入扩展安装页，核对扩展标识为 `openai.chatgpt`。也可使用文档链接的 [Visual Studio Marketplace 安装页](https://marketplace.visualstudio.com/items?itemName=openai.chatgpt)。不要仅凭搜索结果的位置选择扩展。
 
-打开 VS Code，点击左侧边栏的「扩展」图标，在搜索框中输入 **Codex**，选择第一个结果，点击「安装」即可。
+安装并按界面完成登录后，在 VS Code 打开准备处理的仓库。点击 Codex 图标；找不到图标时，从命令面板运行 **Codex: Open Codex Sidebar**。命令面板通常通过 macOS 的 `Cmd+Shift+P` 或 Windows/Linux 的 `Ctrl+Shift+P` 打开。侧栏位置和快捷键可能因布局、自定义设置而不同，不必寻找固定的“文件右上角”按钮。[官方入口](https://learn.chatgpt.com/docs/codex/ide) · [IDE 命令](https://learn.chatgpt.com/docs/ide/commands)
 
-::: tip
-这里安装的是 OpenAI 官方发布的 ChatGPT 插件，其中集成了 Codex 的对话与代码辅助能力。
-:::
+先确认仓库、分支、已有改动和权限范围。若只是了解代码，保持只读；不要为了让扩展回答问题而扩大文件或执行权限。开始时保留工作区状态，缺少基线就明确写未知。
 
-![搜索并安装 Codex 插件](/imported/codexguide/vscode-codex-extension-marketplace-d54033e8da.png)
+## 带上上下文，做一个有验收标准的任务
 
-## 打开插件对话窗口
+打开相关文件或选中代码，把它们加入对话上下文。官方命令中，`chatgpt.addToThread` 用于加入选中范围，`chatgpt.addFileToThread` 用于加入整个文件；可在命令面板或快捷键设置中查找 Codex 命令。发送前检查实际附上的文件，避免同名文件、选中范围或项目目录弄错。[IDE 命令说明](https://learn.chatgpt.com/docs/ide/commands)
 
-安装完成后，在 VS Code 中打开任意一个项目文件，右上角会出现 ChatGPT 的图标。点击该图标，右侧边栏就会展开 Codex 的对话窗口。
+例如，附上 README 与项目配置后发送：
 
-![文件右上角的插件图标](/imported/codexguide/vscode-codex-extension-icon-732a69bb04.png)
+```text
+只读查看当前项目，不修改文件，不安装依赖，不启动服务。
+先确认当前仓库及附带的文件；读不到或缺失就明确写出。
+结合 README 和项目配置，列出启动、构建、测试命令。
+每项给出命令原文、依据文件与位置、前提、是否实际执行。
+文档与配置冲突时同时列出，不猜测哪一方正确。
+本轮不要执行这些命令，最后列出未确认项，然后停止。
+```
 
-![展开后的对话窗口](/imported/codexguide/vscode-codex-chat-panel-7914dfccf6.png)
+**实际要拿到的产物**是一张有依据的命令表。抽查两行，与文件原文对照；“是否执行”应为未执行，不能把“列出了测试命令”验收成“测试通过”。再对照任务开始时的工作区记录，确认原有修改保留且没有新增修改。更完整的检查见[完成但未验证](/cases/codex-finished-but-not-verified)。
 
-## 开始使用
+## 补充消息：先看发送键，再看队列模式
 
-对话窗口打开后，直接输入需求，Codex 就会开始辅助完成开发任务，用法与 Codex 桌面 App 基本一致。
+IDE 有两层设置：模型、权限等共享代理配置在 `config.toml`；编辑器行为使用 VS Code 设置中的 `chatgpt.*`。打开编辑器设置，搜索 `@ext:openai.chatgpt` 或准确的设置名。下列两个键都属于编辑器设置，**不要写进 `config.toml`**。[官方设置说明](https://learn.chatgpt.com/docs/ide/settings)
 
-**使用 `@` 指定文件：**
+| 设置 | 当前官方说明 | 你需要核对什么 |
+| --- | --- | --- |
+| `chatgpt.composerEnterBehavior` | 默认 `enter`：Enter 发送；`cmdIfMultiline`：多行提示词用 Cmd/Ctrl+Enter；`cmdAlways`：始终需要修饰键 | 你按下的键在当前配置下是否真的触发发送 |
+| `chatgpt.followUpQueueMode` | 默认 `queue`：运行中发送的消息等下一轮；`steer`：用于当前轮纠偏 | 你希望影响当前任务，还是接着做下一件事 |
 
-在对话框中输入 `@` 后选择具体文件，Codex 会直接定位到该文件进行分析或修改，比让它全局搜索更快、更准确。建议在任务目标明确时优先使用 `@` 指定相关文件。
+官方还说明，`Cmd/Ctrl+Shift+Enter` 可对**这一条消息**反转队列/纠偏行为；旧值 `interrupt` 按 `steer` 处理。若本机版本没有这些选项，记录版本差异，不硬套本文按键。[IDE 设置原文](https://learn.chatgpt.com/docs/ide/settings)
 
-![使用 @ 指定文件](/imported/codexguide/vscode-codex-file-reference-cb7a60181e.png)
+“本轮只读，不要运行测试”是当前任务的约束；“结束后再解释测试目录”是后续任务。排队不等于消息丢失，纠偏送达也不等于约束已经执行。CLI 的 Enter/Tab 行为另见[第 12 章](./12-cli-options.md)，不要套用到 IDE。
 
-## App 与 VS Code 插件怎么选
+## 没有预期反应，按可见证据分流
 
-| | Codex 桌面 App | VS Code 插件 |
-|---|---|---|
-| 适合场景 | 多任务管理、Skills、Automations | 边写代码边调用，贴近编辑器工作流 |
-| 文件结构可见性 | 需要切换界面 | 直接在编辑器里查看 |
-| 修改前后对比 | 独立查看 | 可结合编辑器 diff 查看 |
-| 推荐用户 | 需要并行任务或插件协作 | 日常编码开发者 |
+| 你实际看到的现象 | 先核对 | 下一步 |
+| --- | --- | --- |
+| 输入框文字还在，没有新消息 | 当前发送键配置、是否仍在编辑多行文本 | 保存文本，确认应使用的发送动作；只操作一次再观察 |
+| 明确显示进入队列，当前任务仍在运行 | 队列模式与当前任务状态 | 如本来就是后续任务，等待当前轮结束；需要立即纠偏时先确认原消息位置，避免重复提交 |
+| 输入消失，但消息、队列和新一轮都没有可见记录 | 时间、会话、运行状态、是否有错误提示 | 先保存现场并检查历史、文件和命令记录；执行状态不明时停止重发 |
+| 消息已出现或已回复，但结果违反约束 | 实际执行过的命令、文件变化与验收结果 | 转到[任务偏离排查](/cases/codex-task-keeps-drifting)或[完成验收](/cases/codex-finished-but-not-verified)，不能只按送达问题处理 |
 
-根据自己的使用习惯选择即可，两者可以配合使用。
+输入框清空不是服务器接收成功的证据；看到答复也不是文件修改成功的证据。对于可能写文件、提交或部署的任务，尤其不要用连续重发判断“有没有响应”。先核对是否已经执行；确认没有执行且风险可控后，才考虑一次有记录的重试。
 
-## 下一步
+可以在空闲会话先测试一句“只回复：已收到，不操作文件”，确认正常送达；如果任务自然进入运行状态，再用一条无副作用的补充文本观察队列或纠偏状态。任务太快结束就记录“未覆盖运行中状态”，不要人为制造长任务。这个练习只能核对本次正常路径，不能证明间歇故障已消失。
+
+## 把“不听话”变成能排查的报告
+
+<a href="/templates/codex-message-delivery-report.md" download="codex-message-delivery-report.md">下载消息送达记录表</a>，保存在本地后填写：
+
+1. 记录系统、VS Code 和扩展版本、客户端入口、本地/云端任务，以及时间和时区。
+2. 保存脱敏提示词、发送前是否忙碌、实际按键和上述两个设置值。
+3. 分别记录输入框、对话记录、队列、新一轮、执行产物五个位置看到的证据；没有看到就写“未见”，不要自行写成“服务端未收到”。
+4. 写出预期与实际结果、是否重试和结果。把观察与猜测分开，保留仍不确定的执行状态。
+
+报告可交给相关官方反馈入口。公开前移除密钥、账号信息、私有代码和原始日志中的敏感内容；不要为了恢复粘贴把私有提示词放入浏览器地址栏。
+
+## 社区报告能说明什么
+
+以下是选题证据，**不是本站复现，也不代表当前所有用户仍受影响**。原帖日期按 UTC，本站核对日期为 2026-10-16。
+
+- [Marcio_Galli 的 IDE 吞消息报告](https://community.openai.com/t/codex-ide-plugin-silently-eats-messages/1402586)：2026-10-01 发布，未给出精确环境版本；作者在 10-08 回复称几天前已恢复。没有公开确认的根因或修复版本，因此不能把旧帖写成今天仍持续的普遍故障。
+- [Jaimi 的 GitHub #50973](https://github.com/openai/codex/issues/50973)：2026-10-04 发布，报告环境为 Windows、VS Code 1.140.0、扩展 26.5928.31416，症状包含缺失和重复处理。核对时仍开放，未见维护者确认修复；相似症状不足以证明与上一帖同源。
+
+这些材料支持“先保留状态、区分送达和执行”的排查方法，不支持保证改某个设置、重启或重新发送就能修复。本文未验证故障发生率、修复效果或节省时间的幅度。
+
+## 来源与下一步
+
+官方文档核对日期：**2026-10-16**。它们是持续更新的说明，不把核对日期当作功能发布日期。
+
+- [Codex IDE extension：安装与打开侧栏](https://learn.chatgpt.com/docs/codex/ide)
+- [IDE extension settings：发送与队列设置](https://learn.chatgpt.com/docs/ide/settings)
+- [IDE extension commands：命令与文件上下文](https://learn.chatgpt.com/docs/ide/commands)
 
 下一步：[Codex Cloud：使用云端模式](./14-cloud.md)。
