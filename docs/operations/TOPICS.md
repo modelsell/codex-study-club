@@ -20,7 +20,7 @@
 | ID | 优先级 | 暂定选题 | 读者带走的成果 | 状态 |
 | --- | --- | --- | --- | --- |
 | T01 | P1 / 1 | 忙了半小时：怎样判断 Codex 是否在有效推进？ | 可下载进展检查表、纠偏提示词、真实核验复盘 | 方法稿已发布；等待真实任务检查点 |
-| T04 | P1 / 观察 | Codex 不听话：没收到、没理解，还是没执行？ | 症状对照、排查路径、有效故障报告模板 | 第 12/13 章校订与模板本地完成；方法交付，客户端故障未复现，待发布验收 |
+| T04 | P1 / 观察 | Codex 不听话：没收到、没理解，还是没执行？ | 症状对照、排查路径、有效故障报告模板 | 第 12/13 章校订与模板已上线；方法交付，客户端故障未复现，下载回执待核 |
 | T05 | P1 / 观察 | 审查面板没显示改动，怎样核对完整文件清单？ | 未跟踪/暂存漏检练习、只读验收提示词、工作区基线 | 旧文已上线，等待新反馈；撤回案例与客户端修复待验证 |
 | T03 | P2 | 换会话不重讲项目：让 Codex 接得住的交接包 | 可下载交接模板与新会话续做证据 | Goal + 断点模板已发布；第二轮夹具有基线证据，真实客户端效果待验证 |
 | T02 | P2 | 同一个任务，怎样选模型和思考强度才划算？ | 可复现实验与时间、消耗、质量对照 | 测量条件未齐，暂缓排名 |
@@ -87,7 +87,7 @@
   - [CrossS 的 Cloud 续做错误报告](https://community.openai.com/t/intermittent-appserverbackendrequesterror-unknown-when-sending-follow-ups-to-cloud-tasks/1406653)：2026-10-15 16:31 UTC 创建，19:22 UTC 更新正文，共 1 帖、0 回复。作者记录上午续做失败、15:42 UTC 起续做被接收并开始，恢复描述来自正文而非后续回复；环境为 macOS / Atlas / ChatGPT Web / Cloud，精确版本未知。恢复原因与永久性未确认，属于另一入口，不合并成 IDE 故障或统一修复证据。
 - **10-16 方法交付**：沿用稳定 URL 校订[第 12 章 CLI](/start/12-cli-options)与[第 13 章 IDE](/start/13-ide-vscode)，提供只读命令表任务、精确续接检查、CLI 与 IDE 分开的排队/纠偏说明，以及[消息送达记录表](/templates/codex-message-delivery-report.md)。第 13 章将按搜索排名安装改为官方入口与扩展标识核对；按输入框、对话、队列、新一轮和执行产物分开取证，不建议连续重发。
 - **官方依据**：10-16 核对 [CLI reference](https://learn.chatgpt.com/docs/cli/reference)、[Developer commands](https://learn.chatgpt.com/docs/developer-commands)、[Agent approvals & security](https://learn.chatgpt.com/docs/agent-approvals-security)、[IDE 入口](https://learn.chatgpt.com/docs/codex/ide)、[IDE settings](https://learn.chatgpt.com/docs/ide/settings)与[IDE commands](https://learn.chatgpt.com/docs/ide/commands)。核对日期不是功能发布日期。
-- **验证范围与状态**：本地 Lint、Build、生成快照检查通过；站内链接检查覆盖 63 页、67 个目标，0 失败。CLI 版本探测 `codex --version` 退出 137，未取得版本，原因未知；未继续执行 CLI 示例，不把文档核对写成客户端实测。VS Code 安装、运行中消息流程、故障修复和读者收益均未实测。文稿与模板本地完成，提交、部署与线上结果仍需分别验收。
+- **验证范围与状态**：本地 Lint、Build、生成快照检查通过；站内链接检查覆盖 63 页、67 个目标，0 失败。CLI 版本探测 `codex --version` 退出 137，未取得版本，原因未知；未继续执行 CLI 示例，不把文档核对写成客户端实测。VS Code 安装、运行中消息流程、故障修复和读者收益均未实测。内容提交 [`6ed0678`](https://github.com/modelsell/codex-study-club/commit/6ed0678942b9f874612f709b4f291862be508b6a) 已推送，同 SHA CI/Workers 和生产正文、Sitemap、模板字节独立核验通过。浏览器下载完成回执未取得，不宣称客户端保存成功；详见 [当日复盘](reviews/2026-10-16.md)。
 - **下一步**：观察原始 Issue 的维护者回应和读者脱敏记录；有相应客户端及版本条件后才验证正常流程或故障复现。证据不足时维持方法稿，不承诺修改设置、重启或重发能修复问题。
 
 ## T05：看懂改动并能撤回
