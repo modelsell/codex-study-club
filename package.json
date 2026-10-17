@@ -18,7 +18,8 @@
     "test:links": "python3 -m unittest discover -s scripts/tests -p \"test_*.py\"",
     "check:content": "node scripts/generate-content-data.mjs --check",
     "test:content": "node --test scripts/tests/content-check.test.mjs",
-    "test:analytics": "node --experimental-strip-types --test scripts/tests/analytics-queue.test.mjs"
+    "test:analytics": "node --experimental-strip-types --test scripts/tests/analytics-queue.test.mjs",
+    "test:knowledge": "node --test scripts/tests/knowledge-base.test.mjs"
   },
   "dependencies": {
     "@opennextjs/cloudflare": "^1.20.1",

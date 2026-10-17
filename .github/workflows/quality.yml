@@ -40,6 +40,8 @@ jobs:
         run: npm run test:links
       - name: Test analytics command queue
         run: npm run test:analytics
+      - name: Test knowledge retrieval
+        run: npm run test:knowledge
       - name: Lint
         run: npm run lint
       - name: Build pages and generate content

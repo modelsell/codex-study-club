@@ -10,7 +10,9 @@
 
 Codex Study Club 面向正在学习和使用 OpenAI Codex 的开发者，持续整理 **Codex App、Codex CLI、Codex Cloud、AGENTS.md、Skills、MCP、自动化、代码审查与问题排查** 等中文教程和可复现实战案例。项目还提供一个基于本地 Markdown 知识库的问答助手，帮助读者更快找到相关内容。
 
-## 本期新内容（2026-10-16）
+## 本期新内容（2026-10-17）
+
+- [Cloud 环境保存后，怎样确认任务能跑](https://codex.modelsp.com/start/14-cloud)：区分 Save、Publish、新任务与 PR，附只读就绪检查和发布失败记录；入门章节现已纳入站内助手检索。
 
 - [在 VS Code 中使用 Codex：消息发出后发生了什么](https://codex.modelsp.com/start/13-ide-vscode)：核对官方扩展、发送键和队列模式，区分消息未送达与执行偏离；附[消息送达记录表](https://codex.modelsp.com/templates/codex-message-delivery-report.md)。
 - [CLI 选项与命令](https://codex.modelsp.com/start/12-cli-options)：选对目录、只读梳理仓库、精确续接会话，明确 CLI 与 IDE 的按键差异。

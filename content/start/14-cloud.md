@@ -1,69 +1,110 @@
 ---
-description: "Codex Cloud 使用指南，说明云端任务、仓库连接、长任务、PR 工作流和与本地 App、IDE 的差异。"
+description: "Codex Cloud 环境已保存却不能运行？分清 Save、Publish、新任务与 PR，附只读就绪检查提示词和失败分流方法。"
+checkedAt: "2026-10-17"
 ---
 
-::: tip 最后核对
-官方资料最后核对日期：2026-06-29。本文参考 [Codex Cloud docs](https://platform.openai.com/docs/codex)、[Using Codex with your ChatGPT plan](https://help.openai.com/en/articles/11369540-using-codex-with-your-chatgpt-plan) 与 [Agent approvals & security](https://developers.openai.com/codex/agent-approvals-security)。云端环境、仓库连接、任务权限和可用计划请以官方页面为准。
+# 使用 Codex Cloud：环境保存后，怎样确认任务能跑
+
+看到“已保存”后仍无法开始 Cloud 任务，先确认卡在**配置保存、环境发布，还是任务执行**。这三步需要不同的证据；反复创建环境可能只会丢掉排查线索。
+
+本文适合第一次配置 Cloud，或修改环境后发现任务仍使用旧状态的读者。你会得到一套入门步骤、一段可复制的只读检查提示词，以及能交给维护者的失败记录。
+
+::: tip 核对日期与验证范围
+官方资料与下列社区原帖核对于 **2026-10-17**。这是本站校订日期，不是功能发布日期。本文完成了文档与来源核对；未在读者的账号里创建、发布 Cloud 环境，也未复现社区故障。练习的实际执行结果需要你在自己的任务中验证。
 :::
 
-# 使用 Codex Cloud
+## 先确认：你用的是哪一种 Cloud
 
-Codex Cloud 是一种不依赖本地环境的使用方式。你不需要在自己电脑上打开 App 或 CLI，直接在浏览器里连接 GitHub 仓库，让 Codex 在云端完成任务。
+当前 Cloud 可以从网页、桌面端或手机开始/继续任务；**客户端入口不等于代码运行地点**。Cloud 在独立云工作区运行，本机文件、浏览器登录和运行进程不会因此自动搬过去。适合把可在仓库环境里完成的分析、修复与测试交给云端执行。[官方 Cloud 总览](https://learn.chatgpt.com/docs/cloud)、[运行模式](https://learn.chatgpt.com/docs/environments/modes)
 
-::: tip
-CLI 的使用方式见 [CLI 安装与登录](./10-cli-installation.md)，IDE 插件见 [在 VS Code 中使用 Codex](./13-ide-vscode.md)，桌面 App 的使用见 [Codex 桌面 App 下载与安装](./02-app-installation.md)。
-:::
+如果界面或资料标记 **Codex Cloud (Legacy)**，请对照[旧版环境指南](https://learn.chatgpt.com/docs/environments/cloud-environment)。Legacy 仍涉及 Code Review、Linear/GitHub 集成，不能把它的 setup、缓存或网络规则直接套到本文的当前环境流程。看到不同界面时，先记录版本与入口，不急着照旧截图寻找按钮。
 
----
+开始前准备：有权使用的账号、目标 GitHub 仓库，以及仓库的安装/测试说明。仓库连接、环境使用权限和服务登录是不同条件；只勾选网络域名不会自动获得服务权限。具体可用范围以账号界面及工作区策略为准。
 
-## 适合场景
+## 从创建环境到第一次任务
 
-- 较长的任务，不想占用本地资源
-- 多个任务并行推进
-- 让 Codex 在独立环境里分析仓库、提出 PR
-- 不在电脑旁、只有浏览器时临时使用
+1. 网页或桌面端选择 **Work in → Cloud → Select environment**。已有发布环境可直接选择；需要新环境时使用 **Create environment**，按提示连接并选择 GitHub 仓库。
+2. 让 Codex 检查和准备环境。查看安装过程、失败命令与测试结果，缺少前提时先补齐明确缺项。
+3. 检查配置并 **Save → Publish**，等到 **Environment published**。然后 **Start a new task**。
+4. 先运行下方的小检查，确认仓库和运行条件，再交付真实开发任务。最终仍需审阅差异与测试结果，提交或创建 PR 是后续动作。[官方开始步骤](https://learn.chatgpt.com/docs/cloud)
 
----
+| 当前证据 | 可以确认什么 | 下一项验收 |
+| --- | --- | --- |
+| Save 已完成 | 环境配置已保存 | 是否已成功发布 |
+| Environment published | 已形成供新任务使用的环境状态 | 新任务能否实际执行检查 |
+| 新任务中可见的工具记录、输出与退出码 | 对应检查已执行 | 目标测试是否通过、差异是否正确 |
+| 已打开并核对 SHA 与差异的远端 commit/PR | 对应代码已送达 | 对应提交的 CI 和交付要求 |
 
-## 如何使用
+修改环境后，准备、测试、保存并 **Republish**，用**新任务**验证变更。已有任务保留自己的状态，不能只在旧任务里重试就断言重新发布没有生效。环境状态也不代替 Git 提交。[当前环境指南](https://learn.chatgpt.com/docs/environments/cloud-environments)
 
-### 第 1 步：打开 Codex Cloud
+## 可复制练习：先拿到一张就绪检查表
 
-访问：[https://chatgpt.com/codex/cloud](https://chatgpt.com/codex/cloud)
+在已经发布的环境中新建任务，粘贴下面的提示词。它只要求读取仓库和检查运行条件，不先装依赖、不修改代码；如果需要授权或缺少工具，记录阻塞即可。
 
-![codex-cloud-connect-github-button](/imported/codexguide/codex-cloud-connect-github-button-f07d2bfa94.png)
+```text
+请对当前 Cloud 工作区做一次只读就绪检查，不修改文件、安装依赖、
+提交、推送或创建 PR，也不要输出环境变量值、密钥、私有仓库地址。
 
-连接成功后会跳转到任务页面：
+1. 先读适用的 AGENTS.md 与 README，找到项目声明的安装、测试、构建入口。
+2. 确认当前仓库和工作目录；公开记录使用相对目录。
+   若存在多个仓库，分别说明，不假设当前目录就是目标仓库。
+3. 用只读 Git 命令报告当前 HEAD、分支或 detached 状态、工作区是否有改动。
+   找不到 Git 仓库时记录失败，不自动重新克隆。
+4. 按项目实际使用的工具检查版本；说明所需依赖是否存在。
+   不要把“package.json 中有脚本”写成“测试已通过”。
+5. 输出表格：检查项 | 执行命令或文件依据 | 结果 | 阻塞 | 下一步。
+   区分已执行、仅找到入口、未执行；命令失败时记录退出码及脱敏短错误。
+6. 给出下一项最小验证建议并停下，等待我选择要运行的项目检查。
+```
 
-![codex-cloud-start-task-page](/imported/codexguide/codex-cloud-start-task-page-21a1c47316.png)
+**实际产物应是一张有证据的表，而不是“环境正常”的一句回答。** 例如下面是填写格式，不是本站的 Cloud 执行结果：
 
-### 第 2 步：授权并选择仓库
+| 检查项 | 依据 | 结果 | 下一步 |
+| --- | --- | --- | --- |
+| 工作区身份 | 实际 HEAD 与相对目录 | 填写本次输出 | 与目标仓库核对 |
+| 测试入口 | README 或配置文件 | 仅找到命令，尚未运行 | 选择一个范围明确的检查 |
+| 工具版本 | 实际版本命令及退出码 | 填写结果或失败 | 缺工具时回环境准备阶段 |
 
-Cloud 模式直接在 GitHub 仓库中运行，需要先完成授权。你可以授权全部仓库，也可以只选择特定仓库：
+验收时检查三点：能否找到每个结论对应的命令或文件；失败项有没有保留；是否明确哪些测试还没运行。之后再要求它运行你选定的检查，并分别核验退出码和结果。只读就绪表通过，不意味着依赖安装、业务测试或 PR 已完成。
 
-![codex-cloud-github-repository-authorization](/imported/codexguide/codex-cloud-github-repository-authorization-deab319446.png)
+## 常见失败：按发生阶段处理
 
-### 第 3 步：下达指令，查看任务进度
+### 保存成功，发布失败
 
-下达指令后，Codex 会在云端执行任务，进度显示在页面下方的任务列表里：
+先记录发布时间、错误摘要、所用入口和环境名称的脱敏代号，再回看准备过程是否有失败步骤。不要因为 Save 成功就把环境记为可用；重试后也要核对新的完成状态。
 
-![codex-cloud-repository-context-prompt](/imported/codexguide/codex-cloud-repository-context-prompt-5c98249641.png)
+社区有具体报告：[GitHub #53000](https://github.com/openai/codex/issues/53000) 的作者于 **2026-10-10 UTC** 描述 macOS App 中保存成功而 Publish 失败；[#53239](https://github.com/openai/codex/issues/53239) 于 **10-12 UTC** 报告类似情况，并有先前 VPN enrollment 失败的背景。两帖在本次核对时仍开放，精确客户端版本与统一根因尚未确认。相似提示不证明同一故障。
 
-点击任务可以查看每一步的执行过程和中间状态。任务完成后也可以查看最终回答和产出内容：
+不要把帖子中的临时密钥改动视为通用修复，也不把删除环境作为默认排错步骤。先交付可定位的失败记录，比反复改变无关配置更容易判断哪一步出了问题。
 
-![codex-cloud-task-progress-result](/imported/codexguide/codex-cloud-task-progress-result-659a985f05.png)
+### 依赖下载或外部接口被拒绝
 
----
+从失败命令中提取**实际目标主机**，分别检查网络许可和服务认证。需要的主机可能不止仓库网页域名。环境准备阶段测试修改，再保存、发布并用新任务复测；企业策略可能还有额外限制。[官方网络设置与排查](https://learn.chatgpt.com/docs/environments/cloud-environments)
 
-## 与桌面 App 模式的区别
+不要为排错直接开放全部网络，也不要在聊天或 Issue 里粘贴凭证。普通连接失败并不能说明模型能力下降。
 
-| | Codex 桌面 App | Codex Cloud |
-|---|---|---|
-| 运行环境 | 本地电脑 | 云端（GitHub 环境） |
-| 是否需要安装 | 需要下载电脑端客户端 | 不需要，浏览器直接访问 |
-| 适合任务 | 本地代码、插件、自动化 | 远程仓库分析、PR 生成 |
-| 并行任务 | 支持 | 支持 |
+### 新任务能跑，旧任务仍卡住
+
+分开保留两次任务的状态、环境发布时点和执行证据。继续旧任务与新建任务不是同一个实验。新任务可运行可以帮助缩小排查范围，但不证明旧任务数据已恢复；重要改动先通过现有可用路径保存，不以删除旧任务作为默认恢复手段。
+
+## 反馈时交付这些信息
+
+```text
+发生时间与时区：
+客户端/入口与可见版本（未显示写未知）：
+当前 Cloud 或 Legacy（不能判断写未知）：
+失败阶段：准备 / Save / Publish / 新任务 / 旧任务 / 提交或 PR
+最后一个成功步骤：
+失败步骤与脱敏短错误：
+重试前后是否出现新的完成状态：
+新旧任务是否分别测试、各自结果：
+尚未执行或无法确认的检查：
+```
+
+记录只保留定位所需信息，删除令牌、账号资料、私有仓库名称、内网地址和无关日志。你可以通过[本站内容反馈](https://github.com/modelsell/codex-study-club/issues/new?template=content-suggestion.yml)指出教程缺口；产品故障则在官方渠道附上对应证据。本文提供排查路径，不承诺修复尚无确认根因的问题。
 
 ## 下一步
 
-下一步：[理解费用与上下文](../advanced/01-cost-context.md)。
+- 任务能够执行后，使用[第一个可验收任务](/start/06-first-task)定义范围和完成条件。
+- 结果声称完成时，对照[差异与验收清单](/cases/codex-finished-but-not-verified)核对产物。
+- 想使用本地入口，参阅 [CLI 选项与命令](/start/12-cli-options)与 [VS Code 教程](/start/13-ide-vscode)。

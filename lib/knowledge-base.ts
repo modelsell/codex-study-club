@@ -1,8 +1,8 @@
 import "server-only";
 
-import { cases, knowledge, themes, tutorials, updates, type SourceLink } from "@/lib/content";
+import { cases, knowledge, startArticles, themes, tutorials, updates, type SourceLink } from "@/lib/content";
 
-export type KnowledgeKind = "assistant" | "case" | "theme" | "tutorial" | "community-update";
+export type KnowledgeKind = "assistant" | "start" | "case" | "theme" | "tutorial" | "community-update";
 
 export type KnowledgeEntry = {
   id: string;
@@ -85,6 +85,16 @@ export const knowledgeBase: KnowledgeEntry[] = [
     href: item.sources.find((source) => source.href.startsWith("/"))?.href || "/",
     terms: item.terms,
     sources: item.sources,
+  })),
+  ...startArticles.map((item) => ({
+    id: `start:${item.slug}`,
+    kind: "start" as const,
+    title: item.title,
+    summary: item.description,
+    content: item.markdown,
+    href: `/start/${item.slug}`,
+    terms: [item.title, item.track, "新手教程"],
+    sources: [{ label: `新手教程：${item.title}`, href: `/start/${item.slug}` }],
   })),
   ...tutorials.map((item) => ({
     id: `tutorial:${item.slug}`,

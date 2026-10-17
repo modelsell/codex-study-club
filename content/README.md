@@ -97,6 +97,7 @@ sources:
 `lib/knowledge-base.ts` 会把以下 Markdown 自动加入本地资料库：
 
 - `assistant/` 中的定向问答。
+- `start/` 中的全部新手教程章节，保留各章的 `/start/文件名` 链接。
 - `tutorials/` 中的教程。
 - `themes/` 中的主题教程与图库说明。
 - `cases/` 下所有分类案例。
@@ -108,7 +109,9 @@ sources:
 - 未配置 `OPENAI_API_KEY` 时：系统直接返回最相关文档的本地答案或摘要。
 - 两种模式都会返回对应的站内资料链接。
 
-不需要为案例、教程或社群动态额外建立索引记录。新增 Markdown 后，构建或重启服务即可进入资料库。
+不需要为案例、教程或社群动态额外建立索引记录。新增或修改 Markdown 后运行 `npm run generate:content` 更新快照；`npm run build` 会自动执行此步。
+
+`npm run test:knowledge` 会离线检查新手章节召回、来源链接和原有内容类型，不需要 API Key。内容修改后先运行 `npm run generate:content`，让测试使用最新生成快照。
 
 ## 写作规则
 
