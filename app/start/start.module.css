@@ -1,0 +1,97 @@
+.page { padding-bottom: 88px; }
+.hero { align-items: end; display: grid; gap: 64px; grid-template-columns: minmax(0, 1fr) 300px; padding-top: 78px; padding-bottom: 58px; }
+.eyebrow { color: var(--agent-dark); font-family: "SFMono-Regular", Consolas, monospace; font-size: 10px; font-weight: 650; letter-spacing: .09em; line-height: 1.6; margin: 0 0 22px; }
+.hero h1 { font-size: clamp(38px, 4.4vw, 60px); font-weight: 650; letter-spacing: -.055em; line-height: 1.22; margin: 0 0 24px; }
+.lead { color: var(--muted); font-size: 16px; line-height: 1.9; margin: 0; }
+.contentsLink { align-items: center; border-bottom: 1px solid var(--ink); display: inline-flex; font-size: 13px; font-weight: 650; gap: 22px; margin-top: 30px; padding-bottom: 8px; }
+.guideNote { border-top: 3px solid var(--agent-dark); padding: 23px 0 0; }
+.noteLabel { color: var(--muted); font-size: 12px; }
+.guideCount { align-items: center; display: flex; gap: 21px; margin: 18px 0 20px; }
+.guideCount strong { font-family: Georgia, "Times New Roman", serif; font-size: 82px; font-weight: 400; letter-spacing: -.065em; line-height: 1; }
+.guideCount span { color: var(--muted); font-size: 12px; line-height: 1.9; }
+.guideNote > p { border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; line-height: 1.85; margin: 0; padding-top: 16px; }
+.entries { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.entry { align-items: center; border-block: 1px solid var(--line); display: grid; gap: 16px; grid-template-columns: auto 1fr auto; padding: 25px 22px; transition: background-color 160ms; }
+.entry:first-child { padding-left: 0; }
+.entry:last-child { padding-right: 0; }
+.entry + .entry { border-left: 1px solid var(--line); }
+.entry:hover { background: var(--surface); }
+.entryIndex { color: var(--agent-dark); font-family: "SFMono-Regular", Consolas, monospace; font-size: 11px; }
+.entry strong { display: block; font-size: 14px; font-weight: 650; margin-bottom: 7px; }
+.entry small { color: var(--muted); display: block; font-size: 11px; }
+.entry > svg { color: var(--agent-dark); }
+.curriculum { align-items: start; display: grid; gap: 78px; grid-template-columns: 255px minmax(0, 1fr); padding-top: 84px; scroll-margin-top: 92px; }
+.overview { position: sticky; top: 105px; }
+.overview h2 { font-size: 28px; font-weight: 600; letter-spacing: -.045em; line-height: 1.4; margin: 0 0 20px; }
+.overview > p:not(.eyebrow) { color: var(--muted); font-size: 12px; line-height: 1.9; margin: 0; }
+.overview nav { border-top: 1px solid var(--line); display: grid; margin-top: 30px; padding-top: 10px; }
+.overview nav a { align-items: center; display: grid; font-size: 11px; gap: 10px; grid-template-columns: 22px minmax(0, 1fr) auto; min-height: 44px; }
+.overview nav a span { color: var(--agent-dark); font-family: "SFMono-Regular", Consolas, monospace; font-size: 10px; }
+.overview nav a:hover { color: var(--agent-dark); }
+.stages { min-width: 0; }
+.stage { margin-bottom: 54px; scroll-margin-top: 100px; }
+.stage:last-child { margin-bottom: 0; }
+.stageHeading { align-items: start; border-bottom: 1px solid var(--ink); display: flex; gap: 22px; padding-bottom: 23px; }
+.stageNumber { color: var(--agent-dark); font-family: Georgia, "Times New Roman", serif; font-size: 46px; letter-spacing: -.055em; line-height: 1.1; }
+.stageMeta { color: var(--agent-dark); font-size: 10px; margin: 0 0 8px; }
+.stageHeading h2 { font-size: 23px; font-weight: 600; letter-spacing: -.035em; margin: 0; }
+.stageHeading div > p:last-child { color: var(--muted); font-size: 12px; line-height: 1.8; margin: 10px 0 0; }
+.chapterList { list-style: none; margin: 0; padding: 0; }
+.chapterList li { border-bottom: 1px solid var(--line); }
+.chapterList a { align-items: start; display: grid; gap: 18px; grid-template-columns: 26px minmax(0, 1fr) 18px; padding: 23px 0; }
+.chapterList a:hover h3 { color: var(--agent-dark); }
+.chapterNumber { color: var(--muted); font-family: "SFMono-Regular", Consolas, monospace; font-size: 11px; padding-top: 5px; }
+.chapterList h3 { font-size: 15px; font-weight: 650; line-height: 1.65; margin: 0; transition: color 160ms; }
+.chapterList p { color: var(--muted); font-size: 12px; line-height: 1.85; margin: 8px 0 0; }
+.chapterList svg { color: var(--agent-dark); margin-top: 4px; }
+.nextStep { align-items: center; display: flex; gap: 32px; justify-content: space-between; margin-top: 84px; }
+.nextStep > div { border-left: 3px solid var(--agent-dark); padding: 7px 0 7px 24px; }
+.nextStep .eyebrow { margin-bottom: 14px; }
+.nextStep h2 { font-size: 24px; font-weight: 600; letter-spacing: -.035em; line-height: 1.5; margin: 0; }
+.nextStep p:last-child { color: var(--muted); font-size: 12px; line-height: 1.8; margin: 12px 0 0; }
+.nextStep > a { align-items: center; background: var(--ink); color: var(--surface); display: inline-flex; flex-shrink: 0; font-size: 13px; gap: 24px; min-height: 48px; padding: 13px 20px; }
+.nextStep > a:hover { background: var(--agent-dark); }
+.page a:focus-visible { outline: 2px solid var(--agent-dark); outline-offset: 5px; }
+
+@media (max-width: 980px) {
+  .hero { gap: 38px; grid-template-columns: minmax(0, 1fr) 235px; }
+  .curriculum { gap: 40px; grid-template-columns: 220px minmax(0, 1fr); }
+  .entry { gap: 11px; padding-inline: 14px; }
+}
+@media (max-width: 720px) {
+  .page { padding-bottom: 56px; }
+  .hero { gap: 36px; grid-template-columns: 1fr; padding-top: 46px; padding-bottom: 30px; }
+  .eyebrow { font-size: 9px; margin-bottom: 19px; }
+  .hero h1 { font-size: clamp(34px, 8.2vw, 48px); }
+  .lead { font-size: 14px; }
+  .desktopBreak { display: none; }
+  .contentsLink { margin-top: 22px; }
+  .guideNote { display: grid; gap: 0 22px; grid-template-columns: 1fr 1fr; padding-top: 18px; }
+  .noteLabel { grid-column: 1 / -1; }
+  .guideCount { gap: 14px; margin: 16px 0 0; }
+  .guideCount strong { font-size: 60px; }
+  .guideCount span { font-size: 10px; }
+  .guideNote > p { align-self: center; border: 0; font-size: 11px; padding: 0; }
+  .entries { grid-template-columns: 1fr; }
+  .entry, .entry:first-child, .entry:last-child { gap: 18px; padding: 21px 0; }
+  .entry + .entry { border-left: 0; border-top: 0; }
+  .entry strong { font-size: 14px; margin-bottom: 5px; }
+  .curriculum { gap: 36px; grid-template-columns: 1fr; padding-top: 50px; }
+  .overview { position: static; }
+  .overview h2 { font-size: 26px; }
+  .overview h2 br { display: none; }
+  .overview nav { column-gap: 20px; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 20px; }
+  .overview nav a { font-size: 10px; gap: 7px; grid-template-columns: 16px minmax(0, 1fr); }
+  .overview nav svg { display: none; }
+  .stage { margin-bottom: 40px; }
+  .stageHeading { gap: 17px; padding-bottom: 21px; }
+  .stageNumber { font-size: 39px; }
+  .stageHeading h2 { font-size: 21px; }
+  .chapterList a { gap: 12px; grid-template-columns: 23px minmax(0, 1fr) 16px; padding: 21px 0; }
+  .chapterList h3 { font-size: 14px; }
+  .chapterList p { font-size: 11px; }
+  .nextStep { align-items: start; flex-direction: column; gap: 25px; margin-top: 48px; }
+  .nextStep h2 { font-size: 22px; }
+  .nextStep > div { padding-left: 18px; }
+  .nextStep > a { margin-left: 21px; }
+}

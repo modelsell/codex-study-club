@@ -37,7 +37,7 @@ export default function ThemesPage() {
   return (
     <>
       <SiteHeader />
-      <main className="article-page markdown-article-page theme-page">
+      <main id="main-content" tabIndex={-1} className="article-page markdown-article-page theme-page">
         <article className="article shell-narrow">
           <div className="meta-line article-meta">
             <span>桌面主题</span>

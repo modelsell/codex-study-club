@@ -6,6 +6,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const base = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
   const staticRoutes = [
     "",
+    "/start",
     "/learn/getting-started",
     "/themes",
     "/agent-awards",
@@ -19,7 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/play`, lastModified: new Date(playground.checkedAt), changeFrequency: "weekly" as const, priority: 0.8 },
     ...staticRoutes.map((route) => ({
       url: `${base}${route}`,
-      lastModified: new Date("2026-07-20"),
+      lastModified: new Date(["", "/start", "/cases"].includes(route) ? "2026-10-17" : "2026-07-20"),
       changeFrequency: route === "" ? ("weekly" as const) : ("monthly" as const),
       priority: route === "" ? 1 : 0.8,
     })),

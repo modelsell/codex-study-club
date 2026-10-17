@@ -1,58 +1,44 @@
 import type { Metadata } from "next";
-import { CaseList } from "@/components/case-list";
+import { CaseLibrary } from "@/components/case-library";
+import styles from "@/components/case-library.module.css";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { caseCategories, getCaseCategory } from "@/lib/case-categories";
 import { cases } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "Codex 实战案例",
-  description: "经过验证的 Codex App、CLI、GitHub 与 Skill 实战案例。",
+  description: "按任务、工具和问题查找 Codex 案例，阅读操作步骤、来源与验收方法。",
   alternates: { canonical: "/cases" },
 };
 
 export default function CasesPage() {
+  const caseMetadata = cases.map((item) => ({
+    slug: item.slug,
+    title: item.title,
+    summary: item.summary,
+    category: item.category,
+    cover: item.cover,
+    imageAlt: item.imageAlt,
+    level: item.level,
+    surface: item.surface,
+    duration: item.duration,
+    checkedAt: item.checkedAt,
+    number: item.number,
+  }));
+
   return (
     <>
       <SiteHeader />
-      <main className="listing-page" id="top">
-        <header className="page-intro shell">
-          <span className="eyebrow">REAL WORK</span>
-          <h1>实战案例</h1>
-          <p>按目标找到对应案例。先浏览任务和结果，再进入完整步骤、截图与验证标准。</p>
-          <nav className="case-category-nav" aria-label="案例分类">
-            {caseCategories.map((category) => {
-              const count = cases.filter((item) => getCaseCategory(item) === category.id).length;
-              return (
-                <a href={`#${category.id}`} key={category.id}>
-                  <span>{category.label}</span>
-                  <small>{count}</small>
-                </a>
-              );
-            })}
-          </nav>
-        </header>
-        <div className="category-library">
-          {caseCategories.map((category) => {
-            const categoryItems = cases.filter((item) => getCaseCategory(item) === category.id);
-            const count = categoryItems.length;
-
-            return (
-              <section className="case-category-section" id={category.id} key={category.id}>
-                <div className="shell">
-                  <header className="case-category-heading">
-                    <div>
-                      <span className="eyebrow">{String(count).padStart(2, "0")} CASES</span>
-                      <h2>{category.label}</h2>
-                      <p>{category.description}</p>
-                    </div>
-                    <a href="#top">返回分类</a>
-                  </header>
-                  <CaseList items={categoryItems} />
-                </div>
-              </section>
-            );
-          })}
+      <main className={styles.page} id="main-content" tabIndex={-1}>
+        <div className="shell">
+          <header className={styles.intro} id="top">
+            <div>
+              <span className={styles.kicker}>THE FIELD NOTES / 实践档案</span>
+              <h1>实战案例</h1>
+            </div>
+            <p>从你正在遇到的问题出发。找到可参考的任务、步骤与验收方法，再把它用到自己的工作里。</p>
+          </header>
+          <CaseLibrary items={caseMetadata} />
         </div>
       </main>
       <SiteFooter />

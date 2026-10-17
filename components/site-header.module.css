@@ -1,0 +1,39 @@
+.header { background: rgba(247,245,239,.96); border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 50; backdrop-filter: blur(12px); }
+.inner { height: 88px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.brand { display: inline-flex; align-items: center; gap: 13px; font-size: 19px; font-weight: 750; flex-shrink: 0; }
+.brandLight { font-weight: 450; }
+.brand small { display: block; margin-top: 6px; color: var(--muted); font-size: 10px; font-weight: 450; letter-spacing: 2px; }
+.desktopNav { display: flex; align-items: center; gap: 26px; font-size: 13px; font-weight: 550; }
+.desktopNav > a { display: flex; align-items: center; min-height: 44px; position: relative; }
+.desktopNav > a[aria-current="page"]::after { content: ""; position: absolute; height: 2px; background: var(--agent-dark); left: 0; right: 0; bottom: 0; }
+.desktopNav a:hover, .desktopNav a[aria-current="page"], .resources summary:hover { color: var(--agent-dark); }
+.resources { position: relative; }
+.resources summary { display: flex; align-items: center; gap: 6px; min-height: 44px; cursor: pointer; list-style: none; }
+.resources summary::-webkit-details-marker, .mobileMenu summary::-webkit-details-marker { display: none; }
+.resources[open] summary svg { transform: rotate(180deg); }
+.dropdown { position: absolute; top: 48px; right: -24px; width: 200px; padding: 12px; background: var(--surface); border: 1px solid var(--line); border-radius: 6px; box-shadow: var(--shadow); }
+.dropdown a { display: flex; justify-content: space-between; align-items: center; padding: 12px; min-height: 44px; border-radius: 3px; }
+.dropdown a:hover { background: var(--bg); }
+.actions { display: flex; align-items: center; gap: 16px; }
+.github { width: 44px; height: 44px; display: grid; place-items: center; }
+.github svg { width: 20px; height: 20px; }
+.ask { display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; border: 1px solid var(--line-strong); border-radius: 4px; padding: 0 14px; font-size: 12px; font-weight: 600; transition: background 150ms; }
+.ask:hover { background: var(--ink); color: var(--surface); border-color: var(--ink); }
+.mobileMenu { display: none; }
+.skip { position: fixed; top: -100px; left: 24px; padding: 14px 22px; color: white; background: var(--ink); z-index: 100; }
+.skip:focus { top: 12px; }
+@media (max-width: 1040px) { .desktopNav { gap: 17px; } .actions { gap: 4px; } .github { display: none; } .inner { gap: 18px; } }
+@media (max-width: 820px) {
+  .inner { height: 72px; gap: 12px; }
+  .brand { font-size: 17px; gap: 10px; }
+  .brand small { font-size: 9px; }
+  .desktopNav, .actions { display: none; }
+  .mobileMenu { display: block; }
+  .mobileMenu > summary { display: grid; place-items: center; width: 44px; height: 44px; cursor: pointer; list-style: none; border: 1px solid var(--line); border-radius: 4px; }
+  .closeIcon { display: none; }
+  .mobileMenu[open] .menuIcon { display: none; }
+  .mobileMenu[open] .closeIcon { display: block; }
+  .mobilePanel { position: absolute; top: 71px; left: 0; right: 0; background: var(--bg); border-bottom: 1px solid var(--line-strong); padding: 12px 22px 22px; max-height: calc(100dvh - 72px); overflow-y: auto; box-shadow: 0 16px 30px #2426200d; }
+  .mobilePanel a { display: flex; align-items: center; justify-content: space-between; min-height: 48px; border-bottom: 1px solid var(--line); font-size: 14px; }
+  .mobilePanel a[aria-current="page"] { color: var(--agent-dark); font-weight: 700; }
+}

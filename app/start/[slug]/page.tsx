@@ -6,6 +6,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { getStartArticle, startArticles } from "@/lib/content";
 import { notFound } from "next/navigation";
+import styles from "./article.module.css";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -43,14 +44,15 @@ export default async function StartArticlePage({ params }: Props) {
   return (
     <>
       <SiteHeader />
-      <main className="article-page markdown-article-page start-article-page">
-        <div className="start-article-layout shell">
-          <aside className="start-article-sidebar" aria-label="新手入门目录">
-            <Link className="start-sidebar-title" href="/start/01-what-is-codex">
-              <BookOpen size={16} />
-              新手入门
+      <main id="main-content" tabIndex={-1} className={styles.page}>
+        <div className={`shell ${styles.layout}`}>
+          <aside className={styles.sidebar} aria-label="学习路线目录">
+            <Link className={styles.sidebarTitle} href="/start">
+              <BookOpen size={16} aria-hidden="true" />
+              学习路线
+              <span>{startArticles.length} 篇</span>
             </Link>
-            <ol>
+            <nav aria-label="全部教程章节"><ol className={styles.chapterList}>
               {startArticles.map((item) => (
                 <li key={item.slug}>
                   <Link
@@ -62,53 +64,58 @@ export default async function StartArticlePage({ params }: Props) {
                   </Link>
                 </li>
               ))}
-            </ol>
+            </ol></nav>
+            <Link className={styles.sidebarPractice} href="/cases">去案例库找一个练习 <ArrowRight size={14} aria-hidden="true" /></Link>
           </aside>
 
-          <article className="article start-article">
-            <Link className="back-link" href="/">
-              <ArrowLeft size={16} />
-              返回首页
+          <article className={styles.article}>
+            <Link className={styles.backLink} href="/start">
+              <ArrowLeft size={15} aria-hidden="true" />
+              返回学习路线
             </Link>
-            <details className="start-mobile-index">
-              <summary>查看全部 14 篇教程</summary>
-              <ol>
+            <details className={styles.mobileIndex}>
+              <summary>查看全部 {startArticles.length} 篇教程 <span>当前第 {index + 1} 章</span></summary>
+              <nav aria-label="移动端教程目录"><ol className={styles.chapterList}>
                 {startArticles.map((item) => (
                   <li key={item.slug}>
                     <Link aria-current={item.slug === article.slug ? "page" : undefined} href={`/start/${item.slug}`}>
-                      {item.number} · {item.title}
+                      <span>{item.number}</span>{item.title}
                     </Link>
                   </li>
                 ))}
-              </ol>
+              </ol></nav>
             </details>
-            <div className="start-article-meta">
-              <span>{article.track}</span>
-              <span>第 {article.number} 章</span>
-              {article.checkedAt ? <span>核对于 {article.checkedAt}</span> : null}
-            </div>
-            <h1>{article.title}</h1>
-            <p className="article-lead">{article.description}</p>
+            <header className={styles.articleHeader}>
+              <div className={styles.meta}>
+                <span>{article.track}</span>
+                <span>第 {index + 1} 章 / 共 {startArticles.length} 章</span>
+              </div>
+              <h1>{article.title}</h1>
+              <p className={styles.lead}>{article.description}</p>
+              {article.checkedAt ? <p className={styles.checkedAt}>内容核对 <time dateTime={article.checkedAt}>{article.checkedAt}</time></p> : null}
+            </header>
             <MarkdownContent content={article.markdown} />
-            <p className="start-article-credit">
+            <p className={styles.credit}>
               本文基于 CodexGuide 的 MIT 授权内容收录，原作者 canghe。
             </p>
-            <nav className="start-article-pagination" aria-label="文章翻页">
+            <nav className={styles.pagination} aria-label="教程前后章导航">
               {previous ? (
-                <Link href={`/start/${previous.slug}`}>
-                  <ChevronLeft size={18} />
-                  <span><small>上一篇</small>{previous.title}</span>
-                </Link>
-              ) : <span />}
-              {next ? (
-                <Link href={`/start/${next.slug}`}>
-                  <span><small>下一篇</small>{next.title}</span>
-                  <ChevronRight size={18} />
+                <Link href={`/start/${previous.slug}`} rel="prev">
+                  <ChevronLeft size={18} aria-hidden="true" />
+                  <span><small>上一章 · {previous.number}</small>{previous.title}</span>
                 </Link>
               ) : (
-                <Link href="/start/01-what-is-codex">
-                  <span><small>已完成</small>从第一篇重新开始</span>
-                  <ArrowRight size={18} />
+                <Link href="/start"><ChevronLeft size={18} aria-hidden="true" /><span><small>从这里开始</small>查看完整学习路线</span></Link>
+              )}
+              {next ? (
+                <Link href={`/start/${next.slug}`} rel="next">
+                  <span><small>下一章 · {next.number}</small>{next.title}</span>
+                  <ChevronRight size={18} aria-hidden="true" />
+                </Link>
+              ) : (
+                <Link href="/cases">
+                  <span><small>接着实践</small>在案例库中选择一个任务</span>
+                  <ArrowRight size={18} aria-hidden="true" />
                 </Link>
               )}
             </nav>

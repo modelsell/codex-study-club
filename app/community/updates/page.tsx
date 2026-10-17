@@ -14,7 +14,7 @@ export default function UpdatesPage() {
   return (
     <>
       <SiteHeader />
-      <main className="listing-page">
+      <main id="main-content" tabIndex={-1} className="listing-page">
         <header className="page-intro shell">
           <span className="eyebrow">FIELD NOTES</span>
           <h1>Codex 动态</h1>

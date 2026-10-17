@@ -14,7 +14,7 @@ export default function IndustryInsightsPage() {
   return (
     <>
       <SiteHeader />
-      <main className="listing-page industry-insights-page">
+      <main id="main-content" tabIndex={-1} className="listing-page industry-insights-page">
         <header className="page-intro shell">
           <span className="eyebrow">INDUSTRY BRIEFING</span>
           <h1>行业解读</h1>
