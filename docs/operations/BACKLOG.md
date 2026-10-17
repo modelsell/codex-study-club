@@ -14,7 +14,7 @@
 
 ## 本周执行记录
 
-- 10-17 按明确改版要求完成首页、学习路线、案例搜索/筛选、导航与阅读页重构，保留文章和稳定 URL；本地构建与多尺寸交互验收通过。已通过 [PR #2](https://github.com/modelsell/codex-study-club/pull/2) 交付，代码同 SHA CI/Workers 与云端预览通过；合并后需核验生产同 SHA CI/Workers、路由与关键交互，不能以本地测试宣称上线或增长。设计约定见 [SITE-DESIGN.md](SITE-DESIGN.md)，详见 [当日复盘](reviews/2026-10-17.md)。
+- 10-17 按明确改版要求完成首页、学习路线、案例搜索/筛选、导航与阅读页重构，保留文章和稳定 URL；本地构建与多尺寸交互验收通过。已通过 [PR #2](https://github.com/modelsell/codex-study-club/pull/2) 交付，按用户要求于 11:41 合并并发布，合并 SHA 的 CI/Workers 与正式域名首页、学习路线、案例库和 Sitemap 已确认。后续观察真实反馈，不以维护测试宣称增长。设计约定见 [SITE-DESIGN.md](SITE-DESIGN.md)，详见 [当日复盘](reviews/2026-10-17.md)。
 
 - 10-17 上午校订第 14 章 Cloud，新增 T07 发布失败选题证据与只读就绪练习；补齐助手的 14 篇入门章节检索，回归、Lint、Build、快照和站内链接通过；提交 `7efb39e` 同 SHA CI/Workers、线上新正文、首页日期与 Sitemap 已确认。GA4 10-16 完整单日活跃/新用户各 28、事件 146，事件用户总数 30；测试访问未排除，不计算自然增长。详见 [10-17 记录](reviews/2026-10-17.md)。
 
