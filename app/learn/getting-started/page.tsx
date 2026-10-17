@@ -30,7 +30,7 @@ export default function GettingStartedPage() {
   return (
     <>
       <SiteHeader />
-      <main className="article-page tutorial-page">
+      <main id="main-content" tabIndex={-1} className="article-page tutorial-page">
         <article className="article shell-narrow">
           <Link className="back-link" href="/">
             <ArrowLeft size={16} />

@@ -1,0 +1,20 @@
+.grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 24px; }
+.card { border: 1px solid var(--line); border-radius: 5px; overflow: hidden; background: var(--surface); min-width: 0; display: flex; flex-direction: column; transition: border-color 160ms, box-shadow 160ms; }
+.card:hover { border-color: var(--line-strong); box-shadow: 0 5px 16px #24262008; }
+.cover { display: block; position: relative; aspect-ratio: 2.5; overflow: hidden; background: #e8e5dc; border-bottom: 1px solid var(--line); }
+.cover img { object-fit: cover; transition: transform 240ms; }
+.card:hover .cover img { transform: scale(1.025); }
+.placeholder { height: 100%; display: flex; padding: 28px; gap: 16px; align-items: center; justify-content: space-between; color: var(--agent-dark); font: 12px var(--font-mono); }
+.copy { display: flex; flex-direction: column; flex: 1; padding: 22px 22px 0; }
+.meta { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px; align-items: center; color: var(--muted); font-size: 10px; }
+.meta span { display: inline-flex; gap: 5px; align-items: center; }
+.meta span:first-child { color: var(--agent-dark); font-weight: 550; }
+.copy h3 { font-size: 19px; line-height: 1.6; font-weight: 600; margin: 14px 0 10px; overflow-wrap: anywhere; }
+.copy h3 a:hover { color: var(--agent-dark); }
+.copy > p { color: var(--muted); font-size: 12px; line-height: 1.85; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; margin: 0 0 24px; }
+.bottom { display: flex; align-items: center; gap: 12px; justify-content: space-between; border-top: 1px solid var(--line); margin-top: auto; min-height: 57px; }
+.bottom > span { color: var(--muted); font: 10px var(--font-mono); }
+.bottom > a { display: inline-flex; align-items: center; gap: 7px; font-size: 11px; min-height: 44px; font-weight: 600; flex-shrink: 0; }
+.bottom > a:hover { color: var(--agent-dark); }
+@media (max-width: 1000px) and (min-width: 641px) { .grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 20px; } }
+@media (max-width: 640px) { .grid { grid-template-columns: 1fr; gap: 20px; } .cover { aspect-ratio: 2.7; } .copy { padding-inline: 20px; } .copy h3 { font-size: 20px; } .copy > p { font-size: 14px; } .meta { font-size: 11px; } .bottom > a { font-size: 12px; } }

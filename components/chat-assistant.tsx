@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, KeyboardEvent, useMemo, useRef, useState } from "react";
+import { FormEvent, KeyboardEvent, useRef, useState } from "react";
 import { ArrowUp, BookOpen, RotateCcw, Sparkles } from "lucide-react";
 import { trackAnalyticsEvent } from "@/components/google-analytics";
 
@@ -30,7 +30,7 @@ export function ChatAssistant() {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const requestRef = useRef<AbortController | null>(null);
 
-  const canSubmit = useMemo(() => input.trim().length > 0 && !loading, [input, loading]);
+  const canSubmit = input.trim().length > 0 && !loading;
 
   async function ask(question: string, source: "typed" | "suggestion" = "typed") {
     const cleanQuestion = question.trim();
@@ -114,7 +114,7 @@ export function ChatAssistant() {
             message.id === assistantId && !message.content
               ? {
                   ...message,
-                  content: "刚才没有成功连接学习助手。你可以稍后重试，或先从下方实战案例开始。",
+                  content: "刚才没有成功连接学习助手。你可以稍后重试，或先浏览实战案例。",
                 }
               : message,
           ),
@@ -142,6 +142,7 @@ export function ChatAssistant() {
   }
 
   function handleKeyDown(event: KeyboardEvent<HTMLTextAreaElement>) {
+    if (event.nativeEvent.isComposing || event.nativeEvent.keyCode === 229) return;
     if (event.key === "Enter" && !event.shiftKey) {
       event.preventDefault();
       if (canSubmit) void ask(input);

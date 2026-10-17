@@ -171,7 +171,7 @@ export default function AgentAwardsPage() {
   return (
     <>
       <SiteHeader />
-      <main className="agent-awards-page">
+      <main id="main-content" tabIndex={-1} className="agent-awards-page">
         <section className="awards-hero">
           <Image
             alt="Agent Skill 自动完成代码审查并输出可核验结果的工作流示例"

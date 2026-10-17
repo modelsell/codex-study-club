@@ -30,7 +30,7 @@ export default async function UpdateDetailPage({ params }: Props) {
   return (
     <>
       <SiteHeader />
-      <main className="article-page update-article-page">
+      <main id="main-content" tabIndex={-1} className="article-page update-article-page">
         <article className="article shell-narrow">
           <Link className="back-link" href="/community/updates">
             <ArrowLeft size={16} />

@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 export default function PlayPage() {
   return <>
     <SiteHeader />
-    <main className={`${styles.page} shell`}>
+    <main id="main-content" tabIndex={-1} className={`${styles.page} shell`}>
       <header className={styles.intro}>
         <span className="eyebrow">{content.eyebrow}</span>
         <h1>{content.title}<span aria-hidden="true"> ✳</span></h1>

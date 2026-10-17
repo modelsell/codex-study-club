@@ -23,7 +23,7 @@ export default function CommunityPage() {
   return (
     <>
       <SiteHeader />
-      <main className="community-page">
+      <main id="main-content" tabIndex={-1} className="community-page">
         <section className="community-hero shell-narrow">
           <span className="eyebrow">CODEX COMMUNITY</span>
           <h1>和真正使用 Codex 的人一起进步</h1>

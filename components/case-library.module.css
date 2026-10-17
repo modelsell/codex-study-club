@@ -1,0 +1,304 @@
+.page {
+  padding: 64px 0 100px;
+}
+
+.intro {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+  align-items: end;
+  gap: 48px;
+  margin-bottom: 40px;
+}
+
+.kicker {
+  display: block;
+  color: var(--agent-dark);
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 12px;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  margin-bottom: 22px;
+}
+
+.intro h1 {
+  font-size: clamp(40px, 5vw, 64px);
+  font-weight: 600;
+  letter-spacing: -0.055em;
+  line-height: 1.15;
+  margin: 0;
+}
+
+.intro p {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.9;
+  margin: 0 0 4px;
+  max-width: 380px;
+}
+
+.library {
+  min-width: 0;
+}
+
+.searchPanel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 28px 32px 22px;
+}
+
+.searchLabel {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+.searchField {
+  align-items: center;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  display: flex;
+  gap: 14px;
+  min-height: 58px;
+  padding: 0 16px;
+}
+
+.searchField:focus-within {
+  border-color: var(--agent-dark);
+  outline: 2px solid var(--agent-dark);
+  outline-offset: 2px;
+}
+
+.searchField > svg {
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.searchField input {
+  background: transparent;
+  border: 0;
+  color: var(--ink);
+  font: inherit;
+  font-size: 16px;
+  min-width: 0;
+  outline: none;
+  padding: 16px 0;
+  width: 100%;
+}
+
+.searchField input::placeholder {
+  color: var(--muted);
+  opacity: 1;
+}
+
+.searchField input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+
+.clearSearch {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  display: flex;
+  flex-shrink: 0;
+  justify-content: center;
+  min-height: 44px;
+  width: 44px;
+}
+
+.searchSuggestions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  margin-top: 8px;
+}
+
+.searchSuggestions > span {
+  color: var(--muted);
+  font-size: 12px;
+  margin-right: 4px;
+}
+
+.searchSuggestions button {
+  background: none;
+  border: 0;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 13px;
+  min-height: 44px;
+  padding: 4px;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.searchSuggestions button:hover {
+  color: var(--agent-dark);
+}
+
+.categories {
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 24px 0;
+}
+
+.categories a {
+  align-items: center;
+  border: 1px solid transparent;
+  display: inline-flex;
+  font-size: 13px;
+  font-weight: 550;
+  gap: 10px;
+  min-height: 44px;
+  padding: 10px 14px;
+  scroll-margin-top: 100px;
+  transition: background-color 160ms, border-color 160ms;
+}
+
+.categories a > span {
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 11px;
+  opacity: 0.7;
+}
+
+.categories a:hover {
+  border-color: var(--line);
+}
+
+.categories a[aria-current="true"] {
+  background: var(--ink);
+  color: var(--surface);
+}
+
+.resultsBar {
+  align-items: center;
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+  min-height: 78px;
+}
+
+.resultsBar p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.65;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.resultsBar p > span {
+  margin: 0 7px;
+  opacity: 0.6;
+}
+
+.resultsBar strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.resultsBar button {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  color: var(--agent-dark);
+  cursor: pointer;
+  display: inline-flex;
+  flex-shrink: 0;
+  font-size: 13px;
+  gap: 6px;
+  min-height: 44px;
+  padding: 0;
+}
+
+.groups {
+  display: grid;
+  gap: 64px;
+}
+
+.groupHeading {
+  align-items: end;
+  display: flex;
+  gap: 20px;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.groupHeading h2 {
+  font-size: 25px;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  margin: 0 0 9px;
+}
+
+.groupHeading p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+  margin: 0;
+}
+
+.groupHeading > span {
+  color: var(--muted);
+  flex-shrink: 0;
+  font-family: "SFMono-Regular", Consolas, monospace;
+  font-size: 12px;
+}
+
+.emptyState {
+  align-items: center;
+  background: var(--surface);
+  border: 1px dashed var(--line);
+  display: flex;
+  flex-direction: column;
+  padding: 64px 24px;
+  text-align: center;
+}
+
+.emptyState > svg {
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+
+.emptyState h2 {
+  font-size: 23px;
+  margin: 0;
+}
+
+.emptyState p {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.8;
+  margin: 14px 0 24px;
+}
+
+.emptyState button {
+  background: var(--ink);
+  border: 1px solid var(--ink);
+  color: var(--surface);
+  cursor: pointer;
+  font-size: 14px;
+  min-height: 44px;
+  padding: 12px 20px;
+}
+
+@media (max-width: 720px) {
+  .page { padding: 38px 0 64px; }
+  .intro { gap: 22px; grid-template-columns: 1fr; margin-bottom: 28px; }
+  .kicker { font-size: 11px; margin-bottom: 16px; }
+  .intro p { font-size: 14px; max-width: 100%; }
+  .searchPanel { padding: 20px 18px 14px; }
+  .searchField { gap: 10px; padding-inline: 12px; }
+  .categories { gap: 6px; padding: 20px 0; }
+  .categories a { font-size: 12px; gap: 8px; padding: 9px 10px; }
+  .resultsBar { gap: 12px; min-height: 72px; }
+  .groups { gap: 44px; }
+  .groupHeading { margin-bottom: 20px; }
+  .groupHeading h2 { font-size: 22px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .categories a { transition: none; }
+}

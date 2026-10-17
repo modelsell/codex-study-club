@@ -11,7 +11,7 @@ export const metadata: Metadata = {
     template: "%s | Codex Study Club",
   },
   description:
-    "直接向 Codex 学习助手提问，查看经过验证的实战案例与高质量社群动态。",
+    "从学习路线到实战案例，学习 Codex 的任务方法、问题排查与结果验收。",
   icons: {
     icon: "https://modelsell.com/logo.png",
     apple: "https://modelsell.com/logo.png",
@@ -30,13 +30,13 @@ export const metadata: Metadata = {
     locale: "zh_CN",
     siteName: "Codex Study Club",
     title: "Codex Study Club - Codex 中文学习与交流社区",
-    description: "以对话为入口，用真实案例掌握 Codex。",
+    description: "从具体问题出发，把想法变成可验收的成果。",
     images: [{ url: "/og-image.webp", width: 1200, height: 630, alt: "Codex Study Club" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Codex Study Club - Codex 中文学习与交流社区",
-    description: "以对话为入口，用真实案例掌握 Codex。",
+    description: "从具体问题出发，把想法变成可验收的成果。",
     images: ["/og-image.webp"],
   },
 };

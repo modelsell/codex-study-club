@@ -5,7 +5,7 @@ export const metadata: Metadata = { robots: { index: false, follow: false } };
 
 export default function VisualsPage() {
   return (
-    <main className="visuals-page">
+    <main id="main-content" tabIndex={-1} className="visuals-page">
       <section className="case-visual visual-first" data-visual="first-verifiable-task">
         <div className="visual-window">
           <div className="visual-topbar">

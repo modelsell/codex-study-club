@@ -1,0 +1,12 @@
+.footer { border-top: 1px solid var(--line); background: var(--bg); }
+.grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 36px; padding-block: 64px 48px; }
+.brand { display: flex; gap: 12px; align-items: center; font-size: 16px; }
+.identity p { font-size: 15px; line-height: 1.9; color: var(--muted); margin: 24px 0 18px; }
+.credit { display: inline-flex; gap: 6px; align-items: center; color: var(--muted); font-size: 11px; min-height: 44px; }
+.grid nav h2 { font-size: 13px; margin: 0 0 15px; }
+.grid nav > a { display: block; color: var(--muted); font-size: 12px; padding: 10px 0; min-height: 40px; }
+.footer a:hover { color: var(--agent-dark); }
+.bottom { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 26px; padding-block: 24px; border-top: 1px solid var(--line); color: var(--muted); font-size: 11px; }
+.bottom p { margin: 0; flex: 1; line-height: 1.8; }
+.bottom a { display: inline-flex; align-items: center; gap: 5px; min-height: 32px; }
+@media (max-width: 720px) { .grid { grid-template-columns: repeat(3,minmax(0,1fr)); gap: 32px 12px; padding-block: 40px 24px; } .identity { grid-column: 1 / -1; } .identity p { margin: 18px 0 6px; } .bottom p { flex-basis: 100%; } .grid nav > a { min-height: 44px; font-size: 11px; } .grid nav h2 { font-size: 12px; } }

@@ -26,7 +26,7 @@ export default async function IndustryInsightPage({ params }: Props) {
   return (
     <div className="html-insight-shell">
       <SiteHeader />
-      <main className="html-insight-page">
+      <main id="main-content" tabIndex={-1} className="html-insight-page">
         <iframe
           className="html-insight-frame"
           src={`/industry-insights/${encodeURIComponent(item.slug)}/document`}

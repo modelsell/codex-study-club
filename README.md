@@ -52,6 +52,8 @@ Codex Study Club 面向正在学习和使用 OpenAI Codex 的开发者，持续�
 
 ### 项目内容
 
+网站以“开始学习、找案例、解决卡点”组织入口：从 [学习路线](https://codex.modelsp.com/start) 选择章节，在 [案例库](https://codex.modelsp.com/cases) 按关键词和分类查找实践，也可以使用 [学习助手](https://codex.modelsp.com/#ask) 查阅本站资料。界面与信息架构约定见 [网站设计说明](docs/operations/SITE-DESIGN.md)。
+
 - **Codex 新手教程**：从安装、账号与套餐，到第一个可验证任务、CLI、IDE、Cloud 和移动端协作。
 - **真实实战案例**：覆盖开发自动化、CI 修复、代码审查、内容设计、知识协作、工具设备与常见问题排查。
 - **Codex Skills 与 MCP**：整理可复用 Skill、MCP 工具、浏览器自动化和团队工作流。
@@ -65,7 +67,7 @@ Codex Study Club 面向正在学习和使用 OpenAI Codex 的开发者，持续�
 | 内容 | 地址 |
 | --- | --- |
 | 在线站点 | [codex.modelsp.com](https://codex.modelsp.com) |
-| 完整新手入门 | [新手教程](https://codex.modelsp.com/start/01-what-is-codex) |
+| 完整学习路线 | [按四个阶段学习](https://codex.modelsp.com/start) |
 | 桌面安装与首次验证 | [官方入口、登录与只读练习](https://codex.modelsp.com/start/02-app-installation) |
 | 账号与功能范围 | [先核对可用性，再决定是否升级](https://codex.modelsp.com/start/03-account-plan) |
 | 第一个可验收任务 | [本地学习卡片与检查清单](https://codex.modelsp.com/start/06-first-task) |
