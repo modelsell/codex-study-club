@@ -10,7 +10,9 @@
 
 Codex Study Club 面向正在学习和使用 OpenAI Codex 的开发者，持续整理 **Codex App、Codex CLI、Codex Cloud、AGENTS.md、Skills、MCP、自动化、代码审查与问题排查** 等中文教程和可复现实战案例。项目还提供一个基于本地 Markdown 知识库的问答助手，帮助读者更快找到相关内容。
 
-## 本期新内容（2026-10-17）
+## 本期新内容（2026-10-19）
+
+- [命令被拦、联网失败：按入口和失败阶段排查](https://codex.modelsp.com/cases/codex-permission-and-network-blocked)：区分本地、当前 Cloud 与 Legacy，附只读提示词和失败阶段记录卡；案例库和本地助手补齐 403 等症状词入口。
 
 - [Cloud 环境保存后，怎样确认任务能跑](https://codex.modelsp.com/start/14-cloud)：区分 Save、Publish、新任务与 PR，附只读就绪检查和发布失败记录；入门章节现已纳入站内助手检索。
 

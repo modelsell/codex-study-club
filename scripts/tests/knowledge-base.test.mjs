@@ -61,6 +61,16 @@ test("a retrieved chapter supplies an openable source, model context and a local
   assert.ok(localKnowledgeAnswer([match]).includes(match.entry.title));
 });
 
+test("permission and network symptoms return an actionable local answer with the stable case source", () => {
+  const href = "/cases/codex-permission-and-network-blocked";
+  for (const question of ["permission denied", "403", "network access", "网络受限", "权限审批"]) {
+    const matches = searchKnowledgeBase(question);
+    assert.ok(matches.some((match) => match.entry.href === href), `Missing diagnosis for ${question}`);
+    assert.ok(sourcesForMatches(matches).some((source) => source.href === href), `Missing source for ${question}`);
+    assert.ok(localKnowledgeAnswer(matches).includes(href), `Local answer has no openable diagnosis link for ${question}`);
+  }
+});
+
 test("existing targeted answers, tutorials, cases, themes and updates remain retrievable", () => {
   const questions = [
     ["AGENTS.md 和 Skill 的区别", "assistant"],
