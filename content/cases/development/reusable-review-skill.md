@@ -1,23 +1,25 @@
 ---
 title: "代码审查 Skill：让每条发现都能核验"
-description: "给审查写清版本、范围、触发条件和证据；附最小 Skill 示例、只读提示词与审查记录表，避免把测试通过当作全面验收。"
+description: "给审查写清版本、范围、触发条件和证据；附可下载 Skill、真实代码审查样例与记录表，分清零发现、测试通过和未验证范围。"
 level: "资深用户"
 surface: "Skills"
 duration: "35 分钟"
 cover: "/cases/reusable-review-skill.webp"
 imageAlt: "Codex Skill 将代码差异转换为结构化审查结果"
-checkedAt: "2026-10-21"
+checkedAt: "2026-10-22"
 ---
 
 # 代码审查 Skill：让每条发现都能核验
 
 收到一份很长的审查报告，先选一条结论核对：它针对哪个版本、什么输入会触发、实际有什么证据？如果只能读到“可能存在风险”，你还不能据此判断该不该改代码。
 
-本篇适合已经有审查规范、希望重复使用它的个人或团队。完成后，你会有一个范围明确的 Skill 示例和一份能逐条追溯的审查记录。35 分钟是练习参考，真实审查时间取决于改动范围。本文提供方法与本站文本核对实例，没有验证 Skill 在不同模型和代码变更上的稳定性。
+本篇适合已经有审查规范、希望重复使用它的个人或团队。完成后，你会有一个范围明确的 Skill 示例和一份能逐条追溯的审查记录。35 分钟是练习参考，真实审查时间取决于改动范围。本文提供一次真实代码改动的文件级审查记录与文本核对实例，没有验证 Skill 在不同模型和代码变更上的稳定性。
 
-<p><a href="/templates/codex-review-record.md" download="codex-review-record.md">下载审查记录表（Markdown）</a></p>
+<p><a href="/templates/evidence-review/SKILL.md" download="SKILL.md">下载最小审查 Skill（SKILL.md）</a></p>
+<p><a href="/templates/codex-review-example-2026-10-22.md" download="codex-review-example-2026-10-22.md">下载真实审查样例（Markdown）</a></p>
+<p><a href="/templates/codex-review-record.md" download="codex-review-record.md">下载空白审查记录表（Markdown）</a></p>
 
-这是空白记录表，不会安装 Skill；下载后用文本编辑器填写。浏览器若展示正文，可另存为文件。
+三个文件分别是规则、已填写样例和空表。下载不会自动安装 Skill；先阅读，再把规则保存到练习仓库的指定位置。浏览器若展示正文，可另存为文件，确认扩展名仍是 `.md`。
 
 ## 先准备范围、规则和可用证据
 
@@ -62,7 +64,7 @@ description: 审查指定代码或文档变更，并给出可核验的发现。�
 不因发现问题自行发布评论、修改代码或合并变更。
 ```
 
-这段示例还没有在 Codex 客户端中完成安装与调用测试。若使用 `$skill-creator` 生成自己的版本，给它团队规范与一个可靠样例，让它保留真正影响判断的规则；格式校验通过也不能证明审查准确率。
+10-22 已由独立 Agent 实际读取这份文件并审查下方固定代码快照；格式校验通过。原生客户端安装、发现与显式触发仍未验证。若使用 `$skill-creator` 生成自己的版本，给它团队规范与一个可靠样例，让它保留真正影响判断的规则；格式校验通过也不能证明审查准确率。
 
 ## 显式调用，并要求可追溯输出
 
@@ -77,7 +79,7 @@ description: 审查指定代码或文档变更，并给出可核验的发现。�
 预期行为：[需求与关键边界]
 可用验证：[已有命令、日志、页面；没有则说明]
 
-先说明读取到的 Skill 和实际审查范围。
+先说明读取到的 Skill 相对路径、文件 SHA-256 或可追溯版本，以及实际审查范围。
 每条确认发现给出文件位置、触发条件、预期与实际、影响、证据和版本。
 疑点未能验证时单列“待核实”；没有发现也不要凑数。
 最后列出检查过的内容、实际运行结果和未验证面。
@@ -85,6 +87,41 @@ description: 审查指定代码或文档变更，并给出可核验的发现。�
 ```
 
 如果技能未被发现，先核对当前仓库、路径、Frontmatter 和技能列表；官方文档说明未反映的技能更新可以在重启后再看。不要因此连续安装同名副本。若只有文件阅读能力，可以要求直接读取指定 `SKILL.md` 并按其审查，但记录为“按文件执行”，不称技能自动发现已通过。
+
+## 跟做一次真实代码审查：零发现也要交代范围
+
+这次选用本站 [7efb39e 提交](https://github.com/modelsell/codex-study-club/commit/7efb39eaaa5f757b571f7167a3aeb97bec856a15)中的小范围改动：让学习助手检索新手章节。只审查 `lib/knowledge-base.ts` 的索引变化与新增测试，不审查该提交的 Cloud 教程正文或运营记录。预期是保留章节全文和稳定 URL，使指定 Cloud、CLI、VS Code 问句召回相应章节，同时保留原内容类型。
+
+在已有本站 Git 历史的仓库中，可以先只读查看准确差异：
+
+```bash
+git diff 09a8841eef555de21b5d389d38f02912466608c4 \
+  7efb39eaaa5f757b571f7167a3aeb97bec856a15 -- \
+  lib/knowledge-base.ts scripts/tests/knowledge-base.test.mjs
+```
+
+**运行测试时使用独立练习副本。** 先确认该副本的 HEAD 是上述目标 SHA，依赖已安装，再执行 `node --test scripts/tests/knowledge-base.test.mjs`。不要在当前主分支跑完测试后，把结果归给历史提交；也不要为练习重置自己的工作区。本次从 Git 导出目标文件到临时快照并复用已安装依赖，没有验证全新环境的依赖安装。
+
+将这些明确输入交给 Agent，并要求它读取下载的 `SKILL.md`，只读审查与返回报告。本站于 **2026-10-22** 这样执行了一次，之后由另一位 Agent 对照 Git 原文复核输入和报告边界：
+
+| 记录项 | 本次实际结果 |
+| --- | --- |
+| 使用哪份规则 | 下载文件与文中最小示例一致；SHA-256 为 `137c1060b821e9a3f1a25fa4ce239cc0e9f61b1a0ccdc5b381524ba2ba5102ee` |
+| 怎么执行 | 独立 Agent 直接读取文件，审查固定快照；不是客户端技能自动发现或显式触发 |
+| 实际运行 | 上述 Node 测试退出 0，4 项通过；输入文件执行前后指纹一致 |
+| 覆盖了什么 | 快照中 14 章全文与链接、4 个指定问句、来源/上下文/本地答案，以及 5 类原内容样本 |
+| 确认发现 | 本次范围内没有确认缺陷；没有为了填表制造问题 |
+| 没覆盖什么 | 线上 API、浏览器交互、上游模型回答、所有问法和检索准确率 |
+
+一个值得复核的细节：测试名写了 “openable source”，但代码只断言链接进入来源数组，**没有请求那个网页**。报告明确保留这个限制；若你的需求包含“链接打开后可阅读”，还需要对应页面验证，不能由测试名字推断已完成。
+
+下载样例保留实际测试输出、版本、行号、输入指纹与未验证面。你可以先不运行模型，只挑其中一条证据对回固定 Git 文件；完成标准是能解释它证明了什么、还缺什么。本次没有开展误报/漏报对照，也没有验证原生 Skill 调用：本机 `codex --version` 的一次 15 秒探测未返回，未继续执行 CLI 任务，原因未知。
+
+## 规则改过，为什么还要核对实际文件
+
+技能名称相同，不代表读取的是相同内容。可以请 Agent 报告实际读取的相对路径，并用文件 SHA-256 或固定提交核对版本；记录动作和时间，不只看技能列表。macOS/Linux 可用 `shasum -a 256 <文件>`，PowerShell 可用 `Get-FileHash <文件> -Algorithm SHA256`；本站只实际运行了文件哈希核验，没有测试 Windows 命令。
+
+这也对应一条近期原始反馈：**OlivierBourdin** 于 **2026-10-21 14:04:19 UTC（北京 22:04）** 在 [#55903](https://github.com/openai/codex/issues/55903) 报告 Windows 11、Desktop build 13022 / bundled CLI 0.160.0 的导入同步保留了已有 Skill 的旧正文。本站 10-22 核对时为 open、0 评论；这是作者的特定版本报告，本站未运行该导入流程。不要据此删除技能或覆盖本地修改；先对比实际读取文件，保留差异再判断下一步。
 
 ## 本站实例：撤回一条没有证据支撑的结论
 
@@ -115,13 +152,13 @@ description: 审查指定代码或文档变更，并给出可核验的发现。�
 | 未运行检查却写“通过” | 改为未验证，并说明环境缺口与可执行的下一步 |
 | 没有发现就写“没有 Bug” | 改为在本次范围和证据下没有确认发现，保留遗漏可能 |
 
-这类区别也出现在近期社区反馈中：**tetracoralla** 于 **2026-10-19 13:22:16 UTC（北京 21:22）** 发布 [GitHub #55280](https://github.com/openai/codex/issues/55280)，报告生成的界面虽然通过脚本流程，却遗漏预览滚出视野、操作含义不清等持续交互问题。作者说明这是单个项目观察，未建立确定性最小复现或模型回归对照；没有公开项目源码与截图。本站 10-21 核对时该 Issue 为 open、0 评论，本站未复现，不能据此给出故障率或修复承诺。
+这类区别也出现在近期社区反馈中：**tetracoralla** 于 **2026-10-19 13:22:16 UTC（北京 21:22）** 发布 [GitHub #55280](https://github.com/openai/codex/issues/55280)，报告生成的界面虽然通过脚本流程，却遗漏预览滚出视野、操作含义不清等持续交互问题。作者说明这是单个项目观察，未建立确定性最小复现或模型回归对照；没有公开项目源码与截图。本站 10-22 核对时该 Issue 为 open、0 评论，本站未复现，不能据此给出故障率或修复承诺。
 
 验收本篇练习时，确认你能打开记录中的版本与证据、独立核对至少一条结论，并分清已查范围与尚未验证的内容。若要声称技能可复用，还需保留多份真实输入、实际调用与结果，包括误报和漏报；记录表本身不是效果证明。
 
 ## 来源与本次验证范围
 
-- [OpenAI：Build skills](https://learn.chatgpt.com/docs/build-skills) 与 [Code review](https://learn.chatgpt.com/docs/code-review)：2026-10-21 核对原文，页面未提供发布日期；不作为当日新功能新闻。
-- [Eric Provencher：Rethinking skills and prompts for GPT-6 Astra](https://learn.chatgpt.com/blog/rethinking-skills-and-prompts-for-gpt-6-astra)：官方发表于 2026-09-11，本站 10-21 核对；支持精简技能描述、按任务读取相关规则的写法，不保证个别技能效果。
+- [OpenAI：Build skills](https://learn.chatgpt.com/docs/build-skills) 与 [Code review](https://learn.chatgpt.com/docs/code-review)：2026-10-22 核对原文，页面未提供发布日期；不作为当日新功能新闻。
+- [Eric Provencher：Rethinking skills and prompts for GPT-6 Astra](https://learn.chatgpt.com/blog/rethinking-skills-and-prompts-for-gpt-6-astra)：官方发表于 2026-09-11，本站 10-22 核对；支持精简技能描述、按任务读取相关规则的写法，不保证个别技能效果。
 - 社区来源与本站旧版均已在上文固定链接；社区自述与本站文本核对分别记录。
-- 本次交付为文章、原创最小 Skill 示例和空白记录表。客户端安装、显式/隐式触发、跨模型稳定性及独立读者收益均未验证；页面与下载验证状态见 [10-21 公开维护记录](https://github.com/modelsell/codex-study-club/blob/main/docs/operations/reviews/2026-10-21.md)。
+- 10-22 交付增加可下载 Skill、真实代码审查样例与文件指纹字段。文件级审查和本地测试已执行；客户端安装、显式/隐式触发、跨模型稳定性及独立读者收益均未验证。页面与下载验证状态见 [10-22 公开维护记录](https://github.com/modelsell/codex-study-club/blob/main/docs/operations/reviews/2026-10-22.md)。
