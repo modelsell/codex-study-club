@@ -71,6 +71,20 @@ test("permission and network symptoms return an actionable local answer with the
   }
 });
 
+test("CLI installation symptoms return the installation chapter and a staged local diagnosis", () => {
+  const href = "/start/10-cli-installation";
+  for (const question of ["install.sh 404", "安装脚本404", "codex command not found", "codex 安装后版本没变化"]) {
+    const matches = searchKnowledgeBase(question);
+    assert.ok(matches.some((match) => match.entry.href === href), `Missing installation chapter for ${question}`);
+    assert.ok(sourcesForMatches(matches).some((source) => source.href === href), `Missing installation source for ${question}`);
+    const answer = localKnowledgeAnswer(matches);
+    assert.ok(answer.includes(href), `Local answer has no installation link for ${question}`);
+    for (const stage of ["下载阶段", "本机命令阶段", "登录阶段", "实际任务阶段"]) {
+      assert.ok(answer.includes(stage), `Local answer misses ${stage} for ${question}`);
+    }
+  }
+});
+
 test("existing targeted answers, tutorials, cases, themes and updates remain retrievable", () => {
   const questions = [
     ["AGENTS.md 和 Skill 的区别", "assistant"],
