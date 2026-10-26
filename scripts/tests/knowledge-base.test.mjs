@@ -85,6 +85,20 @@ test("CLI installation symptoms return the installation chapter and a staged loc
   }
 });
 
+test("installation recovery questions require current evidence rather than issue closure or HTTP success", () => {
+  const href = "/start/10-cli-installation";
+  for (const question of ["安装脚本恢复了吗", "install.sh 404 修好了吗", "安装问题关闭了但还是404"]) {
+    const matches = searchKnowledgeBase(question);
+    assert.ok(sourcesForMatches(matches).some((source) => source.href === href), `Missing recovery diagnosis source for ${question}`);
+    const answer = localKnowledgeAnswer(matches);
+    assert.ok(answer.includes(href), `Local answer has no installation link for ${question}`);
+    assert.match(answer, /Issue 关闭.*不能证明你当前安装成功/, `Issue closure is not qualified for ${question}`);
+    assert.match(answer, /HTTP 200.*不证明安装、登录或任务成功/, `HTTP success is not qualified for ${question}`);
+    assert.match(answer, /不执行脚本的下载检查.*HTTP 状态和 curl 退出码/, `Missing bounded evidence collection for ${question}`);
+    assert.match(answer, /当前仍是 404 或超时.*保留这次结果/, `Missing current-failure guidance for ${question}`);
+  }
+});
+
 test("existing targeted answers, tutorials, cases, themes and updates remain retrievable", () => {
   const questions = [
     ["AGENTS.md 和 Skill 的区别", "assistant"],

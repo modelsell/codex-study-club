@@ -10,9 +10,9 @@
 
 Codex Study Club 面向正在学习和使用 OpenAI Codex 的开发者，持续整理 **Codex App、Codex CLI、Codex Cloud、AGENTS.md、Skills、MCP、自动化、代码审查与问题排查** 等中文教程和可复现实战案例。项目还提供一个基于本地 Markdown 知识库的问答助手，帮助读者更快找到相关内容。
 
-## 本期新内容（2026-10-25）
+## 本期新内容（2026-10-26）
 
-- [CLI 安装排查：脚本 404、找不到命令与登录失败](https://codex.modelsp.com/start/10-cli-installation)：先只读核对下载响应，再分别检查命令路径、版本、登录与任务；附可复制诊断记录。历史 200 不代表今天可用，客户端安装恢复未验证。
+- [CLI 安装排查：脚本 404、找不到命令与登录失败](https://codex.modelsp.com/start/10-cli-installation)：补充 10-26 项目侧路由问题说明与当次 HTTP 检查；根据你当前的 404、无响应或 200 选择下一步，附可复制诊断记录。客户端安装恢复未验证。
 
 - [代码审查 Skill：让每条发现都能核验](https://codex.modelsp.com/cases/reusable-review-skill)：新增真实代码审查样例、可下载 Skill 和文件指纹字段；用固定提交复核测试与“零发现”的范围，原生客户端调用仍未验证。
 
