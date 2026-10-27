@@ -9,14 +9,14 @@ const source = fs.readFileSync(new URL("../../lib/knowledge-base.ts", import.met
 
 // Run the production retrieval code against the committed content snapshot without
 // booting Next.js. Only its content import and server-only marker need an adapter.
-function loadKnowledgeBase(code) {
+function loadKnowledgeBase(code, snapshot = content) {
   const { outputText } = ts.transpileModule(code, {
     compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 },
   });
   const exports = {};
   compileFunction(outputText, ["require", "exports"])((specifier) => {
     if (specifier === "server-only") return {};
-    if (specifier === "@/lib/content") return content;
+    if (specifier === "@/lib/content") return snapshot;
     throw new Error(`Unexpected test dependency: ${specifier}`);
   }, exports);
   return exports;
@@ -109,5 +109,57 @@ test("existing targeted answers, tutorials, cases, themes and updates remain ret
   ];
   for (const [question, kind] of questions) {
     assert.ok(searchKnowledgeBase(question).some((match) => match.entry.kind === kind), `${kind}: ${question}`);
+  }
+});
+
+test("documented CLI commands retrieve their chapters, including backticks and Chinese questions", () => {
+  const questions = [
+    ["codex --version", "/start/10-cli-installation"],
+    ["codex login status", "/start/10-cli-installation"],
+    ["codex resume", "/start/12-cli-options"],
+    ["`codex login status`", "/start/10-cli-installation"],
+    ["请解释 `Codex resume` 的用途", "/start/12-cli-options"],
+    ["怎么使用 codex resume 继续旧会话？", "/start/12-cli-options"],
+    ["终端里的 `codex --version` 是做什么的？", "/start/10-cli-installation"],
+    ["codex exec --help", "/start/12-cli-options"],
+    ["请解释 codex resume --help", "/start/12-cli-options"],
+  ];
+  for (const [question, href] of questions) {
+    const matches = searchKnowledgeBase(question);
+    assert.ok(matches.some((match) => match.entry.href === href), `${question}: ${matches.map((match) => match.entry.href).join(", ")}`);
+    assert.ok(sourcesForMatches(matches).some((source) => source.href === href), `Missing command source for ${question}`);
+    assert.notEqual(localKnowledgeAnswer(matches), localKnowledgeAnswer([]), `Unexpected fallback for ${question}`);
+  }
+});
+
+test("command lookup keeps complete subcommand and option boundaries", () => {
+  for (const question of ["codex resumed", "codex login statusx", "codex --versionx", "codex resume --helpful", "codex --version=false"]) {
+    assert.deepEqual(searchKnowledgeBase(question), [], `Undocumented command received a command match: ${question}`);
+  }
+});
+
+test("command quotations in a case do not displace the teaching chapters", () => {
+  const snapshot = {
+    ...content,
+    cases: [...content.cases, {
+      slug: "retrieval-command-quotations",
+      title: "修复站内助手的命令漏检",
+      summary: "用 codex --version、codex login status 和 codex resume 检查检索结果。",
+      category: "工程实践",
+      markdown: [
+        "案例中的查询样本：`codex --version`、`codex login status`、`codex resume`。这里只讨论搜索结果，不是 CLI 操作教程。",
+        '```json\n{"sample": "codex not-a-real-subcommand"}\n```',
+        "```text\ncodex another-unpublished-command\n```",
+      ].join("\n\n"),
+    }],
+  };
+  const retrieval = loadKnowledgeBase(source, snapshot);
+  for (const question of ["codex --version", "codex login status", "codex resume"]) {
+    const matches = retrieval.searchKnowledgeBase(question);
+    assert.equal(matches[0]?.entry.kind, "start", `A quoted query displaced its chapter: ${question}`);
+    assert.ok(matches[0].entry.content.includes(question), `Top chapter does not document ${question}`);
+  }
+  for (const question of ["codex not-a-real-subcommand", "codex another-unpublished-command"]) {
+    assert.deepEqual(retrieval.searchKnowledgeBase(question), [], `Non-shell sample was treated as a command: ${question}`);
   }
 });

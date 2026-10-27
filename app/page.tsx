@@ -10,8 +10,8 @@ import { cases, startArticles, updates } from "@/lib/content";
 import styles from "./page.module.css";
 
 const featuredSlugs = [
-  "codex-progress-or-loop", "codex-finished-but-not-verified", "codex-broken-link-workflow",
-  "diagnose-ci-failure", "codex-task-keeps-drifting", "reusable-review-skill",
+  "minimal-bug-fix-with-reproduction", "codex-progress-or-loop", "codex-finished-but-not-verified",
+  "codex-broken-link-workflow", "diagnose-ci-failure", "reusable-review-skill",
 ];
 
 export default function Home() {

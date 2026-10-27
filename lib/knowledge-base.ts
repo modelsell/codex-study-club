@@ -75,6 +75,36 @@ function plainText(markdown: string) {
     .trim();
 }
 
+// Index command prefixes separately from prose. Quoted arguments and arbitrary
+// code are not search terms; this is a documentation lookup, not a shell parser.
+function codexCommandTokens(value: string) {
+  const command = value.match(/^codex(?:[ \t]+[a-z0-9_.:/@%+=-]+)+/i)?.[0];
+  if (!command) return [];
+  const [executable, ...args] = command.split(/[ \t]+/);
+  return [executable.toLowerCase(), ...args];
+}
+
+function documentedCommands(markdown: string) {
+  const commands: string[][] = [];
+  const addCommand = (value: string) => {
+    const tokens = codexCommandTokens(value.trim().replace(/^\$ /, ""));
+    if (tokens.length > 1) commands.push(tokens);
+  };
+  const prose = markdown.replace(/```([^\n]*)\n([\s\S]*?)```/g, (_block, language: string, body: string) => {
+    if (/^(?:bash|sh|shell|zsh|console|powershell|ps1|pwsh|cmd|bat)?$/i.test(language.trim())) {
+      body.split("\n").forEach(addCommand);
+    }
+    return " ";
+  });
+  for (const match of prose.matchAll(/`([^`\n]+)`/g)) addCommand(match[1]);
+  return commands;
+}
+
+function questionCommands(question: string) {
+  return [...question.matchAll(/(?:^|[^a-z0-9_./:@%+=-])(codex(?:[ \t]+[a-z0-9_.:/@%+=-]+)+)/gi)]
+    .map((match) => codexCommandTokens(match[1]));
+}
+
 export const knowledgeBase: KnowledgeEntry[] = [
   ...knowledge.map((item) => ({
     id: `assistant:${item.slug}`,
@@ -138,7 +168,9 @@ export const knowledgeBase: KnowledgeEntry[] = [
   })),
 ];
 
-function scoreEntry(entry: KnowledgeEntry, question: string, tokens: string[]) {
+const commandsByEntry = new Map(knowledgeBase.map((entry) => [entry.id, documentedCommands(entry.content)]));
+
+function scoreEntry(entry: KnowledgeEntry, question: string, tokens: string[], commands: string[][]) {
   const normalizedQuestion = normalize(question);
   const title = normalize(entry.title);
   const summary = normalize(entry.summary);
@@ -156,13 +188,23 @@ function scoreEntry(entry: KnowledgeEntry, question: string, tokens: string[]) {
     if (content.includes(token)) score += 1;
   }
 
+  const examples = commandsByEntry.get(entry.id) || [];
+  if (commands.some((command) => examples.some((example) =>
+    command.length <= example.length && command.every((token, index) => token === example[index])
+  ))) {
+    // A complete command token match is as explicit as an editorial search term.
+    // Prefer teaching chapters to incidental command quotations in case studies.
+    score += entry.kind === "start" ? 36 : 18;
+  }
+
   return score;
 }
 
 export function searchKnowledgeBase(question: string, limit = 4): KnowledgeMatch[] {
   const tokens = queryTokens(question);
+  const commands = questionCommands(question);
   const ranked = knowledgeBase
-    .map((entry) => ({ entry, score: scoreEntry(entry, question, tokens) }))
+    .map((entry) => ({ entry, score: scoreEntry(entry, question, tokens, commands) }))
     .filter((match) => match.score > 0)
     .sort((a, b) => b.score - a.score || a.entry.title.localeCompare(b.entry.title));
   const minimumScore = Math.max(6, (ranked[0]?.score || 0) * 0.25);
