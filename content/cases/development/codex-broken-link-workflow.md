@@ -1,10 +1,10 @@
 ---
 title: "让 Codex 修好网站死链：从复现到回归检查"
-description: "用本站真实维护案例，学会给 Codex 提供失败现场、约束修改范围，并用可运行检查确认修复没有漏项。"
+description: "下载返回 200 却拿到网页？用本站真实检查器修复，学会给 Codex 提供失败证据、核对文件内容，并留下回归检查。"
 level: "初学者"
 surface: "Codex + 本地仓库"
 duration: "20–30 分钟起"
-checkedAt: "2026-10-05"
+checkedAt: "2026-10-28"
 ---
 
 # 让 Codex 修好网站死链：从复现到回归检查
@@ -13,6 +13,10 @@ checkedAt: "2026-10-05"
 
 **可以带走：三段可复制任务描述、一套运行命令，以及判断修复是否完成的方法。** 本文使用本站公开维护记录和现有检查器；不是一次虚构的客户项目，也没有统计节省了多少时间。
 
+<p><a href="/templates/codex-file-delivery-check.md" download="codex-file-delivery-check.md">下载文件交付检查表（Markdown）</a></p>
+
+**10-28 更新：** 增加“HTTP 200 却下载到网页”的实际检查器漏检与修复。下面的故障在隔离本地服务器中制造；没有发现本站生产模板发生同样故障，也不代表社区反馈的 CLI 文件点击问题已解决。
+
 ## 真实问题：构建成功，读者还是会遇到 404
 
 2026-09-27，本站第 05 章中三个 `/advanced/*.html` 入口实际返回 404，修订后改为可访问的目标。次日增加了渲染后站内链接检查，并接入质量 CI。过程见 [09-27 记录](https://github.com/modelsell/codex-study-club/blob/main/docs/operations/reviews/2026-09-27.md)、[检查器提交 872bbd0](https://github.com/modelsell/codex-study-club/commit/872bbd0)。
@@ -20,6 +24,61 @@ checkedAt: "2026-10-05"
 这个问题容易漏掉：构建能生成 HTML，不代表 HTML 中每个链接都存在；源 Markdown 里还有原始 HTML 链接，只搜索 Markdown 链接语法也可能遗漏。
 
 这里的经验是先检查用户实际打开的页面，再回到源文件定位。不要为了消除一个 404 就批量改 URL 或加一个指向首页的跳转，那样可能掩盖内容真的缺失。
+
+## 下载返回 200，为什么文件仍不能用？
+
+你让 Codex 做了一个文件，收到“下载成功”，打开却是首页或登录页。此时需要说明**预期拿到什么文件、实际收到什么内容**；反复要求重新生成，可能没有处理真正出错的链接。
+
+2026-10-28，本站检查器在基线 `14b64da` 只用 HTTP 状态判断链接成功。我们在本地测试服务器放入五种错误下载入口：普通 Markdown 下载、模板地址、带文件名的导出、路径与文件名不同的导出、经过站内跳转的下载。它们都返回 HTTP 200，但响应类型与正文是 HTML/XHTML 页面。**旧检查器没有报告任何失败。** 这证明了检查器的覆盖缺口，并不证明线上下载曾损坏。
+
+最小修复保留普通网页检查，只对标记了 `download` 的文件链接、以及本站 `/templates/` 下有明确非 HTML 后缀的目标追加判断。如果最终响应类型是 HTML/XHTML，就报告 `DOWNLOAD_HTML`；合法 `.html`、`.htm`、`.xhtml` 下载和无法确定格式的目标不会因此被拦。新增回归识别出全部五个错误入口，原有 404、跳转和网络错误分类仍保留。
+
+### 可复制的排查提示词
+
+```text
+下载按钮返回成功，但我拿到的文件不能用。
+来源页面：[页面地址]；链接文字：[按钮文字]。
+预期文件：[名称、格式、应该包含的标题或记录]。
+实际结果：[错误信息或脱敏的正文特征]。
+
+先只读定位，不重新生成、不覆盖原文件：
+1. 确认文件在哪台机器、哪个目录；检查文件是否存在、是否非空。
+2. 对网页下载，记录请求退出码、HTTP 状态、跳转目标和 Content-Type。
+3. 检查实际文件内容或用对应格式的读取工具打开，别只看扩展名。
+4. 分别记录直接打开文件、点击原链接的结果；未执行就写未验证。
+把证据整理成“失败层 / 当前结果 / 下一步”，提出最小修复。
+只有修复后原下载内容符合预期，才能把这个问题标为解决。
+```
+
+不公开登录链接的令牌、完整本机路径或私人文件内容；反馈里用相对路径和脱敏错误即可。
+
+### 用一份公开模板练习核对内容
+
+已有 curl 和文本编辑器的 macOS/Linux 读者，可以从项目根目录运行下面这段命令。它新建临时目录，只下载本站公开 Markdown，不执行下载内容、不覆盖已有产物。Windows 原生终端未验证。
+
+```bash
+artifact_dir=$(mktemp -d)
+if curl --fail --silent --show-error --max-time 20 \
+  --output "$artifact_dir/record.md" \
+  --write-out 'HTTP=%{http_code} type=%{content_type} url=%{url_effective}\n' \
+  'https://codex.modelsp.com/templates/codex-file-delivery-check.md'; then
+  file "$artifact_dir/record.md"
+  head -n 3 "$artifact_dir/record.md"
+else
+  printf '请求未完成；保留错误，不把临时文件当作交付物。\n'
+fi
+```
+
+验收时应能读到标题 `# 文件交付检查表`。HTTP 200、正确的响应类型和标题是不同证据；只确认标题也不代表整份文件完整。如果你在本仓库，进一步运行 `cmp public/templates/codex-file-delivery-check.md "$artifact_dir/record.md"`：无输出且退出码 0 才表示下载字节与本地模板相同；若线上与本地版本不同，先核对版本，再判断是否损坏。浏览器下载后也应在文本编辑器打开检查。
+
+| 现场 | 下一步 | 暂时不能下的结论 |
+| --- | --- | --- |
+| 文件路径不存在 | 核对执行机器、工作目录和实际产物清单 | 不能只靠回复中的链接确认已经生成 |
+| 文件存在，格式工具打不开 | 查文件大小、内容与生成过程 | 改扩展名不能修复格式 |
+| 下载为 200，但收到 HTML | 检查跳转、路由兜底或登录页面的实际正文 | 200 不等于目标文件交付成功 |
+| 直接打开正常，客户端点击失败 | 保留同一文件，记录客户端、路径与点击步骤 | 文件正常不代表客户端链接已修复 |
+
+上述新回归只看响应类型，**不验证任意文件格式、内容正确性、客户端点击，也不识别伪装成其他类型的 HTML**。保留人工打开与字节比对这一步，不把新增检查包装成完整验收。
 
 ## 技巧一：交代失败现场，让 Codex 少猜一步
 
@@ -85,7 +144,7 @@ git diff --stat
 
 | 检查 | 应看到什么 | 不能证明什么 |
 | --- | --- | --- |
-| `npm run test:links` | 3 项检查器测试通过，含正常链接、人为断链和网络异常分类 | 不是当前站点没有断链的结论 |
+| `npm run test:links` | 4 项检查器测试通过，含正常链接、人为断链、下载类型与网络异常分类 | 不是当前站点没有断链的结论 |
 | `check_internal_links.py` | 当前本地构建的页面和目标数量，以及 `0 failures` | 不是生产站点已部署，也不是外部链接、图片和锚点都有效 |
 
 现有回归测试会在临时本地服务器里加入一个不存在的链接，确认检查器报告 `404` 并返回退出码 `1`；测试套件最终通过，表示它**成功识别了故障**。这是人为测试夹具，不是今天生产网站仍存在该故障。
@@ -106,12 +165,13 @@ git diff --stat
 ## 遇到这些情况，下一步怎么做
 
 - **命令说 Sitemap 不可用：** 先确认构建完成、服务端口一致，别让 Codex 在服务没启动时改业务代码。
+- **出现 DOWNLOAD_HTML：** 对照预期格式和返回正文，检查下载目标及跳转；不要把下载文件改名为 HTML 来消除检查失败。
 - **出现 NETWORK：** 保留错误分类，确认服务是否仍在运行；不要把网络异常批量替换成链接错误。
 - **检查成功但点击仍不对：** 看正文和交互，200 也可能返回错误页面；再确认你验收的是本地还是生产环境。
 - **想接入自己的 CI：** 参考本站[质量工作流](https://github.com/modelsell/codex-study-club/blob/main/.github/workflows/quality.yml)中启动本地服务、等待就绪、执行检查和清理进程的步骤。先适配你的路由及 Sitemap，再接入，不必另外开启机器人写权限。
 
 ## 来源与验证范围
 
-核对日期：2026-10-05。产品方法依据当日读取的 [OpenAI Prompting](https://learn.chatgpt.com/docs/prompting)；历史事实依据上述公开记录和提交。检查实现为[脚本](https://github.com/modelsell/codex-study-club/blob/main/scripts/check_internal_links.py)及[回归测试](https://github.com/modelsell/codex-study-club/blob/main/scripts/tests/test_check_internal_links.py)。
+核对日期：2026-10-28。产品方法依据当日读取的 [OpenAI Prompting](https://learn.chatgpt.com/docs/prompting)；历史事实依据上述公开记录和提交。检查实现为[脚本](https://github.com/modelsell/codex-study-club/blob/main/scripts/check_internal_links.py)及[回归测试](https://github.com/modelsell/codex-study-club/blob/main/scripts/tests/test_check_internal_links.py)。
 
-本次重新运行现有回归测试和本站本地构建检查；未重新制造生产 404，也未在读者仓库重演模板对话。模板可供迁移使用，不保证其他项目无需适配。读者可继续查看[任务设计](/start/07-task-design)、[任务执行](/start/08-task-execution)与[完成但未验证的排查方法](/cases/codex-finished-but-not-verified)。
+本次新增并执行下载类型回归，修订配套排查步骤与空白检查表；实际发布与页面验收见 [10-28 维护记录](https://github.com/modelsell/codex-study-club/blob/main/docs/operations/reviews/2026-10-28.md)。未在生产制造故障，也未在读者仓库重演模板对话。模板可供迁移使用，不保证其他项目无需适配。读者可继续查看[任务设计](/start/07-task-design)、[任务执行](/start/08-task-execution)与[完成但未验证的排查方法](/cases/codex-finished-but-not-verified)。

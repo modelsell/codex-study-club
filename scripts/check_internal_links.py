@@ -1,9 +1,10 @@
 """Check rendered page links against a local production server, without external requests."""
 import argparse
 from html.parser import HTMLParser
+from pathlib import PurePosixPath
 import sys
 from urllib.error import HTTPError, URLError
-from urllib.parse import quote, urljoin, urlsplit, urlunsplit
+from urllib.parse import quote, unquote, urljoin, urlsplit, urlunsplit
 from urllib.request import HTTPRedirectHandler, ProxyHandler, build_opener
 import xml.etree.ElementTree as ET
 
@@ -15,7 +16,12 @@ class LinkParser(HTMLParser):
 
     def handle_starttag(self, tag, attrs):
         if tag in ("a", "area"):
-            self.links.extend(value for key, value in attrs if key == "href" and value)
+            attributes = dict(attrs)
+            href = attributes.get("href")
+            if href:
+                download = ((attributes.get("download") or "")
+                            if tag == "a" and "download" in attributes else None)
+                self.links.append((href, download))
 
 
 class NoRedirect(HTTPRedirectHandler):
@@ -28,6 +34,15 @@ def internal_target(href, page_url, origins):
     if url.scheme not in ("http", "https") or url.netloc not in origins:
         return None
     return urlunsplit(("", "", quote(url.path or "/", safe="/%:@"), url.query, ""))
+
+
+def expects_non_html_download(target, download):
+    path = unquote(urlsplit(target).path)
+    if download is None and not path.startswith("/templates/"):
+        return False
+    # An explicit filename takes precedence; an unknown format is not an error.
+    suffix = PurePosixPath(download or "").suffix or PurePosixPath(path).suffix
+    return bool(suffix) and suffix.lower() not in (".html", ".htm", ".xhtml")
 
 
 class LocalClient:
@@ -80,6 +95,7 @@ def check_site(base_url):
         raise ValueError("Sitemap must contain absolute page URLs")
     client.origins.add(site.netloc)
     targets = {}
+    download_sources = {}
     failures = []
     for location in locations:
         url = urlsplit(location)
@@ -92,14 +108,19 @@ def check_site(base_url):
             continue
         parser = LinkParser()
         parser.feed(html)
-        for href in parser.links:
+        for href, download in parser.links:
             target = internal_target(href, location, client.origins)
             if target is not None:
                 targets.setdefault(target, set()).add(path)
+                if expects_non_html_download(target, download):
+                    download_sources.setdefault(target, set()).add(path)
     for target, sources in sorted(targets.items()):
-        status, _, _ = client.get(target)
+        status, _, content_type = client.get(target)
         if status != 200:
             failures.extend((source, target, status) for source in sorted(sources))
+        elif content_type.split(";", 1)[0].strip().lower() in ("text/html", "application/xhtml+xml"):
+            failures.extend((source, target, "DOWNLOAD_HTML")
+                            for source in sorted(download_sources.get(target, ())))
     return len(locations), len(targets), failures
 
 

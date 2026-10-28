@@ -10,7 +10,9 @@
 
 Codex Study Club 面向正在学习和使用 OpenAI Codex 的开发者，持续整理 **Codex App、Codex CLI、Codex Cloud、AGENTS.md、Skills、MCP、自动化、代码审查与问题排查** 等中文教程和可复现实战案例。项目还提供一个基于本地 Markdown 知识库的问答助手，帮助读者更快找到相关内容。
 
-## 本期新内容（2026-10-27）
+## 本期新内容（2026-10-28）
+
+- [下载成功却拿到网页？让 Codex 核对真实文件](https://codex.modelsp.com/cases/codex-broken-link-workflow)：更新原链接维护案例，复现并修复 HTTP 200 的下载误判；附只读排查提示词、内容比对方法和文件交付检查表。
 
 - [给 Codex 一个能复现的 Bug：修好助手的命令漏检](https://codex.modelsp.com/cases/minimal-bug-fix-with-reproduction)：从三个真实失败输入到最小修复，附可复制任务描述、正反例与回归检查；学习助手支持查找教程中已有的 CLI 命令。
 

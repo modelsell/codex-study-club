@@ -25,7 +25,7 @@ class LinkCheckTest(unittest.TestCase):
           <a href="https://external.example/path">external</a>''')
         self.assertEqual(len(parser.links), 3)
         targets = [checker.internal_target(href, "https://site.example/start/08-task-execution",
-                   {"site.example"}) for href in parser.links]
+                   {"site.example"}) for href, _ in parser.links]
         self.assertEqual(targets, ["/start/06-first-task", "/advanced/missing.html?x=1&y=2", None])
         self.assertEqual(checker.internal_target("/中文#段落", "https://site.example/", {"site.example"}),
                          "/%E4%B8%AD%E6%96%87")
@@ -88,6 +88,84 @@ class LinkCheckTest(unittest.TestCase):
             self.assertEqual(client.get("/")[0], "NETWORK")
         with self.assertRaises(ValueError):
             checker.LocalClient("https://site.example")
+
+    def test_downloads_reject_html_fallbacks_without_rejecting_html_documents(self):
+        broken = [False]
+        requested = []
+
+        class Handler(BaseHTTPRequestHandler):
+            def do_GET(self):
+                requested.append(self.path)
+                kind = "text/html; charset=utf-8"
+                if self.path == "/sitemap.xml":
+                    kind = "application/xml"
+                    body = '<urlset><url><loc>https://site.example/guide</loc></url><url><loc>https://site.example/reader</loc></url></urlset>'
+                elif self.path == "/guide":
+                    body = '''<a href="/files/notes.md" download>Markdown download</a>
+                      <a href="/files/notes.md" download>duplicate link</a>
+                      <a href="/templates/checklist.md?version=1#top">template</a>
+                      <a href="/export" download="report.md">named download</a>
+                      <a href="/export.html" download="report.md">filename overrides HTML path</a>
+                      <a href="/redirect" download="record.md">redirected download</a>
+                      <a href="/files/report.HTML" download>HTML download</a>
+                      <a href="/generated" download="report.htm">named HTML download</a>
+                      <a href="/templates/report.md" download="report.xhtml">filename overrides non-HTML path</a>
+                      <a href="/templates/document.xhtml">XHTML template</a>
+                      <a href="/untyped" download>unknown download format</a>
+                      <a href="/templates/untyped">unknown template format</a>
+                      <a href="/ordinary.md">ordinary link with a suffix</a>
+                      <a href="https://external.example/export.md" download>external</a>'''
+                elif self.path == "/reader":
+                    body = '<a href="/files/notes.md">ordinary link to shared target</a>'
+                elif self.path == "/redirect":
+                    self.send_response(302)
+                    self.send_header("Location", "/download-result")
+                    self.end_headers()
+                    return
+                elif self.path in ("/files/notes.md", "/templates/checklist.md?version=1",
+                                    "/export", "/export.html", "/download-result"):
+                    kind = ("application/xhtml+xml; charset=UTF-8" if self.path == "/export"
+                            else "TEXT/HTML; charset=UTF-8") if broken[0] else "text/markdown"
+                    body = "<html><body>fallback page</body></html>" if broken[0] else "# Valid Markdown"
+                else:
+                    if self.path == "/templates/document.xhtml":
+                        kind = "application/xhtml+xml"
+                    body = "<html><body>valid HTML document</body></html>"
+                self.send_response(200)
+                self.send_header("Content-Type", kind)
+                self.end_headers()
+                self.wfile.write(body.encode())
+
+            def log_message(self, *args):
+                pass
+
+        server = ThreadingHTTPServer(("127.0.0.1", 0), Handler)
+        thread = threading.Thread(target=server.serve_forever, daemon=True)
+        thread.start()
+        base = f"http://127.0.0.1:{server.server_port}"
+        try:
+            self.assertEqual(checker.check_site(base)[2], [])
+            requested.clear()
+            broken[0] = True
+            failures = checker.check_site(base)[2]
+            self.assertEqual(set(failures), {
+                ("/guide", "/files/notes.md", "DOWNLOAD_HTML"),
+                ("/guide", "/templates/checklist.md?version=1", "DOWNLOAD_HTML"),
+                ("/guide", "/export", "DOWNLOAD_HTML"),
+                ("/guide", "/export.html", "DOWNLOAD_HTML"),
+                ("/guide", "/redirect", "DOWNLOAD_HTML"),
+            })
+            self.assertEqual(len(failures), 5)
+            self.assertEqual(requested.count("/files/notes.md"), 1)
+            result = subprocess.run([sys.executable, str(SCRIPT), "--base-url", base],
+                                    capture_output=True, text=True, timeout=10)
+            self.assertEqual(result.returncode, 1)
+            self.assertIn("DOWNLOAD_HTML:", result.stderr)
+            self.assertFalse(any("external.example" in path for path in requested))
+        finally:
+            server.shutdown()
+            server.server_close()
+            thread.join()
 
 
 if __name__ == "__main__":
