@@ -34,7 +34,7 @@ Codex 有自己的[项目规则发现顺序](https://learn.chatgpt.com/docs/agen
 
 ## 第一步：运行不读正文的盘点工具
 
-[下载 Python 只读检查器](/templates/agent-instructions-audit.py)。需要 Python 3.9+，只使用标准库，无需 API Key。
+<a href="/templates/agent-instructions-audit.py" download="agent-instructions-audit.py">下载 Python 只读检查器</a>。需要 Python 3.9+，只使用标准库，无需 API Key。若浏览器显示源码，可另存为同名 `.py` 文件，先检查内容再运行。
 
 将脚本保存到自己的临时工作目录。从脚本所在目录执行下面的命令，把 `your-project` 换成要检查的真实项目目录：
 
