@@ -1,6 +1,6 @@
 # Codex Study Club
 
-> OpenAI Codex 中文学习、教程与实战社区 | A Chinese learning and practice hub for OpenAI Codex
+> Codex、Claude Code 与 Agent 产品中文学习与实践社区 | A Chinese learning and practice hub for coding agents
 
 [中文说明](#中文说明) · [English](#english) · [在线访问](https://codex.modelsp.com) · [开源赞助计划](https://codex.modelsp.com/agent-awards)
 
@@ -8,9 +8,14 @@
 
 ![Codex Study Club - OpenAI Codex 中文教程与实战社区](public/og-image.webp)
 
-Codex Study Club 面向正在学习和使用 OpenAI Codex 的开发者，持续整理 **Codex App、Codex CLI、Codex Cloud、AGENTS.md、Skills、MCP、自动化、代码审查与问题排查** 等中文教程和可复现实战案例。项目还提供一个基于本地 Markdown 知识库的问答助手，帮助读者更快找到相关内容。
+Codex Study Club 面向正在学习和使用编码 Agent 的开发者，持续整理 **Codex、Claude Code、Agent 产品动态、AGENTS.md、Skills、MCP、自动化、代码审查与问题排查** 等中文教程与实践。发布前交叉核对官方资料和真实需求，区分文档核对、工具验证与客户端实测；规范见[内容引入门槛](docs/operations/CONTENT-GATE.md)。项目还提供一个基于本地 Markdown 知识库的问答助手，帮助读者更快找到相关内容。
 
-## 本期新内容（2026-10-28）
+## 本期新内容（2026-11-01）
+
+- [11 月 1 日更新观察：Codex 网络诊断与 Claude Code 版本边界](https://codex.modelsp.com/community/updates/agent-updates-2026-11-01)：核对 0.166.0 / 2.1.316 官方发布说明与近期需求原帖，区分新增诊断、升级和真实恢复；客户端升级与功能效果未实测。
+- [Codex 换到 Claude Code：先用只读工具检查项目规则](https://codex.modelsp.com/cases/claude-code-project-rules-audit)：提供经过五组回归的 Python 检查器，盘点共享规则与父目录标记，再独立核对客户端上下文；不把文件存在当作加载成功。
+
+## 最近实践
 
 - [下载成功却拿到网页？让 Codex 核对真实文件](https://codex.modelsp.com/cases/codex-broken-link-workflow)：更新原链接维护案例，复现并修复 HTTP 200 的下载误判；附只读排查提示词、内容比对方法和文件交付检查表。
 
@@ -81,7 +86,8 @@ Codex Study Club 面向正在学习和使用 OpenAI Codex 的开发者，持续�
 | 桌面安装与首次验证 | [官方入口、登录与只读练习](https://codex.modelsp.com/start/02-app-installation) |
 | 账号与功能范围 | [先核对可用性，再决定是否升级](https://codex.modelsp.com/start/03-account-plan) |
 | 第一个可验收任务 | [本地学习卡片与检查清单](https://codex.modelsp.com/start/06-first-task) |
-| Codex 实战案例 | [案例库](https://codex.modelsp.com/cases) |
+| Codex / Claude Code 实践 | [案例库](https://codex.modelsp.com/cases) |
+| Agent 产品动态与技巧 | [来源核对与版本观察](https://codex.modelsp.com/community/updates) |
 | 问题排查 | [Troubleshooting](https://codex.modelsp.com/cases#troubleshooting) |
 | Codex 主题 | [主题与视觉](https://codex.modelsp.com/themes) |
 | 行业解读 | [Industry Insights](https://codex.modelsp.com/industry-insights) |

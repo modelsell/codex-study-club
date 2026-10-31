@@ -10,8 +10,8 @@ import { cases, startArticles, updates } from "@/lib/content";
 import styles from "./page.module.css";
 
 const featuredSlugs = [
-  "minimal-bug-fix-with-reproduction", "codex-progress-or-loop", "codex-finished-but-not-verified",
-  "codex-broken-link-workflow", "diagnose-ci-failure", "reusable-review-skill",
+  "claude-code-project-rules-audit", "minimal-bug-fix-with-reproduction", "codex-progress-or-loop",
+  "codex-finished-but-not-verified", "codex-broken-link-workflow", "reusable-review-skill",
 ];
 
 export default function Home() {
@@ -22,7 +22,7 @@ export default function Home() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
-      { "@type": "WebSite", name: "Codex Study Club", url: siteUrl + "/", inLanguage: "zh-CN", description: "Codex 中文学习与实践社区" },
+      { "@type": "WebSite", name: "Codex Study Club", url: siteUrl + "/", inLanguage: "zh-CN", description: "Codex、Claude Code 与 Agent 中文学习和实践社区" },
       { "@type": "Organization", name: "Codex Study Club", url: siteUrl + "/" },
     ],
   };
@@ -33,9 +33,9 @@ export default function Home() {
       <main id="main-content" tabIndex={-1}>
         <section className={"shell " + styles.hero}>
           <div className={styles.heroCopy}>
-            <div className={styles.kicker}><span />一份持续生长的 Codex 实践手册</div>
+            <div className={styles.kicker}><span />一份持续更新的 Agent 实践手册</div>
             <h1>把想法，变成<br /><em>可验收的成果。</em></h1>
-            <p className={styles.lead}>从第一次提问，到完成真实任务。<br />在这里学习方法、找到案例，也解决卡住你的问题。</p>
+            <p className={styles.lead}>跟进 Codex、Claude Code 与 Agent 产品。<br />学习有来源的方法，用可复现的步骤完成真实任务。</p>
             <div className={styles.heroActions}>
               <Link className={styles.primary} href="/start">开始学习 <ArrowRight size={18} /></Link>
               <Link className={styles.secondary} href="/cases">探索实战案例 <ArrowUpRight size={17} /></Link>
@@ -79,7 +79,7 @@ export default function Home() {
 
         <section className={"shell " + styles.desk} aria-labelledby="latest-notes">
           <div className={styles.notes}>
-            <div className={styles.sectionHeading}><div><span className={styles.label}>03 / KEEP LEARNING</span><h2 id="latest-notes">最近在关注</h2></div><Link href="/community/updates" className={styles.textLink}>全部动态 <ArrowUpRight size={16} /></Link></div>
+            <div className={styles.sectionHeading}><div><span className={styles.label}>03 / KEEP LEARNING</span><h2 id="latest-notes">产品更新与使用技巧</h2></div><Link href="/community/updates" className={styles.textLink}>全部动态 <ArrowUpRight size={16} /></Link></div>
             <UpdateList items={recentUpdates} />
           </div>
           <aside className={styles.toolkit} aria-labelledby="toolkit-heading">
@@ -100,7 +100,7 @@ export default function Home() {
         <section className={"shell " + styles.community}>
           <div className={styles.communityLabel}><Users size={20} /><span>实践不必独自进行</span></div>
           <h2>把你遇到的问题，<br className={styles.mobileBreak} />变成大家的经验。</h2>
-          <p>交流真实任务，分享可复现的方法，和认真使用 Codex 的人一起学习。</p>
+          <p>交流真实任务，分享 Codex 与 Claude Code 的实践，和认真使用 Agent 的人一起学习。</p>
           <CommunityLink className={styles.primary} />
         </section>
       </main>

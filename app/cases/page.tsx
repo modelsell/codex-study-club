@@ -6,8 +6,8 @@ import { SiteHeader } from "@/components/site-header";
 import { cases } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Codex 实战案例",
-  description: "按任务、工具和问题查找 Codex 案例，阅读操作步骤、来源与验收方法。",
+  title: "Codex 与 Claude Code 实战案例",
+  description: "按任务、工具和问题查找 Codex 与 Claude Code 实践，阅读操作步骤、来源、实际验证范围与验收方法。",
   alternates: { canonical: "/cases" },
 };
 

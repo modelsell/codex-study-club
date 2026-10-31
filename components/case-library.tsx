@@ -24,7 +24,7 @@ function readServerCategory() {
   return "all-cases";
 }
 
-const suggestedKeywords = ["CI", "权限", "Skill", "浏览器"];
+const suggestedKeywords = ["Claude Code", "CI", "权限", "Skill"];
 
 export function CaseLibrary({ items }: { items: CaseListItem[] }) {
   const [query, setQuery] = useState("");

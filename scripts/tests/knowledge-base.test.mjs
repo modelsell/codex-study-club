@@ -24,6 +24,18 @@ function loadKnowledgeBase(code, snapshot = content) {
 
 const { knowledgeBase, searchKnowledgeBase, sourcesForMatches, knowledgeContext, localKnowledgeAnswer } = loadKnowledgeBase(source);
 
+test("Claude Code rule questions retrieve the inventory guide with its verification boundary", () => {
+  const href = "/cases/claude-code-project-rules-audit";
+  for (const question of ["Claude Code AGENTS.md 项目规则怎么检查", "Claude Code 父目录 CLAUDE.local.md"]) {
+    const matches = searchKnowledgeBase(question);
+    const match = matches.find((candidate) => candidate.entry.href === href);
+    assert.ok(match, `Missing Claude rule guide for ${question}`);
+    assert.ok(sourcesForMatches(matches).some((source) => source.href === href));
+    assert.ok(match.entry.content.includes("client_loading_verified"));
+    assert.ok(match.entry.content.includes("没有安装或运行 Claude Code"));
+  }
+});
+
 test("every published beginner chapter is available with its full text and stable URL", () => {
   assert.ok(content.startArticles.length > 0);
   const entries = knowledgeBase.filter((entry) => entry.kind === "start");

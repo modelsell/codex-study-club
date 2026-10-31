@@ -1,6 +1,18 @@
 {
   "cases": [
     {
+      "slug": "claude-code-project-rules-audit",
+      "title": "Codex 换到 Claude Code：先用只读工具检查项目规则",
+      "summary": "共用 AGENTS.md 时，先盘点当前目录和父目录中的规则文件，再用 Claude Code 的上下文面板核对。附已通过五组本地测试的下载工具；客户端加载与执行效果未实测。",
+      "category": "getting-started",
+      "markdown": "\n项目已经有 `AGENTS.md`，换到 Claude Code 后，还需要维护另一份规则吗？先确认**有哪些文件、客户端加载了什么、实际行为是否符合要求**。这三件事需要分别验收。\n\n适合在同一仓库交替使用 Codex 与 Claude Code 的开发者。本文的只读盘点工具已在本地验证；本站没有安装或运行 Claude Code，下面的客户端核对步骤需要读者在自己的版本上执行，不属于客户端成功案例。\n\n## 为什么现在补这个入口\n\n[GitHub #96466](https://github.com/anthropics/claude-code/issues/96466) 的原请求与 10 月后续回复讨论了父目录文件、个人规则与共享规则的关系；[Reddit 的独立提问](https://www.reddit.com/r/ClaudeCode/comments/1x9vkkh/agentsmd_in_claudemd_does_it_work_100/)仍在询问导入是否可靠。本站于 2026-11-01 阅读两处原讨论，后者页面仅提供相对时间，精确发布日期未核实。\n\n这些是一手需求线索，支持为这类读者提供检查方法；不能推算本站阅读人数，也不证明所有 Claude Code 会话都有故障。产品行为以下面的当日官方资料为准。\n\n## 先弄清当前规则\n\n据 [Claude Code 的项目记忆文档](https://code.claude.com/docs/en/memory#agentsmd)，原生读取 `AGENTS.md` 要求 v2.1.277 或更高版本。默认回退取决于当前目录及上层是否有项目 `CLAUDE.md`、`.claude/CLAUDE.md` 或 `CLAUDE.local.md`；个人全局 `~/.claude/CLAUDE.md` 不属于这个阻断条件。已有导入、设置与内置插件状态还会影响结果。\n\n| 你的现场 | 下一步核对 |\n| --- | --- |\n| 只有共享规则，没有上述项目标记文件 | 检查版本、启动提示与实际上下文，别只看文件存在 |\n| 当前或父目录还有 Claude 项目规则 | 查看是否已有导入，或在 `/config` 的 Project instructions 中核对加载模式 |\n| 已经用 `CLAUDE.md` 导入共享规则 | 保留现有内容，检查导入是否实际生效；无需为了本文删除文件 |\n| 共享内容只放在 `AGENTS.override.md` | 核对两边各自支持范围，不能假设 Claude 会读取 Codex 的覆盖文件 |\n\nCodex 有自己的[项目规则发现顺序](https://learn.chatgpt.com/docs/agent-configuration/agents-md)：同一目录的覆盖文件会影响它采用哪份规则。文件名相似不代表两种客户端具有相同的发现机制。\n\n## 第一步：运行不读正文的盘点工具\n\n[下载 Python 只读检查器](/templates/agent-instructions-audit.py)。需要 Python 3.9+，只使用标准库，无需 API Key。\n\n将脚本保存到自己的临时工作目录。从脚本所在目录执行下面的命令，把 `your-project` 换成要检查的真实项目目录：\n\n```bash\npython3 agent-instructions-audit.py ./your-project\n```\n\n工具只检查目标目录及所有父目录中的六种文件名，不读取规则正文、客户端配置或聊天，不联网，不修改文件。它不递归扫描所有子目录；换到某个子项目时应对那个目录重新运行。\n\n重点看四个字段：\n\n| 输出字段 | 能证明什么 |\n| --- | --- |\n| `found` | 检查时看到了哪些文件名，以及是否为符号链接 |\n| `possible_claude_fallback_blockers` | 哪些项目标记值得进一步核对；已有导入或加载模式可能改变结果 |\n| `scan_complete` | 是否发生检查错误；`false` 时不能把缺失结果当作没有规则 |\n| `client_loading_verified` | 固定为 `false`，因为这个工具不访问客户端上下文 |\n\n正常完成盘点退出 0，检查不完整或目标无效退出 2。退出 0 **只表示文件名盘点完成**，不能据此判断规则已经加载。工具也没有检测你安装的 Claude Code 版本、插件、排除模式、导入链或组织策略。\n\n## 第二步：在 Claude Code 中核对加载\n\n先在普通终端记录 `claude --version` 的实际结果，再从目标目录进入 Claude Code。命令用途见[官方 CLI reference](https://code.claude.com/docs/en/cli-reference)。\n\n在交互会话中查看启动提示、`/config` 的 Project instructions 和 `/context`。记录实际模式、可见文件与结果，不能仅凭模型说“我读过”就确认自动加载；显式要求它读一次规则，会改变现场，不能再用该轮证明自动发现。\n\n如果团队选择用导入共享规则，官方文档支持在 `CLAUDE.md` 中写独立一行 `@AGENTS.md`。以下代码块是**展示应写入文件的内容**；保存到 `CLAUDE.md` 时只保留这一行，不带三反引号：\n\n```text\n@AGENTS.md\n```\n\n不要覆盖已有 `CLAUDE.md`。先审查现有内容与相对路径，再在合适位置添加导入；无需把共享正文复制两遍。官方文档说明，代码跨度或围栏内的 `@` 路径不会作为导入处理。修改后重新核对实际上下文，未确认时保留“加载待验证”。\n\n## 第三步：用一个小任务验证行为\n\n先选择一个没有写入、提交或发布要求的小任务。下面是核验提示词，不是效果保证：\n\n```text\n只读梳理这个项目的验证方式。\n请指出现有规则中与本任务有关的要求，以及 README 或包脚本中的对应依据。\n区分你在会话开始时已获得的信息和本轮新读取的信息。\n不要编辑文件、安装依赖、提交或推送。\n最后给出：建议执行的检查、尚未核实的部分，以及本轮实际做了什么。\n```\n\n对照真实文件和工具记录验收：检查命令是否存在、引用是否正确、是否发生了额外写入。模型对信息来源的自述只能辅助核对。需要始终阻止的行为应由权限、工具或仓库门禁落实；[Claude Code 官方实践](https://code.claude.com/docs/en/best-practices#enforce-the-rules-that-cant-have-exceptions)也区分了项目指引与执行约束。\n\n## 本站实际验证到了哪一层\n\n2026-11-01 在临时目录执行了五组回归：只有共享规则、父目录和个人项目标记、个人全局文件不误报为项目阻断、覆盖文件与断开的符号链接、权限错误。五组全部通过；测试还确认盘点不调用正文读取、保留夹具原文，遇到不完整证据不会报告完成。\n\n本仓库实际盘点只发现根目录的 `AGENTS.md`，`scan_complete=true`，`client_loading_verified=false`。这条结果不证明 Claude Code 会话已加载规则，也不是两种模型的效果对照。工具源码与测试可在[仓库](https://github.com/modelsell/codex-study-club)核查。\n\n下一次切换客户端时，保存版本、目录层级、加载模式、上下文证据与小任务结果；若仍不符合要求，可以继续使用[任务完成验收方法](/cases/codex-finished-but-not-verified)，把具体失败交给下一轮排查。\n\n## 来源与核对日期\n\n以上官方资料与两处需求讨论均于 **2026-11-01** 阅读。GitHub 原请求发表于 2026-09-23，有 10-22、10-26 后续回复；回复中的第三方产品推广不作为本指南推荐依据。来源日期不等于功能发布日期，文档核对与工具测试不等于客户端实测。\n",
+      "imageAlt": "Codex 换到 Claude Code：先用只读工具检查项目规则",
+      "level": "初学者",
+      "surface": "Codex / Claude Code / Python 3.9+",
+      "duration": "10–15 分钟",
+      "checkedAt": "2026-11-01"
+    },
+    {
       "slug": "codex-broken-link-workflow",
       "title": "让 Codex 修好网站死链：从复现到回归检查",
       "summary": "下载返回 200 却拿到网页？用本站真实检查器修复，学会给 Codex 提供失败证据、核对文件内容，并留下回归检查。",
@@ -331,6 +343,19 @@
     }
   ],
   "updates": [
+    {
+      "slug": "agent-updates-2026-11-01",
+      "title": "11 月 1 日更新观察：Codex 网络诊断与 Claude Code 版本边界",
+      "excerpt": "核对 Codex CLI 0.166.0 与 Claude Code 2.1.316 的官方发布说明：关注网络诊断、规则加载和升级验收，不把新增诊断当作故障已修复。附需求原帖和下一步检查。",
+      "date": "2026-11-01",
+      "displayDate": "11.01",
+      "topics": [
+        "Agent 产品动态",
+        "Codex CLI",
+        "Claude Code"
+      ],
+      "markdown": "\n本期服务两类读者：Codex 能执行本地命令却连不上网的人，以及开始在同一仓库使用 Claude Code 的人。**官方资料与需求讨论核对日期为 2026-11-01；本站没有执行这两个版本的升级或客户端功能测试。**\n\n## Codex CLI 0.166.0：先取得更聚焦的诊断\n\n[官方更新日志](https://learn.chatgpt.com/docs/changelog)把 0.166.0 标为 **2026-10-29** 发布。与排障直接相关的变化是新增 `codex doctor --network-only`，聚焦配置、连通性与 WebSocket；同时列出终端文本选择、排队后恢复未加载会话等变化。这里先介绍有具体需求线索的网络诊断，不照搬整份功能清单。\n\n为什么值得关注：[macOS #57823](https://github.com/openai/codex/issues/57823)于 10-28 报告批准后仍遇到网络限制，作者 10-30 又报告 0.166.0 上仍失败；另一位用户的 [Windows #56194](https://github.com/openai/codex/issues/56194)讨论桌面与普通终端的不同结果，10-27 至 10-29 的回复也存在恢复与未恢复的差异。这是两份独立需求信号，不能合并成统一根因或官方修复结论。\n\n如果你的实际版本包含该选项，可在普通终端先查看帮助，再按需诊断：\n\n```bash\ncodex --version\ncodex doctor --help\ncodex doctor --network-only\n```\n\n新选项来自上述官方发布说明；当前 [CLI reference](https://learn.chatgpt.com/docs/cli/reference)尚未检索到 `--network-only` 条目，本站也未执行本段命令。因此先看自己版本的帮助；没有对应选项时，记录实际版本与命令解析位置，不按本文强行修改配置。诊断会进行网络检查，输出可能包含环境信息，分享前需脱敏。\n\n验收要分开：命令能启动、诊断能结束、原来的失败任务能完成。即使诊断连接成功，也不能证明长请求、登录或桌面端同样正常。若在受限 Agent 环境内运行，报告还受该执行环境影响；#57823 的作者特别提醒其环境中的诊断不能代表普通终端状态。\n\n遇到问题先用[按入口和阶段排查的方法](/cases/codex-permission-and-network-blocked)保存现场，不直接扩大权限或关闭证书校验。0.166.0 新增诊断，不能据此写成“网络问题已修好”。\n\n## Claude Code 2.1.316：按版本读变化，规则另行验收\n\n[Claude Code 官方发布记录](https://code.claude.com/docs/en/changelog)将 **2.1.316** 标为 **2026-10-31**。其中提到减少大仓库 `/diff` 的重复 Git 工作、改善 SSL 证书错误说明，以及修复部分退出场景留下 shell 命令的问题。这些是官方描述，本站尚未复现或测量改进幅度。\n\n对已有工作流，先记下原版本与失败输入，升级后只重跑相同的小任务，检查差异、退出状态和真实产物；不要把“最新版本安装成功”当作问题解决。\n\n本周另一个有持续需求的点是共享项目规则：[GitHub 的默认加载讨论](https://github.com/anthropics/claude-code/issues/96466)和 [Reddit 的导入提问](https://www.reddit.com/r/ClaudeCode/comments/1x9vkkh/agentsmd_in_claudemd_does_it_work_100/)都在追问 Codex / Claude Code 共用规则如何确认。**这不是 2.1.316 新增功能。** 当前行为应对照[官方项目记忆文档](https://code.claude.com/docs/en/memory)检查版本、现有文件和加载设置，不能只改文件名。\n\n本站新增[项目规则只读检查指南](/cases/claude-code-project-rules-audit)，提供已通过五组本地回归的下载工具。它验证的是文件名盘点，客户端上下文与行为仍需独立验收。\n\n## 本期暂不引入什么\n\n没有为每条发布说明另建教程，也没有依据单个回帖推荐第三方修复或新 Agent 产品。新产品进入本站前，要能说清谁需要、交叉需求来源、可交付成果和实际验证范围；访问效果目前不可得。后续有可复核的客户端样本，再补实战案例。\n"
+    },
     {
       "slug": "codex-quality-regression-playbook",
       "title": "Codex 降智了吗？从体感回归到可验证修复",

@@ -20,7 +20,7 @@ type StreamEvent =
 const suggestions = [
   "第一次使用 Codex，应该从哪里开始？",
   "帮我把一个模糊需求改成清晰任务",
-  "AGENTS.md 和 Skill 有什么区别？",
+  "Claude Code 的项目规则怎么检查？",
 ];
 
 export function ChatAssistant() {
@@ -195,11 +195,11 @@ export function ChatAssistant() {
 
       <form className="ask-form" onSubmit={handleSubmit}>
         <textarea
-          aria-label="向 Codex 学习助手提问"
+          aria-label="向学习助手提问"
           maxLength={4000}
           onChange={(event) => setInput(event.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="问任何关于 Codex 的问题"
+          placeholder="提问 Codex、Claude Code 或 Agent 使用问题"
           ref={textareaRef}
           rows={1}
           value={input}

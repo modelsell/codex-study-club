@@ -11,7 +11,7 @@ import styles from "./site-header.module.css";
 const primaryLinks = [
   { href: "/start", label: "学习路线" },
   { href: "/cases", label: "实战案例" },
-  { href: "/community/updates", label: "社区动态" },
+  { href: "/community/updates", label: "产品与技巧" },
 ];
 const resourceLinks = [
   { href: "/cases#troubleshooting", label: "问题排查" },
