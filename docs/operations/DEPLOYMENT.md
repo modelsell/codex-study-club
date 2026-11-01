@@ -19,6 +19,8 @@ gh api repos/modelsell/codex-study-club/commits/<提交SHA>/check-runs \
 5. 打开变更页面，核对 HTTP 状态、标题及本次新增的独特正文，同时检查案例列表和 Sitemap。刚推送后的 404 可能是部署尚未完成；构建成功但持续不可见时，再查缓存、域名和部署版本，不盲目重复推送。
 6. 在当日复盘记录提交、检查链接与线上验证时间。
 
+2026-11-01 起，Quality 额外运行 `npm run audit:security`，存在 high / critical 依赖提示时失败；moderate 仍须在待办中跟进。它是质量检查，不改变 Quality 与 Workers 独立运行的现状，不能据此声称生产已设置串行发布门禁。
+
 ## 已确认与尚未确认
 
 - 2026-09-25：提交 `9ce1ef4b4053ef32fda25ae9e70f9f2789487967` 的 `Workers Builds: codex-study-club` 检查成功；新贡献教程返回 HTTP 200 且正文正确。

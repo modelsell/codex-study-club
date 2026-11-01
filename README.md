@@ -131,7 +131,7 @@ content/
 
 ### 本地开发
 
-环境要求：Node.js 20.9 或更高版本、npm。
+环境要求：Node.js 22 或更高版本、npm；推荐使用与 CI 相同的 Node.js 24。
 
 ```bash
 git clone https://github.com/modelsell/codex-study-club.git
@@ -161,6 +161,7 @@ npm run dev
 ```bash
 npm run dev                 # 启动本地开发服务器
 npm run lint                # 运行 ESLint
+npm run audit:security      # 检查依赖，high / critical 提示使检查失败
 npm run check:content       # 只读检查源内容与生成快照是否一致
 npm run test:content        # 验证快照检查器的失败与恢复场景
 npm run test:links          # 验证链接检查器（Python 3.9+）
@@ -214,7 +215,7 @@ Approved projects receive at least **$500 in Modelsell compute credits**. Credit
 
 ### Run Locally
 
-Requirements: Node.js 20.9 or newer and npm.
+Requirements: Node.js 22 or newer and npm; Node.js 24 matches CI and is recommended.
 
 ```bash
 git clone https://github.com/modelsell/codex-study-club.git

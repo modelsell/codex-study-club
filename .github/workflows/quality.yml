@@ -32,6 +32,8 @@ jobs:
           cache: npm
       - name: Install locked dependencies
         run: npm ci --no-audit --no-fund
+      - name: Audit high and critical dependency advisories
+        run: npm run audit:security
       - name: Test content snapshot checker
         run: npm run test:content
       - name: Check content snapshot before build
