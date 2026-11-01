@@ -1,6 +1,7 @@
 # 项目维护约定
 
 - 先读 `README.md`、`content/README.md` 和 `docs/operations/README.md`；每日运营同时读 `docs/operations/BACKLOG.md` 与最近复盘。
+- 发布前同时读 `docs/operations/CONTENT-GATE.md` 和 `docs/operations/EDITORIAL-STANDARD.md`；先验证需求与事实，再审内容深度。产品流水、功能清单或只有验证提醒的概览不单独出稿，缺少机制解释、完整示例、取舍或可复用成果则继续研究/修改。
 - 正文在 `content/` 中维护，保留现有 Frontmatter 与稳定 URL；不要在页面组件中塞文章正文。
 - 官方产品事实必须查阅当日官方原文，标注来源和核对日期；没有执行的案例不得写成实测成功。
 - 内容或代码变更运行 `npm run lint`、`npm run build`，检查生成的 `lib/generated-content.json`，按改动补充必要的页面验证。
