@@ -12,6 +12,7 @@ Codex Study Club 面向正在学习和使用编码 Agent 的开发者，持续�
 
 ## 本期新内容（2026-11-01）
 
+- [DeepSeek Super-agent 开源了：能接什么任务，试用前查什么](https://codex.modelsp.com/community/updates/deepseek-superagent-prototype)：核对官方研究原型、授权与部署边界及两份独立使用反馈；提供试用验收卡，客户端与团队接入未实测。
 - [11 月 1 日更新观察：Codex 网络诊断与 Claude Code 版本边界](https://codex.modelsp.com/community/updates/agent-updates-2026-11-01)：核对 0.166.0 / 2.1.316 官方发布说明与近期需求原帖，区分新增诊断、升级和真实恢复；客户端升级与功能效果未实测。
 - [Codex 换到 Claude Code：先用只读工具检查项目规则](https://codex.modelsp.com/cases/claude-code-project-rules-audit)：提供经过五组回归的 Python 检查器，盘点共享规则与父目录标记，再独立核对客户端上下文；不把文件存在当作加载成功。
 

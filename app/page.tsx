@@ -35,7 +35,7 @@ export default function Home() {
           <div className={styles.heroCopy}>
             <div className={styles.kicker}><span />一份持续更新的 Agent 实践手册</div>
             <h1>把想法，变成<br /><em>可验收的成果。</em></h1>
-            <p className={styles.lead}>跟进 Codex、Claude Code 与 Agent 产品。<br />学习有来源的方法，用可复现的步骤完成真实任务。</p>
+            <p className={styles.lead}>跟进实用的 Agent 产品与工作方法。<br />学习有来源的方法，用可复现的步骤完成真实任务。</p>
             <div className={styles.heroActions}>
               <Link className={styles.primary} href="/start">开始学习 <ArrowRight size={18} /></Link>
               <Link className={styles.secondary} href="/cases">探索实战案例 <ArrowUpRight size={17} /></Link>
