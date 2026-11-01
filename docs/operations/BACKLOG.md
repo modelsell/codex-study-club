@@ -6,7 +6,7 @@
 
 用户要求扩展至最新 Agent 产品、Codex、Claude Code，先验证、判断真实阅读需求后再引入。按 [CONTENT-GATE](CONTENT-GATE.md) 自主执行；当前聊天已建立每天 09:00 / 20:00 的一项早晚任务，保留周日晚间评估，不叠加调度。以下排序覆盖下方历史安排。
 
-1. **P1：完成安全更新发布，并跟进剩余中危提示。** 11-01 早间已准备 Next 16.4.3 / OpenNext 1.20.15 等兼容更新及局部 glob override，audit 从 36 项（2 critical / 14 high / 20 moderate）降为 20 moderate、0 high / critical；最终清洁安装回归和生产验收见当日复盘。后续关注 glob / minimatch 的上游兼容修订，移除过渡 override 前重做审计与构建；不强制跨主版本覆盖或降回旧 OpenNext/ESLint，也不把依赖提示总数当作可利用漏洞数。新增 Quality 高危审计检查，但它与 Workers 仍独立运行。
+1. **P1 / 观察：跟进剩余中危提示与上游兼容更新。** 11-01 早间已发布 Next 16.4.3 / OpenNext 1.20.15 等兼容更新及局部 glob override，audit 从 36 项（2 critical / 14 high / 20 moderate）降为 20 moderate、0 high / critical；清洁安装、回归、同 SHA Quality / Workers 和正式页面/图片均通过，发布提交为 `66e41d1`，详见当日复盘。后续关注 glob / minimatch 的上游兼容修订，移除过渡 override 前重做审计与构建；不强制跨主版本覆盖或降回旧 OpenNext/ESLint，也不把依赖提示总数当作可利用漏洞数。新增 Quality 高危审计检查，但它与 Workers 仍独立运行。
 2. **P1：下一篇案例先取得客户端证据。** 优先 T12 的真实 Claude Code 版本、规则加载模式、上下文与小任务结果；条件不足保留工具实践，不重复写一篇提示词教程。新 Agent 产品需当日官方原文及两个独立需求信号，缺项先暂缓。
 3. **P1：运营执行与反馈。** 每日先检查当日完成记录，避免任务漏跑和重复发布；晚间独立核验、补漏及复盘。11-08 / 12-01 同轮回看 T12/T13 的 7/30 天真实反馈与可得阅读数据，无数据写不可得；观察项目 Issues 和真实失败样本，不用 Star 代替阅读或成功。
 
