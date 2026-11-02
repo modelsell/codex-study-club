@@ -10,9 +10,9 @@
 
 Codex Study Club 面向正在学习和使用编码 Agent 的开发者，持续整理 **Codex、Claude Code、Agent 产品动态、AGENTS.md、Skills、MCP、自动化、代码审查与问题排查** 等中文教程与实践。发布前交叉核对官方资料和真实需求，区分文档核对、工具验证与客户端实测；规范见[内容引入门槛](docs/operations/CONTENT-GATE.md)。项目还提供一个基于本地 Markdown 知识库的问答助手，帮助读者更快找到相关内容。
 
-## 本期新内容（2026-11-01）
+## 本期新内容（2026-11-02 更新）
 
-- [DeepSeek Super-agent 开源了：能接什么任务，试用前查什么](https://codex.modelsp.com/community/updates/deepseek-superagent-prototype)：核对官方研究原型、授权与部署边界及两份独立使用反馈；提供试用验收卡，客户端与团队接入未实测。
+- [DeepSeek Super-agent 源码拆解：一条请求怎样走到交付](https://codex.modelsp.com/community/updates/deepseek-superagent-prototype)：沿接收、授权、工单、PR 和回传展开完整路径；附三个实际核心模拟分支、可复现脚本与方案选择表。属于源码分析，Harness 客户端与团队接入未实测。
 - [11 月 1 日更新观察：Codex 网络诊断与 Claude Code 版本边界](https://codex.modelsp.com/community/updates/agent-updates-2026-11-01)：核对 0.166.0 / 2.1.316 官方发布说明与近期需求原帖，区分新增诊断、升级和真实恢复；客户端升级与功能效果未实测。
 - [Codex 换到 Claude Code：先用只读工具检查项目规则](https://codex.modelsp.com/cases/claude-code-project-rules-audit)：提供经过五组回归的 Python 检查器，盘点共享规则与父目录标记，再独立核对客户端上下文；不把文件存在当作加载成功。
 
