@@ -24,6 +24,23 @@ function loadKnowledgeBase(code, snapshot = content) {
 
 const { knowledgeBase, searchKnowledgeBase, sourcesForMatches, knowledgeContext, localKnowledgeAnswer } = loadKnowledgeBase(source);
 
+test("Deep Agents storage questions do not receive the AGENTS.md rules answer", () => {
+  const href = "/cases/deepagents-storage-recovery";
+  for (const question of [
+    "Deep Agents 重启资料怎么恢复",
+    "Deep Agents StoreBackend namespace thread_id",
+    "Deep Agents namespace 怎么共享笔记",
+  ]) {
+    const matches = searchKnowledgeBase(question);
+    assert.equal(matches[0]?.entry.href, href, `Wrong leading result for ${question}`);
+    assert.ok(sourcesForMatches(matches).some((source) => source.href === href));
+    assert.ok(localKnowledgeAnswer(matches).includes("Deep Agents 存储实验"));
+  }
+  const rules = searchKnowledgeBase("AGENTS.md 和 Skill 的区别");
+  assert.equal(rules[0]?.entry.id, "assistant:agents-and-skills");
+  assert.ok(localKnowledgeAnswer(rules).startsWith("AGENTS.md 保存"));
+});
+
 test("Claude Code rule questions retrieve the inventory guide with its verification boundary", () => {
   const href = "/cases/claude-code-project-rules-audit";
   for (const question of ["Claude Code AGENTS.md 项目规则怎么检查", "Claude Code 父目录 CLAUDE.local.md"]) {

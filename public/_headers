@@ -2,3 +2,6 @@
 # https://opennext.js.org/cloudflare/caching#static-assets-caching
 /_next/static/*
   Cache-Control: public,max-age=31536000,immutable
+
+/templates/deepagents-storage-requirements.txt
+  Content-Disposition: attachment; filename="deepagents-storage-requirements.txt"

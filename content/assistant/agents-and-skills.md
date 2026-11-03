@@ -2,7 +2,6 @@
 title: "AGENTS.md 和 Skill 的区别"
 terms:
   - "agents.md"
-  - "agents"
   - "skill"
   - "plugin"
   - "区别"
