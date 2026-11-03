@@ -1,6 +1,6 @@
 # 持续选题池
 
-维护负责人：项目运营。建立日期：2026-10-05；最近整理日期：2026-11-01（Asia/Shanghai，扩展 DeepSeek、浏览器自动化、可换模型工具与长任务框架；来源核对日期见各题）。
+维护负责人：项目运营。建立日期：2026-10-05；最近整理日期：2026-11-03（Asia/Shanghai，SDK 存储案例交付与 OpenCode v2 版本/接入证据复读；来源核对日期见各题，不统一刷新）。
 
 本文件保存候选、原始证据、实验计划与后续反馈；发布状态与验证边界逐题记录。2026-10-05 用户认可基于真实社区痛点选题，并要求在本地持续维护。首批来源来自同日对 X、Reddit、OpenAI 开发者社区和 GitHub Issues 的实际阅读。10-06 重读 T01 社区原帖与官方说明；10-15 新核对 T05 的 #53368、#32582 与原社区帖；10-16 重读 T04 原帖、后续回复与 #50973，并核对 CLI、IDE 当日官方原文。10-17 新增 T07 的 Cloud 发布失败原帖并核对当日官方 Cloud 文档。其他来源未重查，不刷新日期。正式写作前须重新核对原帖、后续回复和当日官方说明。
 
@@ -103,6 +103,7 @@
 - **独立需求二**：[#60279](https://github.com/anomalyco/opencode/issues/60279)，10-29 UTC（北京时间 10-30），iEsclyOrg 报告 Windows / Desktop v2.2.1 的使用限制与缺少自定义 provider 入口。帖子已作为重复项关闭，维护者链接到 v2 Providers；关闭不等于原作者两项问题都恢复。
 - **最小验证计划**：固定当前客户端版本，以隔离配置和本地 mock 端点核对有效/无效配置、桌面/CLI 入口及实际请求；记录模型和目标但不输出密钥。真实模型效果和用量另做有授权的验证，不承诺免费额度或服务恢复。
 - **引入判断**：需求齐，P2 待验证；先验证“请求去了哪里”，再讨论模型选择，不做无成本/同任务数据的效果排名。
+- **11-03 晚间复读与验证准备**：实际读取 v2 Providers / Intro、两份需求原帖及相关后续；#58909（10-25）仍 open，关联 PR #59238（10-26）仍 open、未合并，不以作者或机器人回测充当本站结果；#60279（10-29 UTC）仍按 duplicate 关闭，neriousy 的回复分别指向服务额度与 Desktop 自定义 provider 入口，未证明原用户恢复。当次 GitHub Latest API 为 v1.19.5，而发布列表及[官方 v2.2.5 Release](https://github.com/anomalyco/opencode/releases/tag/v2.2.5)为 10-30 23:17 UTC；v2 Intro 指向 `@opencode/cli`，[npm 包元数据](https://registry.npmjs.org/@opencode%2Fcli/latest)版本同为 2.2.5。下一轮须固定 v2 发行物、实际二进制和对应源码，再用本地端点比较有效/无效配置与显式模型选择，验证请求目标和失败行为。当前未安装或运行，不把 Latest 标记当 v2 版本，不测试真实服务额度或模型质量；完整记录见[11-03 晚间复盘](reviews/2026-11-03.md#晚间独立核验与复盘20-时轮)。
 
 ### T18：Deep Agents 的长任务恢复与共享笔记
 
@@ -115,6 +116,7 @@
 - **11-03 收窄为可完成的 SDK 存储实验**：当日重读官方 Backends / Memory / LangGraph Persistence、SDK Changelog、Release 与两份原帖及全部后续评论。PyPI 最新 SDK 0.7.32，原发布 10-23 21:30 UTC（北京时间 10-24），固定提交 `e85c6b98087861512d2c5240305e16cfac68a746`；七份安装包源码与该提交逐字节一致。#7376（herohua，10-29 07:55 UTC）仍 open，维护者讨论自定义 saver 的历史读取实现；#7279（zamal-db，10-26 15:21 UTC）仍 open，是共享分组请求。它们不是已支持全量快照或 memory_groups 的证明。
 - **11-03 实际范围与交付**：Python 3.12.14、Deep Agents 0.7.32、LangGraph 1.2.19、checkpoint 4.3.1、SQLite adapter 3.1.3。用真实 StateBackend / FilesystemBackend / StoreBackend、FilesystemState 与最小 StateGraph，保存两份合成资料和清单，独立进程重启读取；得到内存丢失、SQLite 同线程恢复/换线程不可见、文件根目录跨线程可见及 Store namespace 对照。两套干净环境按固定 59 项依赖均通过、pip check 无缺损，连接尝试 0。没有模型替身或真实模型，根本不创建模型，不测试 create_deep_agent 主循环、委派、云端性能、崩溃恢复或权限。拟交付[限定层级的实践页](https://codex.modelsp.com/cases/deepagents-storage-recovery)、脚本与固定依赖；通过编辑与站点验收后发布，详见[11-03 复盘](reviews/2026-11-03.md)。
 - **11-03 发布与待回看**：上述限定 SDK 案例已随 `790133b388f751dd92c5fdbdcc16a38cd9a2928e` 发布；同 SHA 的远端、Quality、Workers 及正式正文/首页/案例库、两份下载字节与响应头、69 URL Sitemap 均核对。正式站浏览器保存初次未取得回执，延长等待重试后，两份文件均实际保存且字节匹配；不以最初 HTTP 检查代替浏览器保存验证。11-10 / 12-03 在现有任务同轮回看独立读者产物与失败样本，不另建调度；暂不升级为真实模型调研、选择性子 Agent 共享或云端性能教程。
+- **11-03 晚间独立核验**：重新读取内容/归档两个完整 SHA 的 Quality / Workers，均 success；正式八个目标、三个下载指纹、依赖下载响应与 69 URL Sitemap 通过。使用新下载且先核对字节的脚本，在晨间保留的 SDK 环境复跑七组对照，结果与早间一致、连接尝试 0。官方文档、PyPI / Release 与两份需求复读未改变现有结论；保持正文与核对日期，不重复发稿，仍待独立读者成果和实际模型/权限验证。
 
 ## T12：Codex / Claude Code 共用规则的检查入口
 
