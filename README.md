@@ -10,8 +10,9 @@
 
 Codex Study Club 面向正在学习和使用编码 Agent 的开发者，持续整理 **Codex、Claude Code、Agent 产品动态、AGENTS.md、Skills、MCP、自动化、代码审查与问题排查** 等中文教程与实践。发布前交叉核对官方资料和真实需求，区分文档核对、工具验证与客户端实测；规范见[内容引入门槛](docs/operations/CONTENT-GATE.md)。项目还提供一个基于本地 Markdown 知识库的问答助手，帮助读者更快找到相关内容。
 
-## 本期新内容（2026-11-03 更新）
+## 本期新内容（2026-11-04 更新）
 
+- [OpenCode v2 模型配置验收：请求真的到了目标服务吗](https://codex.modelsp.com/cases/opencode-provider-request-lab)：五组实际 CLI 与本地模拟端点对照，追踪 provider 拒绝、默认回退和显式选择；附 macOS arm64 复现脚本，验证配置和传输，不评价真实模型或 Desktop。
 - [Deep Agents 存储实验：重启后怎么找回资料](https://codex.modelsp.com/cases/deepagents-storage-recovery)：用两份合成资料和来源清单，对照内存、SQLite、文件后端及 Store 的恢复/可见范围，附固定依赖和离线脚本；仅验证 SDK 存储层，未运行真实模型调研或子 Agent 权限流程。
 - [DeepSeek Super-agent 源码拆解：一条请求怎样走到交付](https://codex.modelsp.com/community/updates/deepseek-superagent-prototype)：沿接收、授权、工单、PR 和回传展开完整路径；附三个实际核心模拟分支、可复现脚本与方案选择表。属于源码分析，Harness 客户端与团队接入未实测。
 - [11 月 1 日更新观察：Codex 网络诊断与 Claude Code 版本边界](https://codex.modelsp.com/community/updates/agent-updates-2026-11-01)：核对 0.166.0 / 2.1.316 官方发布说明与近期需求原帖，区分新增诊断、升级和真实恢复；客户端升级与功能效果未实测。
