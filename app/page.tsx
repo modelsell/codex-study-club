@@ -10,8 +10,8 @@ import { cases, startArticles, updates } from "@/lib/content";
 import styles from "./page.module.css";
 
 const featuredSlugs = [
-  "opencode-provider-request-lab", "deepagents-storage-recovery", "claude-code-project-rules-audit",
-  "minimal-bug-fix-with-reproduction", "codex-progress-or-loop", "codex-finished-but-not-verified",
+  "gemini-cli-cancellation-lab", "opencode-provider-request-lab", "deepagents-storage-recovery",
+  "claude-code-project-rules-audit", "minimal-bug-fix-with-reproduction", "codex-progress-or-loop",
 ];
 
 export default function Home() {
