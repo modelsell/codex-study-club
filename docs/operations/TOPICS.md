@@ -1,6 +1,6 @@
 # 持续选题池
 
-维护负责人：项目运营。建立日期：2026-10-05；最近整理日期：2026-11-05（Asia/Shanghai，Gemini CLI 0.67.0 深度案例晚间上线并转反馈观察；来源核对日期见各题，不统一刷新）。
+维护负责人：项目运营。建立日期：2026-10-05；最近整理日期：2026-11-06（Asia/Shanghai，复读 Browser Use 与 Gemini 来源，新增 OpenHands 用量记录研究候选；本轮不新增正文，来源核对日期见各题，不统一刷新）。
 
 本文件保存候选、原始证据、实验计划与后续反馈；发布状态与验证边界逐题记录。2026-10-05 用户认可基于真实社区痛点选题，并要求在本地持续维护。首批来源来自同日对 X、Reddit、OpenAI 开发者社区和 GitHub Issues 的实际阅读。10-06 重读 T01 社区原帖与官方说明；10-15 新核对 T05 的 #53368、#32582 与原社区帖；10-16 重读 T04 原帖、后续回复与 #50973，并核对 CLI、IDE 当日官方原文。10-17 新增 T07 的 Cloud 发布失败原帖并核对当日官方 Cloud 文档。其他来源未重查，不刷新日期。正式写作前须重新核对原帖、后续回复和当日官方说明。
 
@@ -35,6 +35,7 @@
 | --- | --- | --- | --- | --- |
 | T14 | 已修订 / 待反馈 | DeepSeek Super-agent：一条请求怎样走到交付 | 固定源码任务路径、三个核心模拟分支、可复现脚本与方案取舍 | 11-02 已上线；同 SHA CI/Workers、正式正文/下载/Sitemap 已验；真实客户端未实测 |
 | T15 | P1 / 待验证 | 浏览器 Agent 说完成了，文件和页面状态真的变了吗 | Browser Use 下载/提交的结果验收及失败对照 | 需求齐，待固定版本的本地夹具和实际 Agent 流程 |
+| T19 | 候选 / 待实验 | OpenHands 长会话：恢复后的用量记录怎样核对 | 分用途用量与合计守恒的离线实验、完整历史与摘要的取舍 | 11-06 核对 1.60.1、两位独立作者及七份发行源码；尚未运行 SDK，不发布用量或性能结论 |
 | T16 | CLI 实验已发布 / 观察 | Gemini CLI 取消后，命令是否还在执行 | 五组退出码/进程/文件/会话对照与脚本、实际续接历史探针 | 11-05 随 1282c4a 上线；同 SHA CI/Workers、正式正文/入口、保存文件及 71 URL Sitemap 已验，真实模型/跨系统未测 |
 | T17 | CLI 实验已发布 / 观察 | OpenCode 换了模型，怎样确认请求真的去了目标服务 | 配置、实际 provider/model 与请求来源对照及脚本 | 11-04 随 7c78c4d 上线；同 SHA CI/Workers、正式正文/入口/下载保存及 70 URL Sitemap 已验，真实模型和 Desktop 未测 |
 | T18 | SDK 实验已发布 / 观察 | Deep Agents 存储层：资料跨进程保留与线程/命名空间范围 | 两份合成资料与来源清单、离线脚本、固定依赖及存储选择表 | 11-03 随 790133b 上线，同 SHA CI/Workers、正式正文/入口/下载字节/Sitemap 已验；模型调研与子 Agent 权限未测 |
@@ -86,6 +87,7 @@
 - **引入判断**：两份独立近 30 天需求具备，优先验证；客户端流程未执行，暂不发布“Browser Use 已解决下载/假成功”的教程。不得把本站通过 CUA 下载自己文件的结果冒充 Browser Use 实测。
 - **11-02 轮换复核**：实际重读官方 Quickstart、#6065 与 #6031 的原文和相关作者回测。前者仍显示 open，0.13.11 / Windows / granite4.2:3b 反馈没有完整最小代码；后者仍 open，原帖未运行与后续作者 0.13.11、单模型基线分开记录，不能把最初声明当作后续始终未测，也不能把维护者/作者回测当本站验证。官方快速开始依赖实际模型凭据；本轮未调用模型、未安装 Browser Use，T15 继续待真实流程，不发布重复的通用验收文。没有重查发布版本列表，保留 11-01 版本采样日期。
 - **11-05 条件核对**：重读 Quickstart，未取得对应的已授权模型流程，本轮未安装或执行 Browser Use；需求原帖和发布列表没有重查，不刷新其日期。按既有替补计划转 T16 的真实 CLI / 合成 API 实验，不把其他浏览器工具当作 Browser Use 实测。
+- **11-06 复读与暂缓**：当日重读 Quickstart、原始 Release、两帖及 #6031 的后续回复，并以 GitHub / PyPI 交叉核对。正式版仍为 0.13.14，GitHub 原发布 10-26 22:00:34 UTC，PyPI wheel 于 23:00:51 UTC 上传；不能把 Release 建立时间直接当包已可安装。#6065（10-14 15:44:35 UTC）仍 open、无评论；#6031（10-10 09:24:03 UTC）仍 open，最后更新 10-26。后续包括作者的模型回测、另一作者的操作轨迹分析，以及评分器反例/作者修订自述，均没有变成本站实验；同帖机器人、同作者续帖不额外计需求。验收计划补充“服务端产物 + 实际操作轨迹 + 最终声明”三层，避免仅有结果却漏看方法越界；不复制作者样本或费用。当前没有可用于该任务的已授权模型流程，未安装、运行 Browser Use 或使用其他浏览器工具替代，继续暂缓实战稿。
 
 ### T16：Gemini CLI 的取消、进程与续跑
 
@@ -99,6 +101,7 @@
 - **11-05 实验与草稿**：当日官方 Headless / Policy 文档、[#30007](https://github.com/google-gemini/gemini-cli/issues/30007) / [#29971](https://github.com/google-gemini/gemini-cli/issues/29971)及 API 交叉核对，两帖状态/更新时间未变；[0.67.0 Release](https://github.com/google-gemini/gemini-cli/releases/tag/v0.67.0)与 npm 一致，原发布 11-04 20:27 UTC（北京 11-05），源码固定 `dc6602cec4a6e823aa33937144245dc421e5165f`。官方 bundle 指纹已验，实际 macOS CLI 0.67.0 / Node 24.22.1 / 合成 API 跑通五组：未授权工具可 exit 0 但无产物；正常组 1 行且有成功记录；SIGTERM / SIGINT 组 exit 143 / 130 后 worker 仍写入、历史 0 工具；观察器另管已核归属的实验组可阻止这次延迟写入，但不补历史。实际续接请求无对应函数调用/响应，未验证真实模型续跑。两次完整脚本输出一致；稿件有机制、完整任务、取舍和复用产物，本地质量/检索/链接通过。新稿 UI 与浏览器保存因用户正在操作 Chrome 未完成，`97068ca9a505e3b7688169c34e1e91a48266eb42` 仅保存于本地分支 `codex/gemini-cancellation-lab`，未推送/未发布；下一轮先补该门禁，不把 Release 标题或未合并 PR 当完整取消恢复。细节见 [11-05 复盘](reviews/2026-11-05.md)。
 - **11-05 晚间补齐**：官方原文、两份需求、Release/npm 和 PR 独立复读，版本/状态未变；独立浏览器完成首页到正文、桌面/390×844 手机、Gemini 搜索 1 结果和实际点击保存。14905 字节脚本保存后复跑五组/续接，完整结果与独立晚间运行及早间一致；主工作区 build/快照、本晚 lint、12 项检索与 71 页链接通过。仍是真实 CLI / 本地 shell / 合成 API，不验证模型效果。进入发布验收，待同 SHA 远端、Quality、Workers、新正文/入口/下载/Sitemap 读回后转反馈；成功发布后于 11-12 / 12-05 同轮回看，不另建调度。
 - **11-05 正式发布**：已随 `1282c4a466b94aa1ecdb481e7c92dddc49614c96` 上线，同 SHA Quality / Workers completed-success，20:17 正式新正文/首页/案例库、脚本字节与 71 URL Sitemap 通过，原 31 案例 URL 保留；随后正式浏览器保存文件再次核对一致。[案例入口](https://codex.modelsp.com/cases/gemini-cli-cancellation-lab)保持稳定。T16 转反馈观察，11-12 / 12-05 回看，不把模拟 API 结果写成真实模型续跑、跨系统修复或独立读者收益。见[发布证明](reviews/2026-11-05.md#晚间发布证明与复盘结论)。
+- **11-06 观察**：重新读取当前 Headless、原始 0.67.0 Release、两份原帖与相关 PR 元数据，版本、帖子状态及更新时间未变；#30051 / #29973 仍 open、未合并。正式正文、入口、脚本字节与 71 URL Sitemap 再核通过，无新修复或读者证据，不重复实验、发稿或刷新正文核对日期；回看日期不变。
 
 ### T17：OpenCode 的配置与真实模型来源
 
@@ -127,6 +130,17 @@
 - **11-03 实际范围与交付**：Python 3.12.14、Deep Agents 0.7.32、LangGraph 1.2.19、checkpoint 4.3.1、SQLite adapter 3.1.3。用真实 StateBackend / FilesystemBackend / StoreBackend、FilesystemState 与最小 StateGraph，保存两份合成资料和清单，独立进程重启读取；得到内存丢失、SQLite 同线程恢复/换线程不可见、文件根目录跨线程可见及 Store namespace 对照。两套干净环境按固定 59 项依赖均通过、pip check 无缺损，连接尝试 0。没有模型替身或真实模型，根本不创建模型，不测试 create_deep_agent 主循环、委派、云端性能、崩溃恢复或权限。拟交付[限定层级的实践页](https://codex.modelsp.com/cases/deepagents-storage-recovery)、脚本与固定依赖；通过编辑与站点验收后发布，详见[11-03 复盘](reviews/2026-11-03.md)。
 - **11-03 发布与待回看**：上述限定 SDK 案例已随 `790133b388f751dd92c5fdbdcc16a38cd9a2928e` 发布；同 SHA 的远端、Quality、Workers 及正式正文/首页/案例库、两份下载字节与响应头、69 URL Sitemap 均核对。正式站浏览器保存初次未取得回执，延长等待重试后，两份文件均实际保存且字节匹配；不以最初 HTTP 检查代替浏览器保存验证。11-10 / 12-03 在现有任务同轮回看独立读者产物与失败样本，不另建调度；暂不升级为真实模型调研、选择性子 Agent 共享或云端性能教程。
 - **11-03 晚间独立核验**：重新读取内容/归档两个完整 SHA 的 Quality / Workers，均 success；正式八个目标、三个下载指纹、依赖下载响应与 69 URL Sitemap 通过。使用新下载且先核对字节的脚本，在晨间保留的 SDK 环境复跑七组对照，结果与早间一致、连接尝试 0。官方文档、PyPI / Release 与两份需求复读未改变现有结论；保持正文与核对日期，不重复发稿，仍待独立读者成果和实际模型/权限验证。
+
+## 11-06 轮换研究：T19 OpenHands 长会话的用量记录
+
+- **读者与主问题**：把 OpenHands SDK 接进长任务或续接流程的开发者；需要分清一次调用的记录、各用途合计与恢复后的历史，避免把 SDK 展示数直接当供应商账单，或为缩小文件删掉需要审查的逐次记录。
+- **当日官方原文**：[SDK 说明](https://docs.openhands.dev/sdk)、[Metrics Tracking](https://docs.openhands.dev/sdk/guides/metrics)、[Persistence](https://docs.openhands.dev/sdk/guides/convo-persistence)及 [v1.60.1 Release](https://github.com/OpenHands/software-agent-sdk/releases/tag/v1.60.1)，均在 11-06 实际读取。GitHub 原发布 11-05 16:32:39 UTC（北京 11-06 00:32），PyPI `openhands-sdk` 1.60.1 于 16:46:39 UTC 上传；固定发行提交 `e99e5c71ffe440a0b8d74b695f9307a7e34e4bbd`。文档没有核实首次发布日期，不记作当日新增功能。
+- **独立信号一**：[#6487](https://github.com/OpenHands/software-agent-sdk/issues/6487)，enyst，11-05 06:04:22 UTC 创建、07:57:14 更新，仍 open。作者用真实内部类和合成费用讨论恢复后再派生 `ask-agent` 的重复累计；这是测试派生的报告，没有生产付费损失证据。机器人复述与作者两条修复回复不额外计需求；关联 [PR #6497](https://github.com/OpenHands/software-agent-sdk/pull/6497) 原建于 11-05 07:37:53 UTC，当前仍 open、未合并。
+- **独立信号二**：[#6432](https://github.com/OpenHands/software-agent-sdk/issues/6432)，no-hup，11-03 09:47:45 UTC 创建、12:10:32 更新，仍 open。原帖区分人的长任务痛点与 Agent 写的模拟测量，关注完整逐次 metrics 历史的反复序列化与保留/裁剪取舍。它支持“用量历史应如何保存”的相邻需求，不是第一帖的根因确认；作者给出的时间和字节数未由本站复测，不作本站性能数据。机器人设计提问不是另一份使用反馈。
+- **已完成的源码研究**：下载发行标签下 registry、conversation stats、state、LLM、local conversation、metrics 及官方 metrics 示例，七份文件的 Git blob 均匹配上述完整提交。沿 `LLMRegistry.add → notify → ConversationStats.register_llm → restore_metrics`、`ask_agent` 的浅复制与 `get_combined_metrics` 读取相关实现；同时核对 `_save_base_state` 及完整历史/网络摘要的序列化分支。当前只是静态追踪，未运行包、重放会话或验证上述报告；Release 中另一项“时间戳相同的成本差分”修正不能代替 #6487 的修复。
+- **深度提纲与可带走成果**：主线限定在恢复后的用量记录。先用新会话作基线，再在独立进程恢复一份合成历史并派生用途，检查对象是否共享、原用途是否保持、逐次记录与合计是否守恒；完整展开同一输入的正常/失败对照。比较只留合计、保留逐次历史及追加式审计记录的恢复能力与维护代价，不预设追加文件已获上游支持。拟交付脱敏实验脚本、可核算的记录样例和选择表，性能部分只有另取规模/重复次数/字节口径后才加入。
+- **验证条件与选择理由**：两位独立作者、原始材料和具体机制可支持继续研究；需求强度仍有限，不能写成普遍收费问题或流量预测。下一步在隔离环境固定 SDK/依赖，先做无模型、无网络的真实存储/聚合实验，保留新建与恢复的对照；若要写完整 `ask_agent` 客户端流程，另需对应实际会话与调用证据。当前没有执行这些步骤、没有成稿与下载产物，留在选题池，不发布新闻摘要或效果排名。
+- **未选的相邻方向**：本轮还读了 OpenHands [#18692](https://github.com/OpenHands/OpenHands/issues/18692) 和 SDK [#6094](https://github.com/OpenHands/software-agent-sdk/issues/6094) 的初始化环境诉求；两帖同作者且跨仓库追踪同一请求，只算一份。另读 [#6518](https://github.com/OpenHands/software-agent-sdk/issues/6518)（11-05）的插件 hook 路径请求，它与自动运行项目初始化脚本不等同，暂不拼成两份同题需求。尚未测试启动、hook 或安装恢复，不另开泛入门稿。
 
 ## T12：Codex / Claude Code 共用规则的检查入口
 

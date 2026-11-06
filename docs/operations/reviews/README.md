@@ -4,6 +4,7 @@
 
 | 日期 | 主题 |
 | --- | --- |
+| [2026-11-06](2026-11-06.md) | 早间复核 Gemini 正式交付与 71 URL Sitemap；Browser Use 真实流程仍暂缓，新增 OpenHands 用量/持久化研究候选并固定七份发行源码，未运行 SDK 或新增正文；12 moderate、0 high/critical，Star/Fork 10/1、读者数据不可得 |
 | [2026-11-05](2026-11-05.md) | Gemini CLI 0.67.0 五组真实 shell/合成 API 对照深度稿晚间上线；同 SHA CI/Workers、正文/入口、浏览器实际保存和 71 URL Sitemap 已验，附脚本及续接历史探针；早间缺口保留，T16 转反馈观察；12 moderate、0 high/critical，Star/Fork 10/1、读者效果不可得 |
 | [2026-11-04](2026-11-04.md) | OpenCode 2.2.5 CLI 五组对照与脚本上线；晚间独立核对两个完整 SHA 的 CI/Workers、十个正式目标、四份下载及 CLI 复跑；T16 两项 PR 未合并，继续待验证；20 moderate、0 high/critical；晚间浏览器不可用、未重做点击保存，Star/Fork 9/1、读者效果不可得 |
 | [2026-11-03](2026-11-03.md) | Deep Agents SDK 存储案例与两份复现文件上线，检索误答与下载修正；晚间独立确认两个完整 SHA 的 CI/Workers、八个正式目标、三个下载指纹和 SDK 复跑；20 moderate、0 high/critical；T17 复读并准备 v2 请求目标对照，尚未运行；Star/Fork 9/1，独立读者效果不可得 |
