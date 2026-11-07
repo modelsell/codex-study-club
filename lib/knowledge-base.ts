@@ -170,6 +170,15 @@ export const knowledgeBase: KnowledgeEntry[] = [
 
 const commandsByEntry = new Map(knowledgeBase.map((entry) => [entry.id, documentedCommands(entry.content)]));
 
+// Preserve exact documented snake_case names independently of prose formatting.
+// plainText removes Markdown underscores, which would lose names such as use_snapshot.
+const identifiersByEntry = new Map(knowledgeBase.map((entry) => {
+  const prose = entry.content.replace(/```[\s\S]*?```/g, " ");
+  const identifiers = [...prose.matchAll(/`([^`\n]+)`/g)]
+    .flatMap((match) => normalize(match[1]).match(/\b[a-z][a-z0-9]*_[a-z0-9_]+\b/g) || []);
+  return [entry.id, new Set(identifiers)] as const;
+}));
+
 function scoreEntry(entry: KnowledgeEntry, question: string, tokens: string[], commands: string[][]) {
   const normalizedQuestion = normalize(question);
   const title = normalize(entry.title);
@@ -186,6 +195,11 @@ function scoreEntry(entry: KnowledgeEntry, question: string, tokens: string[], c
     if (title.includes(token)) score += 8;
     if (summary.includes(token)) score += 4;
     if (content.includes(token)) score += 1;
+  }
+
+  if (tokens.some((token) => identifiersByEntry.get(entry.id)?.has(token))) {
+    // A complete code name is more specific than a generic intent like "区别".
+    score += 36;
   }
 
   const examples = commandsByEntry.get(entry.id) || [];

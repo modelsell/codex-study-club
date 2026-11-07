@@ -24,6 +24,17 @@ function loadKnowledgeBase(code, snapshot = content) {
 
 const { knowledgeBase, searchKnowledgeBase, sourcesForMatches, knowledgeContext, localKnowledgeAnswer } = loadKnowledgeBase(source);
 
+test("documented snake_case names outrank generic comparison intent without prefix matching", () => {
+  const href = "/cases/openhands-metrics-recovery-lab";
+  for (const question of ["use_snapshot 完整历史有什么区别", "`use_snapshot` 会保留逐次记录吗", "ConversationStats use_snapshot"]) {
+    const matches = searchKnowledgeBase(question);
+    assert.equal(matches[0]?.entry.href, href, question);
+    assert.ok(localKnowledgeAnswer(matches).includes("OpenHands SDK 统计实验"));
+  }
+  assert.ok(!searchKnowledgeBase("use_snapshot_extra").some((match) => match.entry.href === href));
+  assert.equal(searchKnowledgeBase("AGENTS.md 和 Skill 的区别")[0]?.entry.id, "assistant:agents-and-skills");
+});
+
 test("Deep Agents storage questions do not receive the AGENTS.md rules answer", () => {
   const href = "/cases/deepagents-storage-recovery";
   for (const question of [
