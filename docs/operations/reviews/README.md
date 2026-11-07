@@ -4,7 +4,7 @@
 
 | 日期 | 主题 |
 | --- | --- |
-| [2026-11-07](2026-11-07.md) | OpenHands 固定 SDK 统计深度稿与两份下载补齐第二环境、浏览器保存复跑和桌面/手机验收；修复 use_snapshot 误答，13 项回归、本地质量与 72 URL 链接通过；待同 SHA 正式发布核验，真实模型/扣费未测，Star/Fork 10/1、读者效果不可得 |
+| [2026-11-07](2026-11-07.md) | OpenHands SDK 统计深度稿、两份复现文件与 use_snapshot 检索修复上线；两环境、浏览器保存复跑、13 项回归与桌面/手机通过，同 SHA CI/Workers、正式六目标/两份实际保存及 72 URL Sitemap 已验；真实模型/扣费未测，Star/Fork 10/1、读者效果不可得 |
 | [2026-11-06](2026-11-06.md) | 晚间独立核验早间归档、正式 12 目标与五份下载；OpenHands 1.60.1 内部类四组聚合及统计 JSON 对照完成，网络尝试 0，完整会话/模型/扣费未测，未新增正文；Browser Use 继续暂缓，12 moderate、0 high/critical，Star/Fork 10/1、读者数据不可得 |
 | [2026-11-05](2026-11-05.md) | Gemini CLI 0.67.0 五组真实 shell/合成 API 对照深度稿晚间上线；同 SHA CI/Workers、正文/入口、浏览器实际保存和 71 URL Sitemap 已验，附脚本及续接历史探针；早间缺口保留，T16 转反馈观察；12 moderate、0 high/critical，Star/Fork 10/1、读者效果不可得 |
 | [2026-11-04](2026-11-04.md) | OpenCode 2.2.5 CLI 五组对照与脚本上线；晚间独立核对两个完整 SHA 的 CI/Workers、十个正式目标、四份下载及 CLI 复跑；T16 两项 PR 未合并，继续待验证；20 moderate、0 high/critical；晚间浏览器不可用、未重做点击保存，Star/Fork 9/1、读者效果不可得 |
