@@ -274,3 +274,6 @@
 @media (prefers-reduced-motion: reduce) {
   .relatedCases > a { transition: none; }
 }
+
+.scope { border-left:2px solid var(--agent); background:var(--agent-soft); padding:15px 18px; font-size:13px; line-height:1.9; color:var(--muted); margin:24px 0; }
+.scope strong { display:block; font-size:11px; color:var(--agent-dark); margin-bottom:5px; }

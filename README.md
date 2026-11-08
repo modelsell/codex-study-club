@@ -1,14 +1,17 @@
-# Codex Study Club
+# Agent 实践室 · Codex Study Club
 
-> Codex、Claude Code 与 Agent 产品中文学习与实践社区 | A Chinese learning and practice hub for coding agents
+> 看懂新工具，做出真成果。产品研究、工作方法与可复现实验。
+> A Chinese field guide to agent products, workflows and reproducible experiments.
 
 [中文说明](#中文说明) · [English](#english) · [在线访问](https://codex.modelsp.com) · [开源赞助计划](https://codex.modelsp.com/agent-awards)
 
 [参与贡献](CONTRIBUTING.md) · [每日运营规则](docs/operations/README.md) · [公开复盘](docs/operations/reviews/README.md) · [维护待办](docs/operations/BACKLOG.md)
 
-![Codex Study Club - OpenAI Codex 中文教程与实战社区](public/og-image.webp)
+![Agent 实践室：看懂新工具，做出真成果](public/agent-fieldnotes-cover.png)
 
-Codex Study Club 面向正在学习和使用编码 Agent 的开发者，持续整理 **Codex、Claude Code、Agent 产品动态、AGENTS.md、Skills、MCP、自动化、代码审查与问题排查** 等中文教程与实践。发布前交叉核对官方资料和真实需求，区分文档核对、工具验证与客户端实测；规范见[内容引入门槛](docs/operations/CONTENT-GATE.md)。项目还提供一个基于本地 Markdown 知识库的问答助手，帮助读者更快找到相关内容。
+**Agent 实践室**面向认真用 Agent 完成任务的中文读者，保留 Codex Study Club 的教程与社区，研究 Codex、Claude Code、DeepSeek 及更多 Agent。内容从具体问题展开：解释机制，走完例子，比较取舍，交付能复用的工具或方法。先按[任务路线](https://codex.modelsp.com/paths)找阅读顺序，在[文章与实验](https://codex.modelsp.com/cases)筛选内容，到[工具包](https://codex.modelsp.com/toolkit)带走模板与复现文件。
+
+发布前交叉核对官方资料和真实需求，区分源码研究、SDK/CLI 实验、工具验证与客户端实测；规范见[内容引入门槛](docs/operations/CONTENT-GATE.md)及[深度标准](docs/operations/EDITORIAL-STANDARD.md)。基于本地 Markdown 的资料助手帮助读者找到对应正文。
 
 ## 本期新内容（2026-11-08 更新）
 
@@ -72,10 +75,10 @@ Codex Study Club 面向正在学习和使用编码 Agent 的开发者，持续�
 
 ### 项目内容
 
-网站以“开始学习、找案例、解决卡点”组织入口：从 [学习路线](https://codex.modelsp.com/start) 选择章节，在 [案例库](https://codex.modelsp.com/cases) 按关键词和分类查找实践，也可以使用 [学习助手](https://codex.modelsp.com/#ask) 查阅本站资料。界面与信息架构约定见 [网站设计说明](docs/operations/SITE-DESIGN.md)。
+网站以“从任务出发、理解机制、带走成果”组织入口：[任务路线](https://codex.modelsp.com/paths)覆盖首次交付、长任务、切换工具和团队交付；[文章与实验](https://codex.modelsp.com/cases)支持关键词、内容类型和分类组合筛选；[产品研究](https://codex.modelsp.com/community/updates)集中深度研究并保留更新档案；[工具包](https://codex.modelsp.com/toolkit)连接文件、原文与使用范围。原有 [Codex 入门](https://codex.modelsp.com/start)和[资料助手](https://codex.modelsp.com/#ask)继续提供。界面与信息架构约定见 [网站设计说明](docs/operations/SITE-DESIGN.md)。
 
 - **Codex 新手教程**：从安装、账号与套餐，到第一个可验证任务、CLI、IDE、Cloud 和移动端协作。
-- **真实实战案例**：覆盖开发自动化、CI 修复、代码审查、内容设计、知识协作、工具设备与常见问题排查。
+- **文章与实验**：覆盖开发自动化、CI 修复、代码审查、内容设计、知识协作及问题排查，按实际证据标明方法指南、工具实践与 CLI/SDK 实验；文章数量不代表全部完成客户端实测。
 - **Codex Skills 与 MCP**：整理可复用 Skill、MCP 工具、浏览器自动化和团队工作流。
 - **中文问答助手**：检索仓库内的 Markdown 内容；配置 API Key 后可通过 OpenAI Responses API 生成带上下文的回答。
 - **主题与视觉定制**：收录 Codex Desktop 主题、安装方法和展示图库。
@@ -87,12 +90,14 @@ Codex Study Club 面向正在学习和使用编码 Agent 的开发者，持续�
 | 内容 | 地址 |
 | --- | --- |
 | 在线站点 | [codex.modelsp.com](https://codex.modelsp.com) |
-| 完整学习路线 | [按四个阶段学习](https://codex.modelsp.com/start) |
+| 任务阅读路线 | [首次交付、长任务、切换工具与团队交付](https://codex.modelsp.com/paths) |
+| 工具包 | [模板、只读检查器与复现实验](https://codex.modelsp.com/toolkit) |
+| Codex 入门 | [按四个阶段学习](https://codex.modelsp.com/start) |
 | 桌面安装与首次验证 | [官方入口、登录与只读练习](https://codex.modelsp.com/start/02-app-installation) |
 | 账号与功能范围 | [先核对可用性，再决定是否升级](https://codex.modelsp.com/start/03-account-plan) |
 | 第一个可验收任务 | [本地学习卡片与检查清单](https://codex.modelsp.com/start/06-first-task) |
-| Codex / Claude Code 实践 | [案例库](https://codex.modelsp.com/cases) |
-| Agent 产品动态与技巧 | [来源核对与版本观察](https://codex.modelsp.com/community/updates) |
+| Agent 文章与实验 | [按关键词、类型与分类查找](https://codex.modelsp.com/cases) |
+| 产品研究与历史更新 | [机制分析与更新档案](https://codex.modelsp.com/community/updates) |
 | 问题排查 | [Troubleshooting](https://codex.modelsp.com/cases#troubleshooting) |
 | Codex 主题 | [主题与视觉](https://codex.modelsp.com/themes) |
 | 行业解读 | [Industry Insights](https://codex.modelsp.com/industry-insights) |
@@ -125,7 +130,8 @@ content/
 │   ├── content-design/    # 内容与设计
 │   ├── knowledge/         # 知识与协作
 │   └── tools-devices/     # 工具与设备
-├── community-updates/     # 社区动态
+├── editorial/site.json    # 首页选读、任务路线与工具包索引
+├── community-updates/     # 产品研究与更新档案
 ├── start/                 # 系统化新手教程
 ├── themes/                # Codex Desktop 主题
 ├── tutorials/             # 专题教程

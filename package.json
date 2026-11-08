@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "npm run generate:content && next build",
+    "build": "npm run generate:content && node scripts/check-editorial.mjs && next build",
     "cf-build": "npm run generate:content && opennextjs-cloudflare build",
     "dev": "next dev",
     "start": "next start",
@@ -16,7 +16,7 @@
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
     "check:links": "python3 scripts/check_internal_links.py",
     "test:links": "python3 -m unittest discover -s scripts/tests -p \"test_*.py\"",
-    "check:content": "node scripts/generate-content-data.mjs --check",
+    "check:content": "node scripts/generate-content-data.mjs --check && node scripts/check-editorial.mjs",
     "test:content": "node --test scripts/tests/content-check.test.mjs",
     "test:analytics": "node --experimental-strip-types --test scripts/tests/analytics-queue.test.mjs",
     "test:knowledge": "node --test scripts/tests/knowledge-base.test.mjs",

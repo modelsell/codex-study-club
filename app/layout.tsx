@@ -7,14 +7,14 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Codex Study Club - Codex、Claude Code 与 Agent 实践",
-    template: "%s | Codex Study Club",
+    default: "Agent 实践室 · Codex Study Club",
+    template: "%s | Agent 实践室",
   },
   description:
-    "跟进 Codex、Claude Code 与 Agent 产品，学习经过资料核对的技巧、可复现案例和结果验收方法。",
+    "给认真用 Agent 做事的人：Codex、Claude Code 与更多产品的深度研究、任务方法和可复现实验，附模板与工具。",
   icons: {
-    icon: "https://modelsell.com/logo.png",
-    apple: "https://modelsell.com/logo.png",
+    icon: "/favicon.svg",
+    apple: "/apple-icon.png",
   },
   keywords: [
     "Codex 教程",
@@ -30,16 +30,16 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "zh_CN",
-    siteName: "Codex Study Club",
-    title: "Codex Study Club - Codex、Claude Code 与 Agent 实践",
-    description: "从具体问题出发，把想法变成可验收的成果。",
-    images: [{ url: "/og-image.webp", width: 1200, height: 630, alt: "Codex Study Club" }],
+    siteName: "Agent 实践室 · Codex Study Club",
+    title: "Agent 实践室 · Codex Study Club",
+    description: "看懂新工具，做出真成果。产品研究、工作方法与可复现实验。",
+    images: [{ url: "/agent-fieldnotes-cover.png", width: 1200, height: 630, alt: "Agent 实践室 · 看懂新工具，做出真成果" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Codex Study Club - Codex、Claude Code 与 Agent 实践",
-    description: "从具体问题出发，把想法变成可验收的成果。",
-    images: ["/og-image.webp"],
+    title: "Agent 实践室 · Codex Study Club",
+    description: "看懂新工具，做出真成果。产品研究、工作方法与可复现实验。",
+    images: ["/agent-fieldnotes-cover.png"],
   },
 };
 

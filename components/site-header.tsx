@@ -9,11 +9,13 @@ import { GithubMark } from "@/components/github-mark";
 import styles from "./site-header.module.css";
 
 const primaryLinks = [
-  { href: "/start", label: "学习路线" },
-  { href: "/cases", label: "实战案例" },
-  { href: "/community/updates", label: "产品与技巧" },
+  { href: "/paths", label: "任务路线" },
+  { href: "/cases", label: "文章与实验" },
+  { href: "/community/updates", label: "产品研究" },
+  { href: "/toolkit", label: "工具包" },
 ];
 const resourceLinks = [
+  { href: "/start", label: "Codex 入门" },
   { href: "/cases#troubleshooting", label: "问题排查" },
   { href: "/themes", label: "主题与外观" },
   { href: "/industry-insights", label: "行业解读" },
@@ -37,9 +39,9 @@ export function SiteHeader() {
     <header className={styles.header}>
       <a className={styles.skip} href="#main-content">跳到主要内容</a>
       <div className={"shell " + styles.inner}>
-        <Link className={styles.brand} href="/" aria-label="Codex Study Club 首页">
+        <Link className={styles.brand} href="/" aria-label="Agent 实践室 · Codex Study Club 首页">
           <BrandMark />
-          <span>Codex <span className={styles.brandLight}>Study Club</span><small>中文学习与实践社区</small></span>
+          <span>Agent <span className={styles.brandLight}>实践室</span><small>CODEX STUDY CLUB</small></span>
         </Link>
         <nav className={styles.desktopNav} aria-label="主导航">
           {primaryLinks.map(({ href, label }) => href === "/cases" ? <a key={href} href={href} aria-current={isActive(href) ? "page" : undefined}>{label}</a> : <Link key={href} href={href} aria-current={isActive(href) ? "page" : undefined}>{label}</Link>)}
@@ -52,12 +54,12 @@ export function SiteHeader() {
         </nav>
         <div className={styles.actions}>
           <a className={styles.github} href="https://github.com/modelsell/codex-study-club" target="_blank" rel="noreferrer" aria-label="在 GitHub 查看项目"><GithubMark /></a>
-          <Link className={styles.ask} href="/#ask"><MessageCircle size={16} />学习助手</Link>
+          <Link className={styles.ask} href="/#ask"><MessageCircle size={16} />资料助手</Link>
         </div>
         <details className={styles.mobileMenu} ref={mobileRef} onKeyDown={(event) => { if (event.key === "Escape") closeMenu(mobileRef, true); }}>
           <summary aria-label="网站导航"><Menu className={styles.menuIcon} size={22} /><X className={styles.closeIcon} size={22} /></summary>
           <nav className={styles.mobilePanel} aria-label="手机导航">
-            {[...primaryLinks, ...resourceLinks, { href: "/#ask", label: "学习助手" }].map(({ href, label }) => (
+            {[...primaryLinks, ...resourceLinks, { href: "/#ask", label: "资料助手" }].map(({ href, label }) => (
               <a href={href} key={href} aria-current={isActive(href) ? "page" : undefined} onClick={() => closeMenu(mobileRef)}>{label}<ArrowUpRight size={16} /></a>
             ))}
             <a href="https://github.com/modelsell/codex-study-club" target="_blank" rel="noreferrer">GitHub 开源项目<ArrowUpRight size={16} /></a>
