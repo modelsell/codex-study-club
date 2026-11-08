@@ -8,6 +8,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { getCaseCategoryLabel } from "@/lib/case-categories";
 import { cases, getCase } from "@/lib/content";
+import { readings } from "@/lib/editorial";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -31,6 +32,7 @@ export default async function CaseDetailPage({ params }: Props) {
   if (!item) notFound();
 
   const categoryLabel = getCaseCategoryLabel(item.category);
+  const reading = readings.find((candidate) => candidate.href === `/cases/${item.slug}`);
   const relatedCases = cases
     .filter((candidate) => candidate.category === item.category && candidate.slug !== item.slug)
     .slice(0, 2);
@@ -48,8 +50,8 @@ export default async function CaseDetailPage({ params }: Props) {
       <SiteHeader />
       <main className={styles.page} id="main-content" tabIndex={-1}>
         <div className="shell">
-          <nav aria-label="案例导航" className={styles.breadcrumb}>
-            <Link href="/cases"><ArrowLeft aria-hidden="true" size={15} /> 案例库</Link>
+          <nav aria-label="文章导航" className={styles.breadcrumb}>
+            <Link href="/cases"><ArrowLeft aria-hidden="true" size={15} /> 文章与实验</Link>
             <span aria-hidden="true">/</span>
             <Link href={`/cases#${item.category}`}>{categoryLabel}</Link>
           </nav>
@@ -57,12 +59,14 @@ export default async function CaseDetailPage({ params }: Props) {
             <article className={styles.article}>
               <header className={styles.header}>
                 <div className={styles.metadata}>
+                  <span>{reading?.kind || "方法指南"}</span>
                   <span>{item.level || categoryLabel}</span>
                   {item.surface ? <span>{item.surface}</span> : null}
                   {item.duration ? <span><Clock3 aria-hidden="true" size={13} /> {item.duration}</span> : null}
                 </div>
                 <h1>{item.title}</h1>
                 <p className={styles.lead}>{item.summary}</p>
+                {reading ? <p className={styles.scope}><strong>验证范围</strong>{reading.scope}</p> : null}
                 {item.checkedAt ? (
                   <p className={styles.checkedAt}>内容核对 <time dateTime={item.checkedAt}>{item.checkedAt}</time></p>
                 ) : null}
@@ -70,7 +74,7 @@ export default async function CaseDetailPage({ params }: Props) {
               <MarkdownContent content={item.markdown} />
               <section aria-labelledby="continue-reading" className={styles.continueReading}>
                 <div className={styles.continueHeading}>
-                  <h2 id="continue-reading">继续实践</h2>
+                  <h2 id="continue-reading">继续阅读</h2>
                   <Link href={`/cases#${item.category}`}>浏览{categoryLabel} <ArrowUpRight aria-hidden="true" size={16} /></Link>
                 </div>
                 {relatedCases.length > 0 ? (

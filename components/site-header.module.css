@@ -1,9 +1,9 @@
-.header { background: rgba(247,245,239,.96); border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 50; backdrop-filter: blur(12px); }
-.inner { height: 88px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.header { background: rgba(246,246,239,.97); border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 50; backdrop-filter: blur(12px); }
+.inner { height: 82px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
 .brand { display: inline-flex; align-items: center; gap: 13px; font-size: 19px; font-weight: 750; flex-shrink: 0; }
-.brandLight { font-weight: 450; }
-.brand small { display: block; margin-top: 6px; color: var(--muted); font-size: 10px; font-weight: 450; letter-spacing: 2px; }
-.desktopNav { display: flex; align-items: center; gap: 26px; font-size: 13px; font-weight: 550; }
+.brandLight { font-weight: 600; }
+.brand small { display: block; margin-top: 6px; color: var(--muted); font-size: 10px; font-weight: 450; letter-spacing: 1.5px; }
+.desktopNav { display: flex; align-items: center; gap: 23px; font-size: 13px; font-weight: 550; }
 .desktopNav > a { display: flex; align-items: center; min-height: 44px; position: relative; }
 .desktopNav > a[aria-current="page"]::after { content: ""; position: absolute; height: 2px; background: var(--agent-dark); left: 0; right: 0; bottom: 0; }
 .desktopNav a:hover, .desktopNav a[aria-current="page"], .resources summary:hover { color: var(--agent-dark); }

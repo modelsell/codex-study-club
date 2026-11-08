@@ -1,0 +1,16 @@
+.card { min-width: 0; display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--line); padding: 26px; border-radius: 8px; transition: border-color .18s, transform .18s; }
+.card:hover { border-color: var(--agent); transform: translateY(-3px); }
+.top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; color: var(--muted); font-size: 11px; }
+.top > span:first-child { background: var(--agent-soft); padding: 5px 8px; border-radius: 3px; color: var(--agent-dark); font-weight: 600; }
+.card h3 { font-size: 23px; font-weight: 650; line-height: 1.5; margin: 23px 0 14px; letter-spacing: -.7px; }
+.card h3 a { display: flex; align-items: start; justify-content: space-between; gap: 14px; }
+.card h3 svg { flex-shrink: 0; margin-top: 6px; color: var(--agent-dark); }
+.card h3 a:hover { color: var(--agent-dark); }
+.description { font-size: 14px; line-height: 1.9; color: var(--muted); margin: 0 0 26px; }
+.outcome { font-size: 12px; line-height: 1.8; display: flex; align-items: flex-start; gap: 8px; margin: auto 0 20px; }
+.outcome svg { flex-shrink: 0; margin-top: 3px; color: var(--agent-dark); }
+.bottom { border-top: 1px solid var(--line); padding-top: 15px; }
+.bottom p { font-size: 11px; line-height: 1.8; margin: 0; color: var(--muted); }
+.bottom time { display: block; font: 10px var(--font-mono); margin-top: 10px; color: var(--muted); }
+@media(max-width:640px) { .card { padding: 23px; } .card h3 { font-size: 22px; } .description { font-size: 14px; } .bottom p { font-size: 12px; } }
+@media(prefers-reduced-motion:reduce) { .card { transition:none; } .card:hover { transform:none; } }

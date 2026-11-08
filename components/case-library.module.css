@@ -302,3 +302,9 @@
 @media (prefers-reduced-motion: reduce) {
   .categories a { transition: none; }
 }
+
+.kindFilters { display:flex; flex-wrap:wrap; gap:8px; margin-top:20px; }
+.kindFilters button { border:1px solid var(--line); border-radius:4px; min-height:44px; padding:9px 15px; background:var(--surface); color:var(--muted); font-size:12px; cursor:pointer; }
+.kindFilters button[aria-pressed="true"] { background:var(--agent-dark); border-color:var(--agent-dark); color:var(--surface); }
+.kindFilters button:hover { border-color:var(--agent); }
+.dateNote { margin:0 0 22px; font-size:11px; color:var(--muted); line-height:1.85; }

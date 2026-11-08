@@ -14,11 +14,21 @@ content/
 │   ├── content-design/    # 内容与设计
 │   ├── knowledge/         # 知识与协作
 │   └── tools-devices/     # 工具与设备
-├── community-updates/     # 社群动态
+├── editorial/site.json    # 首页选读、任务路线与工具包索引
+├── community-updates/     # 产品研究与历史动态
 ├── start/                 # 按章节编号排列的新手教程
 ├── themes/                # Codex 桌面主题
 └── tutorials/             # 系统教程
 ```
+
+## 编辑选读与工具包
+
+`editorial/site.json` 维护 Agent 实践室的定位文案、首页专题、精选文章、四条任务路线与工具包索引。它只连接已有正文与公开文件，不复制文章正文，不改变稳定 slug。`lib/editorial.ts` 从内容快照取正式标题和文章日期；JSON 的 `checkedAt` 仅表示编辑选读核对日，不能充当产品资料核对日。
+
+- 选读须写明读者问题、可带走的成果、内容类型和实际验证范围。源码、SDK/CLI、工具与方法分别标注，不统一提升为客户端实战。
+- 路线按任务步骤连接正文，不能承诺沿路线已经完成真实客户端流程；工具包须连接原文使用说明、环境与真实下载文件。
+- `npm run check:content` 同时核对内容快照及编辑索引；构建也校验索引引用、类型、文件存在与原文下载链接。新增工具包仍须实际保存文件、核对字节和适用条件。
+- 调整首页推荐不会刷新文章 Frontmatter。新产品或新结论仍先过 CONTENT-GATE 与 EDITORIAL-STANDARD；不能借卡片短文绕开正文门槛。
 
 ## 新手教程格式
 

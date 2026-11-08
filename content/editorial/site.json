@@ -1,0 +1,312 @@
+{
+  "checkedAt": "2026-11-08",
+  "identity": {
+    "name": "Agent 实践室",
+    "parent": "CODEX STUDY CLUB",
+    "description": "产品研究、工作方法与可复现实验"
+  },
+  "hero": {
+    "eyebrow": "给认真用 Agent 做事的人",
+    "title": [
+      "看懂新工具，",
+      "做出真成果。"
+    ],
+    "description": "从 Codex、Claude Code 到更多 Agent，把产品变化讲清，把完整任务展开，把方法和工具留给你。",
+    "promise": "把机制讲清，把例子做完整，把取舍留给读者。"
+  },
+  "feature": {
+    "href": "/community/updates/deepseek-superagent-prototype",
+    "eyebrow": "本期深读 / 团队 Agent",
+    "title": "一条请求，怎样走到交付？",
+    "description": "消息接到了，不等于任务做完了。沿一个文档修订请求，看清授权、工单、PR 与回传之间的五次交接。"
+  },
+  "articles": [
+    {
+      "href": "/community/updates/deepseek-superagent-prototype",
+      "title": "一条请求，怎样走到交付？",
+      "tool": "DeepSeek Super-agent",
+      "kind": "源码研究",
+      "description": "沿接收、授权、工单、PR 与回传拆开团队 Agent 的交接，比较人工派发、脚本与常驻原型。",
+      "outcome": "任务路径图 · 三组核心模拟 · 方案选择表",
+      "scope": "固定源码与内存替身模拟；Harness 客户端未运行。",
+      "research": true
+    },
+    {
+      "href": "/cases/openhands-metrics-recovery-lab",
+      "title": "2 + 1，为什么会被统计成 6？",
+      "tool": "OpenHands SDK",
+      "kind": "SDK 实验",
+      "description": "从恢复后的对象共享解释重复累计，分清总数、逐次历史与展示摘要。",
+      "outcome": "四组对照 · 隔离脚本 · 固定依赖",
+      "scope": "SDK 统计对象与合成值；完整会话、模型及真实账单未测。",
+      "research": true
+    },
+    {
+      "href": "/cases/deepagents-storage-recovery",
+      "title": "任务重启后，资料还在吗？",
+      "tool": "Deep Agents",
+      "kind": "SDK 实验",
+      "description": "用相同资料对照内存、SQLite、文件与 Store，弄清数据在何处、对谁可见。",
+      "outcome": "存储选择表 · 离线脚本 · 固定依赖",
+      "scope": "SDK 存储层实验；没有运行真实模型调研或子 Agent 权限流程。",
+      "research": true
+    },
+    {
+      "href": "/cases/gemini-cli-cancellation-lab",
+      "title": "退出了，子命令真的停了吗？",
+      "tool": "Gemini CLI",
+      "kind": "CLI 实验",
+      "description": "一起看退出码、子进程、文件和会话，保留取消后仍写入的失败对照。",
+      "outcome": "五组对照 · 进程观察 · 复现脚本",
+      "scope": "真实 CLI 与本地 shell，模型接口为合成响应。",
+      "research": true
+    },
+    {
+      "href": "/cases/opencode-provider-request-lab",
+      "title": "换了模型，请求去了哪里？",
+      "tool": "OpenCode",
+      "kind": "CLI 实验",
+      "description": "从配置选择走到实际请求，区分 provider 拒绝、默认回退与显式指定。",
+      "outcome": "五组配置对照 · 请求记录 · 复现脚本",
+      "scope": "真实 CLI 与本地模拟端点；真实模型及 Desktop 未测。",
+      "research": true
+    },
+    {
+      "href": "/cases/claude-code-project-rules-audit",
+      "title": "切换 Agent，项目规则怎么共用？",
+      "tool": "Codex / Claude Code",
+      "kind": "工具实践",
+      "description": "先盘点规则文件，再分别确认客户端加载和实际行为，减少重复维护。",
+      "outcome": "只读盘点工具 · 加载与行为核对步骤",
+      "scope": "盘点工具已执行；Claude Code 客户端加载与行为未实测。",
+      "research": false
+    },
+    {
+      "href": "/cases/minimal-bug-fix-with-reproduction",
+      "title": "把一个模糊 Bug 变成可复现任务",
+      "tool": "编码工作方法",
+      "kind": "方法指南",
+      "description": "从本站真实的命令漏检出发，给出失败输入、最小修改与正反例回归。",
+      "outcome": "任务描述 · 失败样本 · 回归检查",
+      "scope": "本站检索修复案例；不代表其他客户端或模型的效果。",
+      "research": false
+    },
+    {
+      "href": "/cases/reusable-review-skill",
+      "title": "让每一条代码审查发现都能核验",
+      "tool": "审查与交付",
+      "kind": "工具实践",
+      "description": "用固定提交、文件指纹和真实代码样例，区分有依据的发现与猜测。",
+      "outcome": "审查 Skill · 填写样例 · 记录表",
+      "scope": "文件级审查与工具验证；原生客户端 Skill 调用未验证。",
+      "research": false
+    }
+  ],
+  "paths": [
+    {
+      "id": "first-task",
+      "number": "01",
+      "title": "把一个任务交给 Agent",
+      "question": "需求还模糊，怎样开始才不会一路跑偏？",
+      "result": "一份明确的任务、一组可复现输入和自己的验收条件。",
+      "links": [
+        "/start/06-first-task",
+        "/cases/minimal-bug-fix-with-reproduction",
+        "/cases/codex-finished-but-not-verified"
+      ]
+    },
+    {
+      "id": "long-work",
+      "number": "02",
+      "title": "把长任务接着做下去",
+      "question": "任务中断、上下文变长，怎样保留现场和资料？",
+      "result": "可续接的检查点，以及按工具选择的存储与恢复方法。",
+      "links": [
+        "/community/updates/codex-quality-regression-playbook",
+        "/cases/codex-progress-or-loop",
+        "/cases/deepagents-storage-recovery"
+      ]
+    },
+    {
+      "id": "switch-tools",
+      "number": "03",
+      "title": "切换工具，先核对关键环节",
+      "question": "换了 Agent、模型或项目规则，如何知道变化生效？",
+      "result": "文件盘点、请求路径与统计记录三类核对思路，按所用工具选读。",
+      "links": [
+        "/cases/claude-code-project-rules-audit",
+        "/cases/opencode-provider-request-lab",
+        "/cases/openhands-metrics-recovery-lab"
+      ]
+    },
+    {
+      "id": "team-delivery",
+      "number": "04",
+      "title": "设计团队的交付链",
+      "question": "接单、做完、等审查、回传结果，分别由什么证明？",
+      "result": "一条可以审查的任务链、一份审查记录和文件交付清单。",
+      "links": [
+        "/community/updates/deepseek-superagent-prototype",
+        "/cases/reusable-review-skill",
+        "/cases/codex-broken-link-workflow"
+      ]
+    }
+  ],
+  "toolkits": [
+    {
+      "id": "task",
+      "title": "任务与续接模板",
+      "category": "任务模板",
+      "description": "在开工和交接时留下目标、边界、当前证据与下一步。",
+      "environment": "Markdown · 按自己的任务填写",
+      "source": "/community/updates/codex-quality-regression-playbook",
+      "files": [
+        {
+          "href": "/templates/codex-goal-contract.md",
+          "label": "Goal 任务契约",
+          "format": "MD"
+        },
+        {
+          "href": "/templates/codex-task-checkpoint.md",
+          "label": "任务检查点",
+          "format": "MD"
+        }
+      ]
+    },
+    {
+      "id": "rules",
+      "title": "共享规则只读盘点",
+      "category": "只读工具",
+      "description": "检查当前目录及父目录的规则文件名，不读取正文或替你修改项目。",
+      "environment": "Python 3.9+ · 不验证客户端加载",
+      "source": "/cases/claude-code-project-rules-audit",
+      "files": [
+        {
+          "href": "/templates/agent-instructions-audit.py",
+          "label": "规则检查器",
+          "format": "PY"
+        }
+      ]
+    },
+    {
+      "id": "review",
+      "title": "可核验的代码审查",
+      "category": "任务模板",
+      "description": "把审查发现连到具体文件、提交、复现与验证记录。",
+      "environment": "Markdown / Skill 文件 · 先读调用范围",
+      "source": "/cases/reusable-review-skill",
+      "files": [
+        {
+          "href": "/templates/evidence-review/SKILL.md",
+          "label": "审查 Skill",
+          "format": "MD"
+        },
+        {
+          "href": "/templates/codex-review-record.md",
+          "label": "审查记录表",
+          "format": "MD"
+        }
+      ]
+    },
+    {
+      "id": "deepseek",
+      "title": "工单与交付状态模拟",
+      "category": "复现实验",
+      "description": "区分 ready、结束原因与发件箱状态，用三个核心分支观察交接。",
+      "environment": "Node 24 · 固定源码 · 内存替身",
+      "source": "/community/updates/deepseek-superagent-prototype",
+      "files": [
+        {
+          "href": "/templates/deepseek-ticket-core-demo.mjs",
+          "label": "核心模拟脚本",
+          "format": "MJS"
+        }
+      ]
+    },
+    {
+      "id": "storage",
+      "title": "资料存储与恢复对照",
+      "category": "复现实验",
+      "description": "观察同一份资料在不同后端、线程与命名空间中的保留范围。",
+      "environment": "固定 Python 环境 · 离线 SDK 存储层",
+      "source": "/cases/deepagents-storage-recovery",
+      "files": [
+        {
+          "href": "/templates/deepagents-storage-lab.py",
+          "label": "存储实验",
+          "format": "PY"
+        },
+        {
+          "href": "/templates/deepagents-storage-requirements.txt",
+          "label": "固定依赖",
+          "format": "TXT"
+        }
+      ]
+    },
+    {
+      "id": "opencode",
+      "title": "模型请求路径对照",
+      "category": "复现实验",
+      "description": "用本地端点记录 CLI 的真实请求目标，区分配置与传输。",
+      "environment": "macOS arm64 · 固定 OpenCode CLI · 合成接口",
+      "source": "/cases/opencode-provider-request-lab",
+      "files": [
+        {
+          "href": "/templates/opencode-provider-request-lab.py",
+          "label": "请求路径实验",
+          "format": "PY"
+        }
+      ]
+    },
+    {
+      "id": "gemini",
+      "title": "取消与子进程对照",
+      "category": "复现实验",
+      "description": "分别检查退出、子进程、延迟写入和会话记录。",
+      "environment": "macOS · 固定 Gemini CLI · 合成接口",
+      "source": "/cases/gemini-cli-cancellation-lab",
+      "files": [
+        {
+          "href": "/templates/gemini-cancellation-lab.py",
+          "label": "取消实验",
+          "format": "PY"
+        }
+      ]
+    },
+    {
+      "id": "openhands",
+      "title": "恢复后的统计与历史",
+      "category": "复现实验",
+      "description": "保留重复累计反例，比较完整 JSON、展示摘要与对象隔离。",
+      "environment": "macOS arm64 / Python 3.12 · SDK 合成值",
+      "source": "/cases/openhands-metrics-recovery-lab",
+      "files": [
+        {
+          "href": "/templates/openhands-metrics-lab.py",
+          "label": "统计实验",
+          "format": "PY"
+        },
+        {
+          "href": "/templates/openhands-metrics-requirements.txt",
+          "label": "固定依赖",
+          "format": "TXT"
+        }
+      ]
+    },
+    {
+      "id": "delivery",
+      "title": "文件交付检查表",
+      "category": "任务模板",
+      "description": "把文件存在、内容正确、能够下载与实际可用分开核对。",
+      "environment": "Markdown · 适合文件交付前自查",
+      "source": "/cases/codex-broken-link-workflow",
+      "files": [
+        {
+          "href": "/templates/codex-file-delivery-check.md",
+          "label": "交付检查表",
+          "format": "MD"
+        }
+      ]
+    }
+  ]
+}

@@ -7,6 +7,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
     "",
     "/start",
+    "/paths",
+    "/toolkit",
     "/learn/getting-started",
     "/themes",
     "/agent-awards",
@@ -20,7 +22,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/play`, lastModified: new Date(playground.checkedAt), changeFrequency: "weekly" as const, priority: 0.8 },
     ...staticRoutes.map((route) => ({
       url: `${base}${route}`,
-      lastModified: new Date(["", "/start", "/cases"].includes(route) ? "2026-10-17" : "2026-07-20"),
+      lastModified: new Date(["", "/paths", "/toolkit", "/cases", "/community/updates"].includes(route) ? "2026-11-08" : route === "/start" ? "2026-10-17" : "2026-07-20"),
       changeFrequency: route === "" ? ("weekly" as const) : ("monthly" as const),
       priority: route === "" ? 1 : 0.8,
     })),

@@ -24,15 +24,17 @@ function readServerCategory() {
   return "all-cases";
 }
 
-const suggestedKeywords = ["Claude Code", "CI", "权限", "Skill"];
+const suggestedKeywords = ["OpenHands", "Claude Code", "CI", "续接"];
 
 export function CaseLibrary({ items }: { items: CaseListItem[] }) {
   const [query, setQuery] = useState("");
+  const [kind, setKind] = useState("all");
+  const kinds = [...new Set(items.map((item) => item.kind || "方法指南"))];
   const activeCategory = useSyncExternalStore(subscribeToCategory, readCategory, readServerCategory);
   const searchIndex = useMemo(
     () => items.map((item) => ({
       item,
-      text: [item.title, item.summary, item.surface, item.level, item.slug, getCaseCategoryLabel(item.category)]
+      text: [item.title, item.summary, item.surface, item.level, item.slug, item.kind, item.evidence, getCaseCategoryLabel(item.category)]
         .filter(Boolean)
         .join(" ")
         .toLocaleLowerCase(),
@@ -43,19 +45,20 @@ export function CaseLibrary({ items }: { items: CaseListItem[] }) {
   const matchingItems = searchIndex
     .filter(({ text }) => terms.every((term) => text.includes(term)))
     .map(({ item }) => item);
-  const visibleItems = matchingItems.filter((item) => activeCategory === "all-cases" || item.category === activeCategory);
+  const visibleItems = matchingItems.filter((item) => (activeCategory === "all-cases" || item.category === activeCategory) && (kind === "all" || (item.kind || "方法指南") === kind));
   const selectedCategory = caseCategories.find((category) => category.id === activeCategory);
-  const hasFilters = query.length > 0 || activeCategory !== "all-cases";
+  const hasFilters = query.length > 0 || activeCategory !== "all-cases" || kind !== "all";
 
   function clearFilters() {
     setQuery("");
+    setKind("all");
     if (activeCategory !== "all-cases") window.location.hash = "all-cases";
   }
 
   return (
     <div className={styles.library}>
       <div className={styles.searchPanel}>
-        <label className={styles.searchLabel} htmlFor="case-search">你想解决什么问题？</label>
+        <label className={styles.searchLabel} htmlFor="case-search">你想研究什么，或做成什么？</label>
         <div className={styles.searchField}>
           <Search aria-hidden="true" size={21} />
           <input
@@ -81,9 +84,14 @@ export function CaseLibrary({ items }: { items: CaseListItem[] }) {
         </div>
       </div>
 
-      <nav aria-label="按任务筛选案例" className={styles.categories}>
+      <div className={styles.kindFilters} role="group" aria-label="按内容类型筛选">
+        <button type="button" aria-pressed={kind === "all"} onClick={() => setKind("all")}>全部内容</button>
+        {kinds.map((value) => <button type="button" aria-pressed={kind === value} onClick={() => setKind(value)} key={value}>{value}</button>)}
+      </div>
+
+      <nav aria-label="按任务筛选文章" className={styles.categories}>
         <a aria-current={activeCategory === "all-cases" ? "true" : undefined} href="#all-cases" id="all-cases">
-          全部案例 <span>{items.length}</span>
+          全部任务 <span>{items.length}</span>
         </a>
         {caseCategories.map((category) => (
           <a
@@ -100,7 +108,8 @@ export function CaseLibrary({ items }: { items: CaseListItem[] }) {
 
       <div className={styles.resultsBar}>
         <p aria-live="polite" aria-atomic="true" role="status">
-          {selectedCategory?.label || "全部案例"}<span> / </span>
+          {selectedCategory?.label || "全部文章"}<span> / </span>
+          {kind !== "all" ? <>{kind} · </> : null}
           {query.trim() ? <>“{query.trim()}” · </> : null}
           <strong>{visibleItems.length}</strong> 个结果
         </p>
@@ -110,31 +119,14 @@ export function CaseLibrary({ items }: { items: CaseListItem[] }) {
       {visibleItems.length === 0 ? (
         <div className={styles.emptyState}>
           <Search aria-hidden="true" size={28} />
-          <h2>暂时没有找到匹配的案例</h2>
+          <h2>暂时没有找到匹配的文章</h2>
           <p>试试更短的关键词，或清除分类后再搜索。</p>
-          <button onClick={clearFilters} type="button">查看全部案例</button>
+          <button onClick={clearFilters} type="button">查看全部文章</button>
         </div>
       ) : null}
 
-      <div className={styles.groups}>
-        {caseCategories.map((category) => {
-          const categoryItems = visibleItems.filter((item) => item.category === category.id);
-          if (categoryItems.length === 0) return null;
-
-          return (
-            <section aria-labelledby={`heading-${category.id}`} className={styles.group} key={category.id}>
-              <div className={styles.groupHeading}>
-                <div>
-                  <h2 id={`heading-${category.id}`}>{category.label}</h2>
-                  <p>{category.description}</p>
-                </div>
-                <span>{String(categoryItems.length).padStart(2, "0")} 篇</span>
-              </div>
-              <CaseList items={categoryItems} />
-            </section>
-          );
-        })}
-      </div>
+      <p className={styles.dateNote}>日期沿用各篇内容记录，不表示所有文章都已完成客户端实测。</p>
+      <div className={styles.groups}><CaseList items={visibleItems} /></div>
     </div>
   );
 }

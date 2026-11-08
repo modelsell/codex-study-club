@@ -10,3 +10,5 @@
 .bottom p { margin: 0; flex: 1; line-height: 1.8; }
 .bottom a { display: inline-flex; align-items: center; gap: 5px; min-height: 32px; }
 @media (max-width: 720px) { .grid { grid-template-columns: repeat(3,minmax(0,1fr)); gap: 32px 12px; padding-block: 40px 24px; } .identity { grid-column: 1 / -1; } .identity p { margin: 18px 0 6px; } .bottom p { flex-basis: 100%; } .grid nav > a { min-height: 44px; font-size: 11px; } .grid nav h2 { font-size: 12px; } }
+
+.brand strong small { display: block; font: 9px var(--font-mono); letter-spacing: .6px; margin-top: 7px; color: var(--muted); font-weight: 400; }
