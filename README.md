@@ -10,13 +10,13 @@
 
 Codex Study Club 面向正在学习和使用编码 Agent 的开发者，持续整理 **Codex、Claude Code、Agent 产品动态、AGENTS.md、Skills、MCP、自动化、代码审查与问题排查** 等中文教程与实践。发布前交叉核对官方资料和真实需求，区分文档核对、工具验证与客户端实测；规范见[内容引入门槛](docs/operations/CONTENT-GATE.md)。项目还提供一个基于本地 Markdown 知识库的问答助手，帮助读者更快找到相关内容。
 
-## 本期新内容（2026-11-07 更新）
+## 本期新内容（2026-11-08 更新）
 
+- [DeepSeek Super-agent 源码拆解：一条请求怎样走到交付](https://codex.modelsp.com/community/updates/deepseek-superagent-prototype)：沿接收、授权、工单、PR 和回传展开完整路径；附三个实际核心模拟分支、可复现脚本与方案选择表。11-08 复现并修正全新克隆后的固定提交获取步骤；属于源码分析，Harness 客户端与团队接入未实测。
 - [OpenHands SDK 统计实验：2 + 1 为什么会变成 6](https://codex.modelsp.com/cases/openhands-metrics-recovery-lab)：用固定 SDK 的四组聚合与跨进程统计 JSON 对照，解释恢复、浅复制和完整历史/摘要的取舍；附隔离脚本及固定依赖。合成记账值，未运行完整会话、模型或真实扣费。
 - [Gemini CLI 取消验收：退出了，子命令停了吗](https://codex.modelsp.com/cases/gemini-cli-cancellation-lab)：以官方 0.67.0 CLI、真实 shell 与合成 API 做五组对照，分别检查退出码、进程、文件和会话；附复现脚本与实际续接历史探针，不把退出或固定回复当真实模型任务成功。
 - [OpenCode v2 模型配置验收：请求真的到了目标服务吗](https://codex.modelsp.com/cases/opencode-provider-request-lab)：五组实际 CLI 与本地模拟端点对照，追踪 provider 拒绝、默认回退和显式选择；附 macOS arm64 复现脚本，验证配置和传输，不评价真实模型或 Desktop。
 - [Deep Agents 存储实验：重启后怎么找回资料](https://codex.modelsp.com/cases/deepagents-storage-recovery)：用两份合成资料和来源清单，对照内存、SQLite、文件后端及 Store 的恢复/可见范围，附固定依赖和离线脚本；仅验证 SDK 存储层，未运行真实模型调研或子 Agent 权限流程。
-- [DeepSeek Super-agent 源码拆解：一条请求怎样走到交付](https://codex.modelsp.com/community/updates/deepseek-superagent-prototype)：沿接收、授权、工单、PR 和回传展开完整路径；附三个实际核心模拟分支、可复现脚本与方案选择表。属于源码分析，Harness 客户端与团队接入未实测。
 - [11 月 1 日更新观察：Codex 网络诊断与 Claude Code 版本边界](https://codex.modelsp.com/community/updates/agent-updates-2026-11-01)：核对 0.166.0 / 2.1.316 官方发布说明与近期需求原帖，区分新增诊断、升级和真实恢复；客户端升级与功能效果未实测。
 - [Codex 换到 Claude Code：先用只读工具检查项目规则](https://codex.modelsp.com/cases/claude-code-project-rules-audit)：提供经过五组回归的 Python 检查器，盘点共享规则与父目录标记，再独立核对客户端上下文；不把文件存在当作加载成功。
 

@@ -1,8 +1,8 @@
 ---
 title: "DeepSeek Super-agent 源码拆解：一条请求怎样走到交付"
 excerpt: "沿一条文档修订请求，拆开接收、授权、工单、执行、PR 和回传。直接运行固定版本的核心引擎，比较合并、未合并关闭与无 PR 三条分支；附可复现脚本及手工派发、定时脚本的选择表。属于源码分析与内存模拟，未运行 Harness 客户端。"
-date: "2026-11-02"
-displayDate: "11.02"
+date: "2026-11-08"
+displayDate: "11.08"
 topics:
   - "Agent 产品动态"
   - "DeepSeek"
@@ -88,9 +88,14 @@ Worker 报告 `ready` 时，核心逻辑会看 Ticket 是否跟踪 PR：没有�
 
 ```bash
 git clone https://github.com/deepseek-ai/dsh-superagent-prototype.git
+git -C dsh-superagent-prototype fetch origin 6337fc823ce20251c8de8085948165c81aaa701e
 git -C dsh-superagent-prototype checkout --detach 6337fc823ce20251c8de8085948165c81aaa701e
 node --experimental-transform-types deepseek-ticket-core-demo.mjs ./dsh-superagent-prototype
 ```
+
+**11-08 复现入口修订：先获取固定提交，再切换。** 本站在全新克隆中发现，当时默认 `main` 指向 [`8c32a9d`](https://github.com/deepseek-ai/dsh-superagent-prototype/commit/8c32a9dc5d72c033816c6a8110b37f40cf94fba4)，直接执行原文的 `checkout 6337fc8…` 会以退出 128 报 `unable to read tree`。显式 `fetch origin <完整 SHA>` 后，切换与上面的完整脚本均成功，三个分支仍得到下表结果。克隆默认分支不等于已取得所有历史提交对象，不能只凭网页能打开旧提交就省略获取步骤。
+
+两个提交的 Git tree 均为 `3efbb036e5a56183c6bf642e2e1856a1f64e7be3`，本次核对的文件树相同；本文继续固定原来已测的完整提交，没有取消脚本的版本检查，也没有把当前分支名当实验版本。这里不推断提交身份变化的原因或时间。若获取固定提交失败，先保留错误和版本待核，不直接换成 `main` 来绕过保护。
 
 这是 Node 24 的源码实验入口，不是原型安装步骤；使用实验性类型转换是因为原始 TypeScript 含参数属性。无需安装 DSH 或配置 API Key。请先阅读下载脚本和将要导入的公开核心代码；实验不运行原仓库的 SETUP，也不连接外部账号。
 
