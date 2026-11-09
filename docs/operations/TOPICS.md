@@ -1,6 +1,6 @@
 # 持续选题池
 
-维护负责人：项目运营。建立日期：2026-10-05；最近整理日期：2026-11-09（Asia/Shanghai，T20 工作流入口、固定源码函数隔离对照与需求筛选；来源核对日期见各题，不统一刷新）。
+维护负责人：项目运营。建立日期：2026-10-05；最近整理日期：2026-11-09（Asia/Shanghai，T20 固定源码对照、晚间 2.46.7 版本边界与相邻线索；来源核对日期见各题，不统一刷新）。
 
 本文件保存候选、原始证据、实验计划与后续反馈；发布状态与验证边界逐题记录。2026-10-05 用户认可基于真实社区痛点选题，并要求在本地持续维护。首批来源来自同日对 X、Reddit、OpenAI 开发者社区和 GitHub Issues 的实际阅读。10-06 重读 T01 社区原帖与官方说明；10-15 新核对 T05 的 #53368、#32582 与原社区帖；10-16 重读 T04 原帖、后续回复与 #50973，并核对 CLI、IDE 当日官方原文。10-17 新增 T07 的 Cloud 发布失败原帖并核对当日官方 Cloud 文档。其他来源未重查，不刷新日期。正式写作前须重新核对原帖、后续回复和当日官方说明。
 
@@ -16,6 +16,8 @@
 - 每次调整同步本文件、BACKLOG 和当日复盘。证据台账留在这里，BACKLOG 只保留当前排序，避免多个完整选题清单互相漂移。
 
 ## 当前选题状态
+
+11-09 晚间：独立核验晨间 `069867b` 的同 SHA Quality / Workers、正式十页/13 下载/三资源/74 URL 及八份公开文档。n8n Latest 已为 2.46.7（11-09 08:25:28 UTC，`9da286a9feb6d1d40107acb918fca8c06e00a54f`），官方发布说明列出 waiting/queued 恢复控制；新版本同名转换函数与晨间冻结文件相同，但 2.46.6 的 VM 结果不扩为新版本客户端验收。社区 Jira→Agent 编排与作者数据库演示只作相邻线索，未补齐内建 Chat 同题需求，T20 不成稿；明日按原窗口回看 Deep Agents。详见[同日晚间记录](reviews/2026-11-09.md#晚间独立核验与复盘)。
 
 11-09 早间：T20 收敛到工作流 AI Agent 的内建 Chat Human Review，固定 2.46.6 / `bb72d756104542adb549b6966a57e21459bd52a2` 的节点夹具、响应转换、工具生成与 E2E 原文；在常量替身条件下实际运行响应转换函数的五组对照，批准只产生待执行请求，不是工具完成。Slack 旧题、未合并 PR、原日不明 Reddit 与其他入口候选未补齐同题近期独立需求；仍为研究候选，完整工作流/引擎/模型/业务回读均未运行，不成稿或新增工具包。详见[当日复盘](reviews/2026-11-09.md)。
 
@@ -171,6 +173,8 @@
 
 - **11-09 入口与固定材料**：按[当日记录](reviews/2026-11-09.md)，固定内建 Chat 的 `chatHitlTool` → AI Agent，受控工具先连接该 Human Review 节点；2.46.6 tag 对应完整提交 `bb72d756104542adb549b6966a57e21459bd52a2`。实际读取工作流夹具、processHitlResponses、工具生成、E2E 与根包信息；仅对响应转换函数做五组隔离执行，Node 24.22.1、连接常量替身，未装 n8n 或执行客户端。true / 嵌套 true 各产生一个待执行动作，false / 缺字段 / 字符串 true 为零；重复相同输入仍产生请求不能据此判完整流程重复执行。
 - **11-09 需求筛选与深度准备**：新增读取 [Slack #37692](https://github.com/n8n-io/n8n/issues/37692)（原建 09-03、最近更新 09-09，旧窗口）及 [PR #37819](https://github.com/n8n-io/n8n/pull/37819)（10-13 更新、仍未合并），不当作近期当前客户端故障或两份独立需求；[Reddit 业务数据核验题](https://www.reddit.com/r/n8n/comments/1xbm9cy/how_do_you_catch_ai_agents_that_make_the_wrong/)原页相对时间与搜索日期不一致，原日未确认且无本题实际流程，降级为线索。近 30 天 approval 检索另见 MCP 认证 #43048、If 子工作流数据引用 #40901，均排除。本轮未补齐同题需求。写法参考 Elvis Saravia / n8n team 的[官方范文](https://blog.n8n.io/production-ai-playbook-human-oversight/)（2026-03-09）及 Exercise 2，学习输出审阅与工具闸门的分工、完整动作和选择条件；不计新需求。T20 仍留研究候选，下一步补对应需求及完整隔离工作流条件，不将局部源码转换结果提升为业务执行/回读成功。
+
+- **11-09 晚间版本与需求续接**：实际重读 [2.46.7 Release](https://github.com/n8n-io/n8n/releases/tag/n8n%402.46.7)（原发 11-09 08:25:28 UTC）、新 tag / `9da286a9feb6d1d40107acb918fca8c06e00a54f` 与 [已合并 PR #42862](https://github.com/n8n-io/n8n/pull/42862)，只将 waiting/queued 恢复限制作为官方说明，不推导审批、业务幂等或模型调用已验证。新版本 processHitlResponses 与晨间固定函数字节相同；原五组实验仍限 2.46.6 冻结函数，不重复运行或扩大客户端范围。旧 #37692 / #37819 无新实际样本。新读 [10-27 社区编排题](https://community.n8n.io/t/atlassian-rovo-alternatives-with-byollm-support-orchestrating-jira-and-ai-coding-agents-with-n8n/324957)及[回复作者仓库](https://github.com/katreshital11-commits/ai-n8n-automation)，属于相邻 Jira/数据库演示，同一作者材料不重复计数，未执行作者代码或验证其数字/外部交付，也未补齐内建 Chat 的同题独立需求。下一步仍为需求与完整工作流/业务回读条件，不因新版本或社区产品引介就成稿。
 
 ## T12：Codex / Claude Code 共用规则的检查入口
 
