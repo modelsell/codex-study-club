@@ -24,6 +24,28 @@ function loadKnowledgeBase(code, snapshot = content) {
 
 const { knowledgeBase, searchKnowledgeBase, sourcesForMatches, knowledgeContext, localKnowledgeAnswer } = loadKnowledgeBase(source);
 
+test("downloadable template filenames find their guide without accepting extensions or arbitrary code files", () => {
+  const href = "/cases/email-agent-coverage-audit";
+  for (const question of ["mail-coverage-audit.py", "MAIL-COVERAGE-EXAMPLE.JSON", "mail-coverage-audit-tests.py 下载"]) {
+    assert.equal(searchKnowledgeBase(question)[0]?.entry.href, href, question);
+  }
+  for (const question of ["mail-coverage-audit.py.bak", "mail-coverage-audit-extra.py"]) {
+    assert.ok(!searchKnowledgeBase(question).some((match) => match.entry.href === href), question);
+  }
+  const fixture = {
+    ...content,
+    cases: [{ ...content.cases[0], slug: "artifact-link-fixture", title: "文件说明", summary: "下载指南",
+      markdown: '[说明](/templates/linked-checker.py) <a href="/templates/linked-input.json">输入</a>\n```sh\npython3 private-code.py\n[示意](/templates/fenced-checker.py)\n```\n`[示意](/templates/inline-checker.py)`\n[外部](https://example.com/templates/external-checker.py)' }],
+  };
+  const isolated = loadKnowledgeBase(source, fixture);
+  for (const name of ["linked-checker.py", "linked-input.json"]) {
+    assert.equal(isolated.searchKnowledgeBase(name)[0]?.entry.href, "/cases/artifact-link-fixture");
+  }
+  for (const name of ["private-code.py", "fenced-checker.py", "inline-checker.py", "external-checker.py"]) {
+    assert.ok(!isolated.searchKnowledgeBase(name).some((match) => match.entry.href === "/cases/artifact-link-fixture"));
+  }
+});
+
 test("documented snake_case names outrank generic comparison intent without prefix matching", () => {
   const href = "/cases/openhands-metrics-recovery-lab";
   for (const question of ["use_snapshot 完整历史有什么区别", "`use_snapshot` 会保留逐次记录吗", "ConversationStats use_snapshot"]) {

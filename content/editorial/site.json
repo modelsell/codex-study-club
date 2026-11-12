@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-08",
+  "checkedAt": "2026-11-12",
   "identity": {
     "name": "Agent 实践室",
     "parent": "CODEX STUDY CLUB",
@@ -30,6 +30,16 @@
       "outcome": "任务路径图 · 三组核心模拟 · 方案选择表",
       "scope": "固定源码与内存替身模拟；Harness 客户端未运行。",
       "research": true
+    },
+    {
+      "href": "/cases/email-agent-coverage-audit",
+      "title": "绿色流程之外，漏了哪些任务？",
+      "tool": "邮件 Agent / 离线审计",
+      "kind": "工具实践",
+      "description": "用同一组消息比较触发、补扫与完成证据，把扫描覆盖和业务完成分开判断。",
+      "outcome": "离线审计 CLI · 五消息示例 · 失败验收",
+      "scope": "合成元数据与本地 SQLite；未接真实邮箱、n8n 或模型。",
+      "research": false
     },
     {
       "href": "/cases/openhands-metrics-recovery-lab",
@@ -144,15 +154,41 @@
       "number": "04",
       "title": "设计团队的交付链",
       "question": "接单、做完、等审查、回传结果，分别由什么证明？",
-      "result": "一条可以审查的任务链、一份审查记录和文件交付清单。",
+      "result": "一条可以审查的任务链，以及审查、文件与业务记录的对账方法。",
       "links": [
         "/community/updates/deepseek-superagent-prototype",
         "/cases/reusable-review-skill",
-        "/cases/codex-broken-link-workflow"
+        "/cases/codex-broken-link-workflow",
+        "/cases/email-agent-coverage-audit"
       ]
     }
   ],
   "toolkits": [
+    {
+      "id": "mail-coverage",
+      "title": "邮件处理只读对账",
+      "category": "只读工具",
+      "description": "核对合成或自行提供的消息/完成元数据，保留缺记录、待核与覆盖未知的报告。",
+      "environment": "Python 3.9+ / SQLite · 仅本地元数据，不接邮箱",
+      "source": "/cases/email-agent-coverage-audit",
+      "files": [
+        {
+          "href": "/templates/mail-coverage-audit.py",
+          "label": "离线审计工具",
+          "format": "PY"
+        },
+        {
+          "href": "/templates/mail-coverage-example.json",
+          "label": "五消息合成输入",
+          "format": "JSON"
+        },
+        {
+          "href": "/templates/mail-coverage-audit-tests.py",
+          "label": "失败验收脚本",
+          "format": "PY"
+        }
+      ]
+    },
     {
       "id": "task",
       "title": "任务与续接模板",

@@ -179,6 +179,15 @@ const identifiersByEntry = new Map(knowledgeBase.map((entry) => {
   return [entry.id, new Set(identifiers)] as const;
 }));
 
+// A downloadable artifact name is an explicit lookup, like a documented command.
+// Only index actual local template links, not arbitrary file names inside code.
+const artifactNamesByEntry = new Map(knowledgeBase.map((entry) => {
+  const prose = entry.content.replace(/```[\s\S]*?```/g, " ").replace(/`[^`\n]*`/g, " ");
+  const names = [...prose.matchAll(/(?:\]\(|\bhref=["'])(\/templates\/[^)\s"'?#]+)/g)]
+    .map((match) => normalize(match[1].split("/").pop() || ""));
+  return [entry.id, new Set(names)] as const;
+}));
+
 function scoreEntry(entry: KnowledgeEntry, question: string, tokens: string[], commands: string[][]) {
   const normalizedQuestion = normalize(question);
   const title = normalize(entry.title);
@@ -199,6 +208,10 @@ function scoreEntry(entry: KnowledgeEntry, question: string, tokens: string[], c
 
   if (tokens.some((token) => identifiersByEntry.get(entry.id)?.has(token))) {
     // A complete code name is more specific than a generic intent like "区别".
+    score += 36;
+  }
+
+  if (tokens.some((token) => artifactNamesByEntry.get(entry.id)?.has(token))) {
     score += 36;
   }
 

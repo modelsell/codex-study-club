@@ -1,0 +1,63 @@
+{
+  "scope": "synthetic-mailbox/draft-ready/v1",
+  "cursor_ms": 1794182400000,
+  "until_ms": 1794355200000,
+  "overlap_ms": 300000,
+  "pages": [
+    {
+      "request_token": null,
+      "messages": [
+        {
+          "id": "opened",
+          "received_ms": 1794348000000
+        },
+        {
+          "id": "archived",
+          "received_ms": 1794340800000
+        },
+        {
+          "id": "delayed",
+          "received_ms": 1794247200000
+        }
+      ],
+      "next_token": "p2"
+    },
+    {
+      "request_token": "p2",
+      "messages": [
+        {
+          "id": "delayed",
+          "received_ms": 1794247200000
+        },
+        {
+          "id": "done",
+          "received_ms": 1794351600000
+        },
+        {
+          "id": "draft-no-marker",
+          "received_ms": 1794348000000
+        }
+      ],
+      "next_token": null
+    }
+  ],
+  "ledger": [
+    {
+      "id": "done",
+      "outcome": "draft_ready",
+      "artifact": "synthetic-draft-1"
+    }
+  ],
+  "artifacts": [
+    {
+      "id": "done",
+      "ref": "synthetic-draft-1"
+    },
+    {
+      "id": "draft-no-marker",
+      "ref": "synthetic-draft-2"
+    }
+  ],
+  "version": 1,
+  "source": "synthetic"
+}

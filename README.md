@@ -13,8 +13,9 @@
 
 发布前交叉核对官方资料和真实需求，区分源码研究、SDK/CLI 实验、工具验证与客户端实测；规范见[内容引入门槛](docs/operations/CONTENT-GATE.md)及[深度标准](docs/operations/EDITORIAL-STANDARD.md)。基于本地 Markdown 的资料助手帮助读者找到对应正文。
 
-## 本期新内容（2026-11-08 更新）
+## 本期新内容（2026-11-12 更新）
 
+- [邮件 Agent 漏了哪些任务？做一份可追溯的只读对账](https://codex.modelsp.com/cases/email-agent-coverage-audit)：用五条合成消息解释短窗口与完成标记的盲区，附离线审计 CLI、输入示例与失败验收；报告/扫描游标在本地事务中保存，不连接邮箱或自动补做业务。
 - [DeepSeek Super-agent 源码拆解：一条请求怎样走到交付](https://codex.modelsp.com/community/updates/deepseek-superagent-prototype)：沿接收、授权、工单、PR 和回传展开完整路径；附三个实际核心模拟分支、可复现脚本与方案选择表。11-08 复现并修正全新克隆后的固定提交获取步骤；属于源码分析，Harness 客户端与团队接入未实测。
 - [OpenHands SDK 统计实验：2 + 1 为什么会变成 6](https://codex.modelsp.com/cases/openhands-metrics-recovery-lab)：用固定 SDK 的四组聚合与跨进程统计 JSON 对照，解释恢复、浅复制和完整历史/摘要的取舍；附隔离脚本及固定依赖。合成记账值，未运行完整会话、模型或真实扣费。
 - [Gemini CLI 取消验收：退出了，子命令停了吗](https://codex.modelsp.com/cases/gemini-cli-cancellation-lab)：以官方 0.67.0 CLI、真实 shell 与合成 API 做五组对照，分别检查退出码、进程、文件和会话；附复现脚本与实际续接历史探针，不把退出或固定回复当真实模型任务成功。
