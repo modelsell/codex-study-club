@@ -3,7 +3,7 @@ title: "Gemini CLI 取消验收：退出了，子命令停了吗"
 description: "用官方 0.67.0 CLI、真实本地 shell 和模拟 Gemini API 做五组对照，分别检查退出码、进程、文件与会话。附离线复现脚本；不把信号退出当作任务停止或真实模型续跑成功。"
 level: "进阶"
 surface: "Gemini CLI 0.67.0 · macOS arm64"
-checkedAt: "2026-11-05"
+checkedAt: "2026-11-12"
 ---
 
 # Gemini CLI 取消验收：退出了，子命令停了吗
@@ -130,13 +130,15 @@ python3 gemini-cancellation-lab.py \
 
 ## 版本、需求与适用边界
 
-**核对日期为 2026-11-05。** 官方 [0.67.0 Release](https://github.com/google-gemini/gemini-cli/releases/tag/v0.67.0) 原发布为 11-04 20:27 UTC，即北京时间 11-05 04:27；本次 [npm 元数据](https://registry.npmjs.org/@google%2Fgemini-cli/latest)同为 0.67.0。它列出了非交互取消相关修正；相关已合并 [PR #29849](https://github.com/google-gemini/gemini-cli/pull/29849)说明的是信号处理、流式取消和工具调度前检查，不能由标题推导本文已启动工具的全部停止结果。
+**原始复现实验固定在 Gemini CLI 0.67.0；后续状态核对日期为 2026-11-12。** 官方 [0.67.0 Release](https://github.com/google-gemini/gemini-cli/releases/tag/v0.67.0) 原发布为 11-04 20:27 UTC（北京时间 11-05 04:27），实验结果、发行物指纹与源码提交均保持该版本边界。原 Release 所列已合并 [PR #29849](https://github.com/google-gemini/gemini-cli/pull/29849)涉及信号处理、流式取消和工具调度前检查；不能由标题推导本文已启动工具的全部停止结果。
 
 当日交叉阅读的两份独立近 30 天需求为：
 
 - [#30007](https://github.com/google-gemini/gemini-cli/issues/30007)，stars-spark，10-28 13:50 UTC：报告 0.65.0 / 0.66.0 的信号、子命令与会话缺项；原作者也使用过本地端点。本文是另行执行的 0.67.0 实验，不把旧帖直接当新版结论。
 - [#29971](https://github.com/google-gemini/gemini-cli/issues/29971)，frabcd，10-27 01:08 UTC：报告 Windows / 固定源码的文件准备阶段取消后仍写入，明确属于 core 工具测试。它支持“取消后要查实际产物”的需求，**不是本文同一故障或 Windows CLI 复现**。
 
-两帖当前仍 open，相关 [#30051](https://github.com/google-gemini/gemini-cli/pull/30051) / [#29973](https://github.com/google-gemini/gemini-cli/pull/29973)仍未合并；状态不证明所有环境仍有相同问题，也不替代发行版测试。官方 [Headless reference](https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/headless.md)和固定版本 [Policy Engine 说明](https://github.com/google-gemini/gemini-cli/blob/dc6602cec4a6e823aa33937144245dc421e5165f/docs/reference/policy-engine.md)分别用于核对输出与授权配置。
+后续官方状态已变化：[PR #30204](https://github.com/google-gemini/gemini-cli/pull/30204)于 11-09 20:16:27 UTC 合并，标题和改动说明涉及 headless 中止时结束子进程、记录取消的工具并保留信号退出码；[#30007](https://github.com/google-gemini/gemini-cli/issues/30007)于两秒后以 completed 关闭。与此同时，官方 [v0.68.0 Release](https://github.com/google-gemini/gemini-cli/releases/tag/v0.68.0)于 11-10 21:17:07 UTC 发布。**本轮没有安装或运行 0.68.0，也没有确认该 Release 是否包含 #30204；合并和关闭状态不能替代指定发行版的实测。**
+
+另一需求 [#29971](https://github.com/google-gemini/gemini-cli/issues/29971)截至本次核对仍 open；关联 [#29973](https://github.com/google-gemini/gemini-cli/pull/29973)已关闭但未合并，[#30051](https://github.com/google-gemini/gemini-cli/pull/30051)仍 open。不同 issue / PR 的症状和状态不相互代替。上述进展不证明所有环境仍有相同问题，也不替代发行版测试。官方 [Headless reference](https://github.com/google-gemini/gemini-cli/blob/main/docs/cli/headless.md)和固定版本 [Policy Engine 说明](https://github.com/google-gemini/gemini-cli/blob/dc6602cec4a6e823aa33937144245dc421e5165f/docs/reference/policy-engine.md)分别用于核对输出与授权配置。
 
 本例验证真实 CLI、真实本地 shell/文件与合成 API 的五组流程；没有测试真实模型推理、生产 API、PTY 键盘中断、SIGHUP、Linux/Windows、业务回滚或真实模型的续跑决策。需求原帖也不代表本站阅读量或读者收益。
