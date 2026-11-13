@@ -1,0 +1,12 @@
+# Tested: macOS arm64 / Python 3.12.14, Core 1.26.0. No provider integration package.
+agent-framework-core==1.26.0
+annotated-types==0.8.0
+msgspec==0.22.0
+opentelemetry-api==1.45.2
+pydantic==2.14.3
+pydantic_core==2.50.4
+python-dotenv==1.2.4
+PyYAML==6.0.3
+regex==2026.11.9
+typing-inspection==0.4.5
+typing_extensions==4.16.0

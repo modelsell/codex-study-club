@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-12",
+  "checkedAt": "2026-11-13",
   "identity": {
     "name": "Agent 实践室",
     "parent": "CODEX STUDY CLUB",
@@ -29,6 +29,16 @@
       "description": "沿接收、授权、工单、PR 与回传拆开团队 Agent 的交接，比较人工派发、脚本与常驻原型。",
       "outcome": "任务路径图 · 三组核心模拟 · 方案选择表",
       "scope": "固定源码与内存替身模拟；Harness 客户端未运行。",
+      "research": true
+    },
+    {
+      "href": "/cases/agentframework-checkpoint-arguments-lab",
+      "title": "恢复后，为什么还用旧模板？",
+      "tool": "Microsoft Agent Framework",
+      "kind": "SDK 实验",
+      "description": "从暂停恢复走到真实本地函数与文件，比较调用参数、工具实参与产物版本。",
+      "outcome": "八组对照 · 跨进程恢复 · 本地报表回读",
+      "scope": "固定 SDK、合成聊天与审阅响应；真实函数/文件已执行，模型及原生审批未测。",
       "research": true
     },
     {
@@ -134,7 +144,8 @@
       "links": [
         "/community/updates/codex-quality-regression-playbook",
         "/cases/codex-progress-or-loop",
-        "/cases/deepagents-storage-recovery"
+        "/cases/deepagents-storage-recovery",
+        "/cases/agentframework-checkpoint-arguments-lab"
       ]
     },
     {
@@ -164,6 +175,26 @@
     }
   ],
   "toolkits": [
+    {
+      "id": "workflow-resume",
+      "title": "工作流恢复与报表参数",
+      "category": "复现实验",
+      "description": "比较新消息、响应续接和文件 checkpoint 恢复，保留旧模板反例、拒绝与写入失败。",
+      "environment": "macOS arm64 / Python 3.12 · Core 1.26.0 · 合成聊天、本地工具",
+      "source": "/cases/agentframework-checkpoint-arguments-lab",
+      "files": [
+        {
+          "href": "/templates/agentframework-resume-artifact-lab.py",
+          "label": "八组恢复实验",
+          "format": "PY"
+        },
+        {
+          "href": "/templates/agentframework-resume-requirements.txt",
+          "label": "固定依赖",
+          "format": "TXT"
+        }
+      ]
+    },
     {
       "id": "mail-coverage",
       "title": "邮件处理只读对账",

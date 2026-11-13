@@ -13,7 +13,9 @@
 
 发布前交叉核对官方资料和真实需求，区分源码研究、SDK/CLI 实验、工具验证与客户端实测；规范见[内容引入门槛](docs/operations/CONTENT-GATE.md)及[深度标准](docs/operations/EDITORIAL-STANDARD.md)。基于本地 Markdown 的资料助手帮助读者找到对应正文。
 
-## 本期新内容（2026-11-12 更新）
+## 本期新内容（2026-11-13 更新）
+
+- [Agent Framework 恢复实验：报表为什么还用旧模板？](https://codex.modelsp.com/cases/agentframework-checkpoint-arguments-lab)：在固定 Core 1.26.0 中走完跨进程恢复、SDK 函数调用与文件回读，比较新参数与旧模板产物；附八组对照与固定依赖，聊天和审阅响应为合成输入，未调用真实模型或外部业务。
 
 - [邮件 Agent 漏了哪些任务？做一份可追溯的只读对账](https://codex.modelsp.com/cases/email-agent-coverage-audit)：用五条合成消息解释短窗口与完成标记的盲区，附离线审计 CLI、输入示例与失败验收；报告/扫描游标在本地事务中保存，不连接邮箱或自动补做业务。
 - [DeepSeek Super-agent 源码拆解：一条请求怎样走到交付](https://codex.modelsp.com/community/updates/deepseek-superagent-prototype)：沿接收、授权、工单、PR 和回传展开完整路径；附三个实际核心模拟分支、可复现脚本与方案选择表。11-08 复现并修正全新克隆后的固定提交获取步骤；属于源码分析，Harness 客户端与团队接入未实测。
