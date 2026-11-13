@@ -6,7 +6,8 @@
 
 11-13 早间：昨日归档 32bdd92 的同 SHA CI/Workers、正式 33 目标/75 URL/八文档再核通过；保留并发 ff72f94 的下载响应修复，另验同 SHA 检查与正式七脚本 MIME / nosniff。T15 新读 1.0.3、下载入口和 Windows 作者报告，未运行；新增 T22 Microsoft Agent Framework 恢复上下文研究，固定 Core 1.25.0 七组真实 graph/合成参数与本地存储对照捕获旧值覆盖，未执行函数/provider/模型或成稿。候选、来源与原窗口分开，11 moderate、报告不可得，详见[当日复盘](reviews/2026-11-13.md)。
 
-11-13 早间：线上 T21/T16 的多个 `.py` 下载 GET 为 200、字节可读但响应缺 `Content-Type`；相邻 JSON 有 MIME。修改既有 `_headers` 并保留原规则；Workers 本地预览验证 `.py` 的 `text/plain` / `nosniff`、JSON MIME 与 75 页/95 目标链接检查。正式响应头与本次 SHA 的部署核验待 push 后确认，不把下载或维护访问当读者成果。T19 七日回看按 11-14 原窗口，T21 11-19/12-12、T16 12-05 与 11-15 改版观察保留。见[同日复盘](reviews/2026-11-13.md)。
+
+11-13 早间：线上 T21/T16 的多个 `.py` 下载 GET 为 200、字节可读但响应缺 `Content-Type`；相邻 JSON 有 MIME。修改既有 `_headers` 并保留原规则；Workers 本地预览验证 `.py` 的 `text/plain` / `nosniff`、JSON MIME 与 75 页/95 目标链接检查。`ff72f94` 已推送，同 SHA Quality/Workers 成功；09:11 正式 `.py` 响应头生效、文件字节匹配，JSON/MIME、原 `.txt` 附件名、首页/Sitemap 保持。无读者成果证据。T19 七日回看按 11-14 原窗口，T21 11-19/12-12、T16 12-05 与 11-15 改版观察保留。见[同日复盘](reviews/2026-11-13.md)。
 
 11-12 晚间：重新读取晨间内容 47873c8 / 归档 22ef774 的各自完整 SHA 检查，Quality / Workers 均成功；正式 33 目标、75 URL/旧 72 条与八文档通过。T21 官方、两原帖全部回复和固定导出状态重读，无新结果，保留离线边界及 11-19/12-12；普通 Issue 0、Star/Fork 10/1，报告不可得，audit 11 moderate。只续运营记录，不重复发布或旧实验，见[晚间复盘](reviews/2026-11-12.md#晚间独立核验与复盘)。
 
