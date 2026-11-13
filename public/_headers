@@ -5,3 +5,7 @@
 
 /templates/deepagents-storage-requirements.txt
   Content-Disposition: attachment; filename="deepagents-storage-requirements.txt"
+
+/templates/*.py
+  Content-Type: text/plain; charset=utf-8
+  X-Content-Type-Options: nosniff
