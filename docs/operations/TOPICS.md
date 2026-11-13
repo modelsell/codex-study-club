@@ -1,6 +1,6 @@
 # 持续选题池
 
-维护负责人：项目运营。建立日期：2026-10-05；最近整理日期：2026-11-12（Asia/Shanghai，保留 T16 同轮来源校订，T21 离线工具实践已发布/反馈观察；其他题来源日不统一刷新）。
+维护负责人：项目运营。建立日期：2026-10-05；最近整理日期：2026-11-13（Asia/Shanghai，T15 入口/版本新增来源与 T22 工作流恢复研究；其他题保留各自来源日和原回看窗口）。
 
 本文件保存候选、原始证据、实验计划与后续反馈；发布状态与验证边界逐题记录。2026-10-05 用户认可基于真实社区痛点选题，并要求在本地持续维护。首批来源来自同日对 X、Reddit、OpenAI 开发者社区和 GitHub Issues 的实际阅读。10-06 重读 T01 社区原帖与官方说明；10-15 新核对 T05 的 #53368、#32582 与原社区帖；10-16 重读 T04 原帖、后续回复与 #50973，并核对 CLI、IDE 当日官方原文。10-17 新增 T07 的 Cloud 发布失败原帖并核对当日官方 Cloud 文档。其他来源未重查，不刷新日期。正式写作前须重新核对原帖、后续回复和当日官方说明。
 
@@ -16,6 +16,8 @@
 - 每次调整同步本文件、BACKLOG 和当日复盘。证据台账留在这里，BACKLOG 只保留当前排序，避免多个完整选题清单互相漂移。
 
 ## 当前选题状态
+
+11-13 早间：昨日归档 32bdd92 的同 SHA CI/Workers、正式 33 目标/75 URL/八文档再核通过；保留并发 ff72f94 的下载响应修复，另验同 SHA 检查与正式七脚本 MIME / nosniff。T15 新读 1.0.3、下载入口和 Windows 作者报告，未运行；新增 T22 Microsoft Agent Framework 恢复上下文研究，固定 Core 1.25.0 七组真实 graph/合成参数与本地存储对照捕获旧值覆盖，未执行函数/provider/模型或成稿。候选、来源与原窗口分开，11 moderate、报告不可得，详见[当日复盘](reviews/2026-11-13.md)。
 
 11-12 晚间：重新读取晨间内容 47873c8 / 归档 22ef774 的各自完整 SHA 检查，Quality / Workers 均成功；正式 33 目标、75 URL/旧 72 条与八文档通过。T21 官方、两原帖全部回复和固定导出状态重读，无新结果，保留离线边界及 11-19/12-12；普通 Issue 0、Star/Fork 10/1，报告不可得，audit 11 moderate。只续运营记录，不重复发布或旧实验，见[晚间复盘](reviews/2026-11-12.md#晚间独立核验与复盘)。
 
@@ -55,6 +57,7 @@
 | --- | --- | --- | --- | --- |
 | T14 | 已修订 / 待反馈 | DeepSeek Super-agent：一条请求怎样走到交付 | 固定源码任务路径、三个核心模拟分支、可复现脚本与方案取舍 | 11-02 已上线；同 SHA CI/Workers、正式正文/下载/Sitemap 已验；真实客户端未实测 |
 | T15 | P2 / 研究候选 | 浏览器 Agent 说完成了，文件和页面状态真的变了吗 | Browser Use 下载/提交的结果验收及失败对照 | 旧需求限 0.x；1.x 迁移资料已核，待同题需求、固定发行物与实际流程 |
+| T22 | P2 / 验证中 | 工作流恢复后，下一步看到的是哪份参数与状态 | 同一任务的普通续接/恢复、实际参数消费及产物对照 | 固定 Core 1.25.0 七组 SDK graph 对照捕获旧值覆盖；尚缺完整动作/产物与最终同题需求，不成稿 |
 | T21 | 已发布 / 观察 | 邮件 Agent 漏了哪些任务？做一份可追溯的只读对账 | 离线审计 CLI、五消息输入、失败验收与本地报告 | 11-12 随 47873c8 上线；同 SHA CI/Workers、正式正文/文件/入口/Sitemap 与正式保存件 32 项通过，11-19/12-12 回看；未接真实邮箱 |
 | T20 | P1 / 研究候选 | n8n 客户请求从审批到真实执行，怎样逐段验收 | 固定入口的批准/拒绝/失败对照、工具结果与业务记录回读 | 11-09 已固定内建 Chat 工具入口并完成五组源码函数隔离对照；同题近期需求仍不足，完整工作流/客户端未执行、未成稿 |
 | T19 | 已发布 / 观察 | OpenHands SDK 统计实验：2 + 1 为什么会变成 6 | 四组聚合、跨进程统计 JSON、固定依赖与隔离脚本 | 11-07 随 986d959 上线；同 SHA CI/Workers、正式正文/入口、两份下载及实际保存、72 URL Sitemap 已验；完整会话、模型、真实扣费未测 |
@@ -116,6 +119,8 @@
 - **11-10 轮换核对**：实际重读官方 Quickstart、0.13.14 Release / PyPI、#6065 / #6031 与全部可得评论。版本和更新时间与 11-06 记录一致；#6065 仍 open、0 评论，#6031 仍 open、12 评论、最后更新 10-26 22:01:20 UTC。后者原帖 10-10 已超三十天，不用旧原帖/同作者续帖冒充近期新增。继续保留产物/动作/声明三层验收计划，没有对应获授权的模型流程，未安装或执行 Browser Use，不发布客户端稿或通用提醒。详见[当日记录](reviews/2026-11-10.md#t15browser-use-轮换研究继续暂缓)。
 
 - **11-10 晚间主版本边界**：新读 1.0.0 / 1.0.1 原始 Release、Quickstart / 迁移指南、两固定 tag 的 MIGRATING / pyproject 与 PyPI。1.0.0 原发 11-10 02:04:48 UTC、wheel 02:34:13；1.0.1 原发 09:27:28 UTC、固定 `693ddd2069d50b41baa3dd48335c9a2265379db8`，但 19:59:48 指定 PyPI 元数据 404，当次正式版仍 1.0.0。默认浏览器、REPL 和下载/轨迹接口已变，0.x 参数或动作历史不能直接当作 1.x 验收方案；先选定入口及完整流程，再补当前同题需求与获授权模型条件。旧两帖内容/评论未变；新检索的 [#6365](https://github.com/browser-use/browser-use/issues/6365)（11-10、1.0.0 占位符作者报告）不同题，排除，不执行或放大作者示例。未安装/升级/运行 Agent，不将标签、文档或旧反馈写成新版恢复与推荐；T15 仍为研究候选，详见[版本与取舍记录](reviews/2026-11-10.md#t18-不重算窗口t15-新增主版本边界)。
+
+- **11-13 下载入口复核**：重读 Quickstart / Files / 迁移指南与 [1.0.3 原始 Release](https://github.com/browser-use/browser-use/releases/tag/1.0.3)，原发 11-12 16:52:54 UTC、wheel 17:20:36，GitHub/PyPI 当前一致，固定 `dfb6a73d520809341c975c6a01c228327991e88b`。附着现有 Chrome/CDP 的 result.downloads 为空是文档约定，不能套给 cloud / fresh-local；Quickstart 示例仍固定 1.0.0，不称所有入口已验证。新读 [#6367](https://github.com/browser-use/browser-use/issues/6367)（11-10 07:22:06 UTC、1.0.0 / Windows、cloud 列表替身作者报告），关联 [#6368](https://github.com/browser-use/browser-use/pull/6368)仍未合并；1.0.3 的 file_names 静态读取未见 Windows 名称规范化，没有执行 Windows/Browser Use/模型。旧 #6065 / #6031 本日未重读，不算新版同入口的第二次确认；仍需固定实际任务和执行条件，不成稿，见[当日研究](reviews/2026-11-13.md#t15先区分下载入口不把新版说明当作恢复)。
 
 ### T16：Gemini CLI 的取消、进程与续跑
 
@@ -201,6 +206,16 @@
 - **11-11 轮换筛选**：重读官方 Human Review 文档和当次 Latest 2.47.3（原发 11-09 08:21:35 UTC），不推导旧 2.46.6 函数实验已覆盖新版。近三十天 human review / chatHitlTool 两项 GitHub 检索未返回结果，仅表示本轮范围；新读 [10-12 Agent Builder 题](https://community.n8n.io/t/agent-builder-customizing-tool-approval-message-content/320987)明确不是工作流 AI Agent，不能补作内建 Chat 的第二份需求。新邮件材料另记 T21，不借相邻任务凑数，见[当日研究](reviews/2026-11-11.md#t20-与新方向邮件-agent-的处理覆盖率)。
 
 - **11-11 晚间版本**：当次 Latest [2.47.4](https://github.com/n8n-io/n8n/releases/tag/n8n%402.47.4)原发 **11-11 08:40:16 UTC**；重读说明及已合并 [PR #43225](https://github.com/n8n-io/n8n/pull/43225)，处理 Assistant 取消 HITL 卡后 pending 存储调用阻塞观察记忆，不是本站固定工作流内建 Chat 的执行验收。不重复晨间需求检索或运行旧转换函数，也不将新 Release/PR 算第二份独立需求；继续候选。
+
+## T22：工作流重启恢复后的参数与状态
+
+- **读者与成果**：用 Python 工作流组织资料/报表/待审任务的人；需要核对普通响应续接与 checkpoint 重建后，下一步实际用的是哪份参数。拟交付完整任务、实际动作/产物对照与可复现实验；与 Deep Agents 的资料存储后端选择分开。
+- **11-13 官方原文**：读取 [Checkpoints](https://learn.microsoft.com/en-us/agent-framework/workflows/checkpoints)、[Python 1.25.0 Release](https://github.com/microsoft/agent-framework/releases/tag/python-1.25.0)、tag/PyPI 与固定核心源码。Release 原发 11-07 15:52:42 UTC；实验 Core 1.25.0 / `7bca1df23ea97b778dd5cd7a50d9db8d1ef832db`，wheel 哈希和三份已安装实现与原始材料匹配。官方页首次发布日期未知，核对日不写成新功能发布日。
+- **主要需求**：[BlueX888 #9850](https://github.com/microsoft/agent-framework/issues/9850)，原建 10-29 18:37:28 UTC、11-12 08:56:45 更新、open；Core 1.23.0 / Windows 作者报告恢复时新 kwargs 被旧值覆盖。维护者计划与机器人源码阅读不计第二份用户需求；[PR #9853](https://github.com/microsoft/agent-framework/pull/9853)仍 open、未合并。
+- **相邻独立需求**：[digit50 #9473](https://github.com/microsoft/agent-framework/issues/9473)，原建 10-17 17:54:58 UTC、11-12 12:11:37 更新、open；Core 1.22.0 / Linux 的丢弃流清理影响后续状态，PR #9475 未合并。两位作者的问题与 API 层不同，不合并根因或称为 #9850 两次复现；最终成稿仍要收窄同题需求。#9922 实际 .NET、#10074 declarative 分别排除，不用标题或数量补门槛。
+- **11-13 实际验证**：macOS 27.2 arm64 / Python 3.12.14 / Core 1.25.0，真实 graph 引擎、合成参数/消息与本地存储七组对照：新消息 OLD/NEW、无覆盖恢复、NEW 覆盖恢复、仅 responses 与 checkpoint+responses、文件存储两进程重开。普通新消息/响应能见 NEW，而恢复+NEW 的三组观察仍见 OLD；文件恢复后下一份 checkpoint 也保留 OLD。父/子进程联网尝试均 0，无 Agent/模型、函数/provider 或业务执行。内部键观察和合成 approved 响应不当作真实工具调用或人工审批成功，详见[实验与机制](reviews/2026-11-13.md#实际七组对照与源码机制)。
+- **版本边界**：当前 PyPI Core 1.26.0 wheel 于 11-12 18:25:48 UTC 上传，tag `4f2d146bda4a2068438406f394c65fda7effcff7`；指定 GitHub Release API 404、列表仍 1.25.0。读取 1.26 workflow/runner 与实验固定源码，前者相同、后者仅文档注释减少；未安装/执行 1.26，不将代码相同写成新版实测。
+- **决定与下一步**：研究/验证中，未发布。先补实际确定性函数消费、完整任务及产物、拒绝/失败分支与便携公开脚本，再固定最终适用发行物、同题需求和六项编辑复核。私有脚本、锁定依赖、七组结果和原始证据保留，不向上游提交补丁或 Issue，不把旁支 .NET/declarative 线索凑作同入口成功。
 
 ## T21：邮件 Agent 的处理覆盖率与只读对账
 
