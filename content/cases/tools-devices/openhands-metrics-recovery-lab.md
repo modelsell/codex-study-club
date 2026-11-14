@@ -113,6 +113,16 @@ python3.12 -m venv "$LAB_DIR/venv"
 
 ## 版本、来源与下一步
 
-官方资料、两份原帖和版本在 **2026-11-07** 核对。本文实验固定 1.60.1，原发行于 11-05 16:32 UTC（北京 11-06）；对应[官方发布说明](https://github.com/OpenHands/software-agent-sdk/releases/tag/v1.60.1)与 [PyPI 固定版本](https://pypi.org/project/openhands-sdk/1.60.1/)。另有 [1.60.2 hotfix](https://github.com/OpenHands/software-agent-sdk/releases/tag/v1.60.2)，原发布 11-06 18:41 UTC，说明针对大型远程会话状态消息；**本站未执行 1.60.2，不把它等同于本文统计路径已恢复**。关联 [PR #6497](https://github.com/OpenHands/software-agent-sdk/pull/6497) 核对时仍未合并，标题和机器人回复不能代替修复验收。
+官方资料、两份原帖和 1.60.x 版本在 **2026-11-07** 核对。本文实验固定 1.60.1，原发行于 11-05 16:32 UTC（北京 11-06）；对应[官方发布说明](https://github.com/OpenHands/software-agent-sdk/releases/tag/v1.60.1)与 [PyPI 固定版本](https://pypi.org/project/openhands-sdk/1.60.1/)。另有 [1.60.2 hotfix](https://github.com/OpenHands/software-agent-sdk/releases/tag/v1.60.2)，原发布 11-06 18:41 UTC，说明针对大型远程会话状态消息；**本站未执行 1.60.2，不把它等同于本文统计路径已恢复**。关联 [PR #6497](https://github.com/OpenHands/software-agent-sdk/pull/6497) 核对时仍未合并，标题和机器人回复不能代替修复验收。
+
+### 2026-11-14：当前版本的证据边界
+
+本文的实验结果仍只适用于上面的 1.60.1 内部类实验。本次补充仅核对官方版本记录、相关 Issue/PR 和当前标签源码，没有在 1.62.0 安装或运行实验，也没有运行完整 Conversation、模型请求或账单对账。
+
+截至 **2026-11-14**，[GitHub 最新发布](https://github.com/OpenHands/software-agent-sdk/releases/tag/v1.62.0)和 [PyPI 最新版本](https://pypi.org/project/openhands-sdk/)均为 1.62.0。1.61.0 发布说明中的 #6581 是移除 LLM 时清理 metrics id；它不是 [#6497](https://github.com/OpenHands/software-agent-sdk/pull/6497) 提出的“subscriber 通知后，再登记恢复后的 metrics 对象身份”。1.62.0 发布说明未列出 #6497；该 PR 当日仍 open、未合并。
+
+对 [`v1.62.0` 的 `LLMRegistry.add` 源码](https://github.com/OpenHands/software-agent-sdk/blob/v1.62.0/openhands-sdk/openhands/sdk/llm/llm_registry.py)做静态阅读时，看到的顺序仍是先登记当前 metrics 对象身份，再通知 subscribers；PR #6497 提议的通知后登记行不在这段实现中。这只能说明所查看标签里该处源码的内容，**不能代替安装运行 1.62.0、完整恢复/派生任务或真实调用验证，也不能据此宣称读者在当前版本会遇到相同结果**。
+
+如果你需要判断自己所用版本是否覆盖这条路径，请固定实际安装版本，沿用本文的独立输入、用途、累计值和逐次记录验收表，再针对自己的恢复与派生流程运行；把 release note、PR 状态和静态源码阅读分别作为线索，不互相当作运行结果。本文仍可复现的结果及失败对照只有 1.60.1 实验脚本给出的范围。
 
 读完可以先在自己的脱敏统计样本上列出“独立输入、用途、累计值、逐次记录”四列，再决定是否需要验证恢复与派生顺序。本实验给出了反例与局部对照；完整 Conversation、真实模型、供应商扣费、其他系统和性能结论仍需各自的实际验证。
