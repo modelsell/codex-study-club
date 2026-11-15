@@ -2,6 +2,8 @@
 
 欢迎修正过时说明、补充可复现案例、反馈无法完成的步骤，以及改善项目代码。首次贡献可以从一处错误链接或一段不清晰的教程开始。
 
+想提出一个任务或记录实践卡点，可使用 GitHub 的[内容建议](https://github.com/modelsell/codex-study-club/issues/new?template=content-request.yml)；页面、教程或代码问题可使用[问题反馈](https://github.com/modelsell/codex-study-club/issues/new?template=bug-report.yml)。覆盖 Codex、Claude Code 与其他 Agent。工具、入口和脱敏结果有助于核对；尚无结果也可以先提出任务。
+
 ## 提交内容
 
 1. 检查已有内容和 Issues，确认主题没有重复。

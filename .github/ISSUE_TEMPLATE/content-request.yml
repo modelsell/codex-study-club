@@ -1,5 +1,5 @@
 name: 内容建议
-description: 提出一个希望通过 Codex 完成的真实任务
+description: 提出一个希望通过 Agent 完成的真实任务或实践卡点
 title: "[内容] "
 body:
   - type: textarea
@@ -8,11 +8,21 @@ body:
       label: 你想完成什么任务，目前卡在哪里？
     validations:
       required: true
+  - type: input
+    id: environment
+    attributes:
+      label: 工具、版本与入口（可选）
+      description: 例如 Codex CLI、Claude Code、浏览器 Agent 或邮件工作流；版本不确定可留空。
   - type: textarea
     id: existing
     attributes:
       label: 看过哪些现有教程？
       description: 可提供站内链接，帮助我们改进已有内容、避免重复。
+  - type: textarea
+    id: outcome
+    attributes:
+      label: 已有结果或失败证据（可选）
+      description: 写出尝试的步骤、预期和实际结果；文件或截图请先脱敏。没有结果也可以先提任务。
   - type: textarea
     id: sources
     attributes:

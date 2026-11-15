@@ -20,4 +20,4 @@ body:
     id: environment
     attributes:
       label: 环境信息
-      description: 操作系统、浏览器或 Codex 版本；本地开发问题请补充 Node.js 版本。
+      description: 操作系统、浏览器、Agent 名称与版本及入口（CLI、IDE、云端等）；本地开发问题请补充 Node.js 版本。
