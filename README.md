@@ -13,7 +13,9 @@
 
 发布前交叉核对官方资料和真实需求，区分源码研究、SDK/CLI 实验、工具验证与客户端实测；规范见[内容引入门槛](docs/operations/CONTENT-GATE.md)及[深度标准](docs/operations/EDITORIAL-STANDARD.md)。基于本地 Markdown 的资料助手帮助读者找到对应正文。
 
-## 本期新内容（2026-11-13 更新）
+## 本期新内容（2026-11-17 更新）
+
+- [Pydantic AI 审批恢复实验：同意一次，为什么登记两次？](https://codex.modelsp.com/cases/pydantic-ai-approval-replay-lab)：固定 2.68.0 SDK 的八组跨进程对照，比较崩溃重放、事务回执和业务请求键；真实本地 SQLite、合成模型与审批，未接外部业务或生产审批服务。
 
 - [Agent Framework 恢复实验：报表为什么还用旧模板？](https://codex.modelsp.com/cases/agentframework-checkpoint-arguments-lab)：在固定 Core 1.26.0 中走完跨进程恢复、SDK 函数调用与文件回读，比较新参数与旧模板产物；附八组对照与固定依赖，聊天和审阅响应为合成输入，未调用真实模型或外部业务。
 

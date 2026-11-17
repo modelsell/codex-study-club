@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-13",
+  "checkedAt": "2026-11-17",
   "identity": {
     "name": "Agent 实践室",
     "parent": "CODEX STUDY CLUB",
@@ -29,6 +29,16 @@
       "description": "沿接收、授权、工单、PR 与回传拆开团队 Agent 的交接，比较人工派发、脚本与常驻原型。",
       "outcome": "任务路径图 · 三组核心模拟 · 方案选择表",
       "scope": "固定源码与内存替身模拟；Harness 客户端未运行。",
+      "research": true
+    },
+    {
+      "href": "/cases/pydantic-ai-approval-replay-lab",
+      "title": "同意一次，为什么登记两次？",
+      "tool": "Pydantic AI",
+      "kind": "SDK 实验",
+      "description": "沿待审历史、批准、业务提交与回执，比较崩溃重放和同库事务的执行边界。",
+      "outcome": "八组跨进程对照 · 报表/回执回读 · 业务键选择",
+      "scope": "固定 SDK、合成模型与审批、真实 SQLite；外部服务及生产审批未测。",
       "research": true
     },
     {
@@ -170,11 +180,32 @@
         "/community/updates/deepseek-superagent-prototype",
         "/cases/reusable-review-skill",
         "/cases/codex-broken-link-workflow",
-        "/cases/email-agent-coverage-audit"
+        "/cases/email-agent-coverage-audit",
+        "/cases/pydantic-ai-approval-replay-lab"
       ]
     }
   ],
   "toolkits": [
+    {
+      "id": "approval-replay",
+      "title": "审批恢复与重复执行",
+      "category": "复现实验",
+      "description": "保留提交后崩溃的双写反例，对照事务回执、拒绝、回滚、双进程和业务键冲突。",
+      "environment": "macOS arm64 / Python 3.12 · Pydantic AI 2.68.0 · 合成模型、本地 SQLite",
+      "source": "/cases/pydantic-ai-approval-replay-lab",
+      "files": [
+        {
+          "href": "/templates/pydantic-approval-replay-lab.py",
+          "label": "八组审批恢复实验",
+          "format": "PY"
+        },
+        {
+          "href": "/templates/pydantic-approval-replay-requirements.txt",
+          "label": "固定依赖",
+          "format": "TXT"
+        }
+      ]
+    },
     {
       "id": "workflow-resume",
       "title": "工作流恢复与报表参数",
