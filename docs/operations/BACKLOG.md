@@ -4,6 +4,8 @@
 
 ## 下周优先项（2026-11-16 至 2026-11-22，当前执行顺位）
 
+11-17 晚间独立核验：6650227 同 SHA Quality/Workers failure 保留；9360b0f、e0cdc5a、2345719 同 SHA 检查 success，远端最终同 SHA。正式新稿 200、两下载 200 且字节/哈希匹配、Sitemap 77 URL；浏览器点击回执仍待补。旧 OpenHands 路径 curl 200 / Python 3.9 urllib 403；早前 RemoteDisconnected 与 curl 非零亦分别保留，根因未知，未改防护。Issue 0、PR #1 开放、Star/Fork 10/1，GA4 不可得，读者成果无新增，详见[晚间复核](reviews/2026-11-17.md#晚间独立核验与复盘)。
+
 11-17 连接观察补记：e0cdc5a 归档检查/23 文件与 curl 完整 39 目标/77 URL 通过；10:16 Python 3.9 在旧 OpenHands 文 RemoteDisconnected，另一次 curl 单抽查失败未留错误，随后两客户端目标正文均读回。失败分别保留、根因未知，今晚按路径/客户端有界再核，不改防护，见[补记](reviews/2026-11-17.md#归档后连接差异补记)。
 
 11-17 正式发布：T23 新深度稿/两文件已上线，修正 9360b0f 同 SHA Quality/Workers 成功，23 文件与正式完整 39 目标/77 URL、正式 HTTP 保存件八组通过，转 11-24/12-17。保留首个 SHA 安装失败及一次 IncompleteRead，后者重核未复现、根因未知；浏览器正式界面/下载点击仍待工具恢复，HTTP 保存不替代该回执。Next 16.4.6 与干净安装门槛已交付，其他原窗口和 11 moderate 待办保持，见[发布证明](reviews/2026-11-17.md#正式发布确认)。
