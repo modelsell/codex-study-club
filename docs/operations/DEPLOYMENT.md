@@ -5,6 +5,7 @@
 ## 每次更新
 
 1. 运行 `npm run lint` 和 `npm run build`。修改 Next.js、OpenNext 或发布配置时额外运行 `npm run cf-build`，检查平台构建兼容性。
+   **依赖/锁文件变更时，先补干净安装。** 在与实际 CI 匹配的 Node/npm、没有 `node_modules` 的独立工作树或临时副本执行真正的 `npm ci --no-audit --no-fund`，再运行质量和平台构建。11-17 实际 CI 为 Node 24.22.2 / npm 11.19.1；旧 npm 11.6.2 的 dry-run 与已有依赖的 build 曾漏掉锁文件缺失的两个 `@emnapi` 条目，不能替代同版本干净验收。可用 `npm ci --dry-run --os=linux --cpu=x64 --ignore-scripts --no-audit --no-fund` 额外核对 Linux 依赖解算，但它不是 Linux 实际安装或构建。不要用关闭 CI 安装检查、强制修复或忽略可选依赖掩盖差异。
 2. 确认生成内容差异属于本次改动，提交并正常推送。
 3. 记录这次提交的完整 SHA，按同一个 SHA 查询检查，避免把上一轮绿色状态当成此次成功：
 
