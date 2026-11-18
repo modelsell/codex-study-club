@@ -57,6 +57,19 @@ test("documented snake_case names outrank generic comparison intent without pref
   assert.equal(searchKnowledgeBase("AGENTS.md 和 Skill 的区别")[0]?.entry.id, "assistant:agents-and-skills");
 });
 
+test("Pydantic AI 2.69 handler questions retrieve the 2.68 experiment with its version boundary", () => {
+  const href = "/cases/pydantic-ai-approval-replay-lab";
+  for (const question of [
+    "Pydantic AI 2.69.0 HandleDeferredToolCalls resume token",
+    "RequestInput resume token Pydantic AI",
+  ]) {
+    const matches = searchKnowledgeBase(question);
+    assert.equal(matches[0]?.entry.id, "assistant:pydantic-ai-approval-recovery", question);
+    assert.ok(sourcesForMatches(matches).some((source) => source.href === href), question);
+    assert.ok(localKnowledgeAnswer(matches).includes("2.68.0"), question);
+  }
+});
+
 test("Deep Agents storage questions do not receive the AGENTS.md rules answer", () => {
   const href = "/cases/deepagents-storage-recovery";
   for (const question of [
