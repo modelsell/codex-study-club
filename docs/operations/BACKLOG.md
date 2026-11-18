@@ -4,6 +4,8 @@
 
 ## 下周优先项（2026-11-16 至 2026-11-22，当前执行顺位）
 
+11-18 19:56:40 轮：六个当日完整 SHA 独立再核均 Quality failure / Workers success；全量 audit 仍 10 moderate/9 high，公告未撤回且无修正版。b91ce0d 正式 39 目标/77 URL/24 公开文件通过。T23 私有便携两文件经 HTTP 保存、第二环境六组与原基线一致，未公开/未成稿，不算新组或客户端成功；原帖无新结果，浏览器超时/GA4 缺口保持。明日回看 T21 原 11-19 窗口，P0 与原排序不变，见[晚间复核](reviews/2026-11-18.md#195640-轮独立复核与研究补漏)。
+
 11-18 08:56 轮补核：自身 c908092 Quality audit failure / Workers success，本地全量 audit 重现 10 moderate / 9 high / 0 critical；GitHub 公告未撤回、npm Latest 4.0.7 无修正版。保留后续两内容/两归档及全部记录，ab24fec 本地内容检查/15 检索通过但门禁仍失败；本地 FAQ 草稿目标已覆盖，不重复合并，见[独立补核](reviews/2026-11-18.md#审计失败的独立补核)。
 
 11-18 内容/CI续接：2.68.0 审批恢复旧文已补 2.69.0 API 范围并更新助手检索，15 条回归、lint、本地 Next 16.4.6 build 通过；发布完整 SHA 的 Workers 成功，Quality 被 `npm audit` 19 项（10 moderate/9 high）拦下，`--omit=dev` 为 5 moderate/0 high。picomatch advisory 当前无 patched version，force 建议会降级框架主版本，未套用；保持门禁，等兼容修复并重跑同 SHA，新 SHA 再验。详见[11-18复盘](reviews/2026-11-18.md#0900-后续校订与内容检索维护)。
