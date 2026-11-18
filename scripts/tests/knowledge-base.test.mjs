@@ -67,6 +67,8 @@ test("Pydantic AI 2.69 handler questions retrieve the 2.68 experiment with its v
     assert.equal(matches[0]?.entry.id, "assistant:pydantic-ai-approval-recovery", question);
     assert.ok(sourcesForMatches(matches).some((source) => source.href === href), question);
     assert.ok(localKnowledgeAnswer(matches).includes("2.68.0"), question);
+    assert.ok(localKnowledgeAnswer(matches).includes("保存 token 不会恢复原进程等待"), question);
+    assert.ok(sourcesForMatches(matches).some((source) => source.href.endsWith("reviews/2026-11-18.md")), question);
   }
 });
 
