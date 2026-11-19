@@ -17,6 +17,8 @@
 
 ## 当前选题状态
 
+11-19 00:56 提前复核：GitHub 于 11-18 撤回 picomatch GHSA（不等同代码修复）；全量审计 0 high/critical、11 moderate，09dccff 同 SHA Quality 重跑通过。T21 两原帖最新仍为 11-09/11-10、无作者新实测，本站读者结果不可得；今日暂无新案例证据。P1 评估剩余 moderate，不强制降级；见[复核](reviews/2026-11-19.md)。
+
 11-18 19:56:40 轮：T23 两原帖及评论与晨间一致，Latest 2.70.0 未执行；固定 2.69.0 私有便携脚本/依赖经 HTTP 保存、第二环境复装后六组与原基线一致，未公开，不新增实验组或读者证明。六个完整 SHA 的 Quality failure / Workers success、audit 10 moderate/9 high 与无可信补丁状态保持；正式 39 目标/77 URL/24 文件通过，浏览器与 GA4 仍缺。P0 优先、T21 明日及其他原窗口保持，见[晚间复核](reviews/2026-11-18.md#195640-轮独立复核与研究补漏)。
 
 11-18 08:56 轮补核：自身 c908092 Quality audit failure / Workers success，本地全量 audit 重现 10 moderate / 9 high / 0 critical；GitHub 公告未撤回、npm Latest 4.0.7 无修正版。保留后续两内容/两归档及全部记录，ab24fec 本地内容检查/15 检索通过但门禁仍失败；本地 FAQ 草稿目标已覆盖，不重复合并，见[独立补核](reviews/2026-11-18.md#审计失败的独立补核)。
