@@ -17,6 +17,8 @@
 
 ## 当前选题状态
 
+11-21 20:01:17 轮：810d401 同 SHA Quality/Workers、正式 39 目标/77 URL/27 文件独立再核通过，audit 11 moderate/0 high；首次 fetch TLS 失败、一次原配置重试成功，原因未知。T15 两原帖/固定三文件/1.0.7 发行物不变，#6481 head 前进到 ec20cf7，外部 head 检查与本站验收分开，仍 open 未合并、不当正式修复或本站实测。未重跑八组，浏览器超时/GA4 缺口及原窗口保持，见[晚间复核](reviews/2026-11-21.md#200117-轮晚间独立核验)。
+
 11-21 早间续接：09:04:44 触发、首次工具时钟 10:30:33，不回填按时完成。T15 新读 1.0.7/Files/Quickstart 与两位作者的 #6479/#6447，将题目收敛 fresh-local 文件交付；官方 wheel/固定提交三文件一致，八组仅为替身上下文下的源码函数隔离，未装 SDK 或运行浏览器/模型，不成稿。f3d4d69 同 SHA Quality/Workers、正式 39 目标/77 URL/27 文件通过，audit 11 moderate/0 high；浏览器列表为空、读者数据不可得，原窗口保持，见[今日复盘](reviews/2026-11-21.md)。
 
 11-20 19:56:00 轮：8c05b71 同 SHA Quality/Workers、正式 39 目标/77 URL/27 文件独立再核通过，全量审计仍 11 moderate/0 high/critical。T22 GitHub 网页及五个 REST 端点仍 404、原因未知；PyPI 元数据和晨间保留 wheel 指纹一致，未重新下载/执行或重开七日判断。浏览器列表为空，GA4/独立任务反馈仍不可得；原窗口保持，见[晚间复核](reviews/2026-11-20.md#195600-轮晚间独立核验)。
@@ -144,6 +146,8 @@
 - **11-08 首发七日回看与复现入口修订**：本站公共 Issue/PR 没有新增读者产物，访问/阅读/收益报告不可得；两份原始 Discussion 重读仍是作者报告，不是本站读者反馈。原固定提交 API/原文件仍可读取，当前 main 的完整 SHA 为 `8c32a9dc5d72c033816c6a8110b37f40cf94fba4`；新旧提交均无父提交，Git tree 同为 `3efbb036e5a56183c6bf642e2e1856a1f64e7be3`，不能把比较接口 404 当作旧源码消失，也不推断身份变化的原因/时间。全新 clone 后直接 checkout 原固定 SHA 实际 exit 128；加显式 `fetch origin <完整 SHA>` 后切换与三个核心模拟分支通过。第二个全新 clone 按修订步骤完整执行，观察 JSON 相同；脚本仍 4849 字节、原指纹与版本保护不变。原稳定页修订已随 `df61f837398a7f7452f8d5a57e397c58ec42ea7d` 上线；同 SHA Quality / Workers、正式 12 目标、首页/列表 11.08 日期、四下载字节与 72 URL Sitemap / lastmod 通过。保持源码/替身层级，不计新文章或重置首发 12-01 的 30 天窗口。详见[11-08 发布证明](reviews/2026-11-08.md#早间发布证明)。
 
 ### T15：Browser Use 与浏览器任务的结果验收
+
+**11-21 晚间独立复核**：两原帖正文/全部评论、1.0.7 Release/PyPI 发行元数据与固定三文件同晨间，保留文件指纹，不重新下载/安装或重跑八组。#6481 head 从 `212b13c0f0ef4f51e8b5681fb7b05b94c06735a3` 前进到 `ec20cf71de8ecfe9528705ed68c75bc42a4046ba`，仍 open 未合并；新说明回应旧工作区权限影响新列表的贡献者夹具报告，测试数量/平台与修复仍属作者报告。外部该 head 的 test/lint/package/Docker smoke 检查另核成功，镜像发布 skipped、Mintlify neutral，不当维护者批准或 1.0.7 正式修复。#6448 head/正文/更新时间不变；不增加需求数或本站实测范围，仍待固定发行版的完整任务与可交付包，见[分支增量与边界](reviews/2026-11-21.md#t15分支有增量发行物与本站验证范围保持)。
 
 **11-21 收敛入口与新增需求**：当日读 [Files](https://docs.browser-use.com/open-source/files)、[Quickstart](https://docs.browser-use.com/open-source/quickstart)、[1.0.7 Release](https://github.com/browser-use/browser-use/releases/tag/1.0.7)（原发 11-20 20:01:20 UTC）；当前 PyPI 1.0.7 wheel 上传 11-21 01:55:19.747197 UTC，文档示例仍为 1.0.6，分别记。新增 [#6479](https://github.com/browser-use/browser-use/issues/6479)（wang1299，11-20 09:00:58 UTC，1.0.6 / Windows / fresh-local，作者报告 GUID 路径在完成命名后失效）与 [#6447](https://github.com/browser-use/browser-use/issues/6447)（adityajai119，11-17 05:56:35 UTC，1.0.6 交付链接校验，合成 FunctionModel 作者复现）；原文/全部评论与 REST 已核，两帖 open，#6481/#6448 open 未合并。两作者/两阶段不等于同一根因、本站效果或发生率；#6476 自报 0.11.13、#6480 远程 CDP 上传，排除作同入口需求。旧 #6368 新作者的模拟 Cloud 路径评论只作补充，不重复计问题。
 
