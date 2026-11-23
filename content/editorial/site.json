@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-17",
+  "checkedAt": "2026-11-23",
   "identity": {
     "name": "Agent 实践室",
     "parent": "CODEX STUDY CLUB",
@@ -29,6 +29,16 @@
       "description": "沿接收、授权、工单、PR 与回传拆开团队 Agent 的交接，比较人工派发、脚本与常驻原型。",
       "outcome": "任务路径图 · 三组核心模拟 · 方案选择表",
       "scope": "固定源码与内存替身模拟；Harness 客户端未运行。",
+      "research": true
+    },
+    {
+      "href": "/cases/browser-use-download-delivery-lab",
+      "title": "下载好了，交付的是这次的报表吗？",
+      "tool": "Browser Use",
+      "kind": "SDK 实验",
+      "description": "用真实本地浏览器下载同名报表，沿下载清单、最终链接和内容回读拆开交付判断。",
+      "outcome": "三组浏览器集成对照 · 文件清单与哈希 · 固定依赖",
+      "scope": "本地无界面 Chrome、SDK/REPL 与 HTTP 实际执行；模型调用、成功声明及修复选择均为脚本合成。",
       "research": true
     },
     {
@@ -180,12 +190,33 @@
         "/community/updates/deepseek-superagent-prototype",
         "/cases/reusable-review-skill",
         "/cases/codex-broken-link-workflow",
+        "/cases/browser-use-download-delivery-lab",
         "/cases/email-agent-coverage-audit",
         "/cases/pydantic-ai-approval-replay-lab"
       ]
     }
   ],
   "toolkits": [
+    {
+      "id": "browser-download-delivery",
+      "title": "浏览器下载与文件交付",
+      "category": "复现实验",
+      "description": "下载已知 CSV，保留同名旧文件误交付和编码链接拒绝，再核最终链接、内容与稳定副本。",
+      "environment": "macOS arm64 / Python 3.12 · Browser Use 1.0.8 · 本地浏览器、合成模型、回环 HTTP",
+      "source": "/cases/browser-use-download-delivery-lab",
+      "files": [
+        {
+          "href": "/templates/browser-use-download-delivery-lab.py",
+          "label": "三组下载与交付对照",
+          "format": "PY"
+        },
+        {
+          "href": "/templates/browser-use-download-requirements.txt",
+          "label": "固定依赖",
+          "format": "TXT"
+        }
+      ]
+    },
     {
       "id": "approval-replay",
       "title": "审批恢复与重复执行",

@@ -13,7 +13,9 @@
 
 发布前交叉核对官方资料和真实需求，区分源码研究、SDK/CLI 实验、工具验证与客户端实测；规范见[内容引入门槛](docs/operations/CONTENT-GATE.md)及[深度标准](docs/operations/EDITORIAL-STANDARD.md)。基于本地 Markdown 的资料助手帮助读者找到对应正文。
 
-## 本期新内容（2026-11-17 更新）
+## 本期新内容（2026-11-23 更新）
+
+- [Browser Use 文件交付实验：下载好了，交付的是这次的报表吗？](https://codex.modelsp.com/cases/browser-use-download-delivery-lab)：固定 1.0.8，实际运行本地浏览器、REPL 与 HTTP 下载，比较同名旧文件、最终链接及内容回读；附三组复现包。模型调用、成功声明及修复选择由脚本合成，未测试真实模型、Cloud 或 Windows。
 
 - [Pydantic AI 审批恢复实验：同意一次，为什么登记两次？](https://codex.modelsp.com/cases/pydantic-ai-approval-replay-lab)：固定 2.68.0 SDK 的八组跨进程对照，比较崩溃重放、事务回执和业务请求键；真实本地 SQLite、合成模型与审批，未接外部业务或生产审批服务。
 
