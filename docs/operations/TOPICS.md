@@ -17,6 +17,8 @@
 
 ## 当前选题状态
 
+11-25 19:58:49 轮：晨间代码71954a0/归档0b73两完整SHA的最新Quality/Workers与各17步独立再核成功，较早同名未终态另记；正式42目标/78URL/31源文件、精确锁和全量3中危/0高危保持。T15固定版与四未合并分支无新变化；T20新增同作者一条计划回复、Latest2.49.6只列相关性未证的表达式项，未跑工作流、不成稿。无新GA4或独立任务成果，原窗口/顺位保持，见[晚间复盘](reviews/2026-11-25.md#195849-轮晚间独立核验与复盘)。
+
 11-25 08:55:46 轮：官方OpenNext候选精确锁经真实clean ci/质量/平台/Next与Worker运行和交付通过，中危包条目5→3；71954a0同SHA检查和正式42目标/78URL/31源文件通过。T15四PR仍未合并、6505分叉/6510异常范围不改固定1.0.8；T20新增人工校对后资料交付独立子方向，两近期原作者需求+正式资料齐，工作流/UI待验，继续暂缓稿。新读11-24完整日原始28浏览/5活跃/46事件，未清洗维护、不称增长，原窗口保持，见[今日复盘](reviews/2026-11-25.md)。
 
 11-24 20:04:07 轮：两晨间完整 SHA 的最新 Quality/Workers 与各 17 步独立再核成功，较早同名未终态另记；正式42目标/78URL/31源文件与精确锁保持，全量 audit 5 moderate/0 high-critical。T23 当前2.73已上GitHub/PyPI，晨间2.72 Release/API/tag今夜404、原因未知；原文/文档与两帖无必改证据，保留12-17、不另稿。浏览器无窗口，新GA4不可得；入站无新增任务成果，原窗口和本周顺位不变，见[晚间复核](reviews/2026-11-24.md#200407-轮晚间独立复核与来源变动记录)。
@@ -301,6 +303,7 @@
 
 ## 11-08 新方向：T20 n8n 的审批、工具结果与业务回读
 
+- **11-25 晚间续查**：两原帖可得23/20帖；liz7up新增[20楼](https://community.n8n.io/t/for-those-who-deliver-pdf-doc-extraction-to-clients-what-happens-after-your-review-queue/329724/20)原发11-25 11:59:12 UTC，自述独立DB/单状态交付ledger，准备区分claimed/acknowledged，未做完、不算新独立需求或本站修复。Wait/Respond与晨间字节保持，隐藏17楼未取回。[Latest2.49.6](https://github.com/n8n-io/n8n/releases/tag/n8n%402.49.6)原发11-25 08:27:07 UTC，只凭表达式事项不推断审批修复；晨间2.49.5固定材料保留，新版未运行。继续暂缓成稿，执行前再对齐实际版本/节点，见[晚间复核](reviews/2026-11-25.md#195849-轮晚间独立核验与复盘)。
 - **11-25 独立子方向：人工校对后的资料交付（研究入池，暂缓成稿）。** 目标为客户资料提取/校对队列维护者，主问题是执行前批准绑定到哪版字段、是否过期，区别于T23提交后历史重放；普通Wait/自建队列也不补作旧内建Chat第二需求。
 - **当日两份独立需求**：[operantsolo原帖](https://community.n8n.io/t/for-human-approval-in-n8n-do-you-prefer-the-wait-form-or-slack-send-and-wait-for-response/328231)，原发11-11 21:08:08.565 UTC，作者本地报告迟到批准得到确认但无效果；[liz7up原帖](https://community.n8n.io/t/for-those-who-deliver-pdf-doc-extraction-to-clients-what-happens-after-your-review-queue/329724)，原发11-20 11:08:14.093 UTC，旧校对页覆盖新修正、重复建队列，作者自述pre-scale。11-25原文与可得23/19帖已读，隐藏占位未采；同作者跨帖/推广不重复计数，不当本站实测或故障率。
 - **官方与版本**：11-25读[Wait](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.wait/)、[Respond](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.respondtowebhook/)及正式[n8n2.49.5](https://github.com/n8n-io/n8n/releases/tag/n8n%402.49.5)，原发11-23 15:25:29 UTC、固定049e3e0ebb36e4ce9f27ada61d7aa19556394f84；当前文档首发日未知，尚须对齐实际所选节点/表单实现。新Agents durable-review后端的已合并状态不当普通Wait/Chat修复。
