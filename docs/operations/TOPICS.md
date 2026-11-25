@@ -1,6 +1,6 @@
 # 持续选题池
 
-维护负责人：项目运营。建立日期：2026-10-05；最近整理日期：2026-11-24（Asia/Shanghai，T23 原七日回看与依赖兼容路径；其他产品来源日与原窗口保留）。
+维护负责人：项目运营。建立日期：2026-10-05；最近整理日期：2026-11-25（Asia/Shanghai，OpenNext兼容维护、T15分支跟进与T20资料校对子方向；其他来源日与原窗口保留）。
 
 本文件保存候选、原始证据、实验计划与后续反馈；发布状态与验证边界逐题记录。2026-10-05 用户认可基于真实社区痛点选题，并要求在本地持续维护。首批来源来自同日对 X、Reddit、OpenAI 开发者社区和 GitHub Issues 的实际阅读。10-06 重读 T01 社区原帖与官方说明；10-15 新核对 T05 的 #53368、#32582 与原社区帖；10-16 重读 T04 原帖、后续回复与 #50973，并核对 CLI、IDE 当日官方原文。10-17 新增 T07 的 Cloud 发布失败原帖并核对当日官方 Cloud 文档。其他来源未重查，不刷新日期。正式写作前须重新核对原帖、后续回复和当日官方说明。
 
@@ -16,6 +16,8 @@
 - 每次调整同步本文件、BACKLOG 和当日复盘。证据台账留在这里，BACKLOG 只保留当前排序，避免多个完整选题清单互相漂移。
 
 ## 当前选题状态
+
+11-25 08:55:46 轮：官方OpenNext候选精确锁经真实clean ci/质量/平台/Next与Worker运行和交付通过，中危包条目5→3；71954a0同SHA检查和正式42目标/78URL/31源文件通过。T15四PR仍未合并、6505分叉/6510异常范围不改固定1.0.8；T20新增人工校对后资料交付独立子方向，两近期原作者需求+正式资料齐，工作流/UI待验，继续暂缓稿。新读11-24完整日原始28浏览/5活跃/46事件，未清洗维护、不称增长，原窗口保持，见[今日复盘](reviews/2026-11-25.md)。
 
 11-24 20:04:07 轮：两晨间完整 SHA 的最新 Quality/Workers 与各 17 步独立再核成功，较早同名未终态另记；正式42目标/78URL/31源文件与精确锁保持，全量 audit 5 moderate/0 high-critical。T23 当前2.73已上GitHub/PyPI，晨间2.72 Release/API/tag今夜404、原因未知；原文/文档与两帖无必改证据，保留12-17、不另稿。浏览器无窗口，新GA4不可得；入站无新增任务成果，原窗口和本周顺位不变，见[晚间复核](reviews/2026-11-24.md#200407-轮晚间独立复核与来源变动记录)。
 
@@ -159,6 +161,8 @@
 
 ### T15：Browser Use 与浏览器任务的结果验收
 
+- **11-25 当日复核**：正式仍1.0.8/753d629d76eb2b670f4cf467f3355bbe750f6845，官方文档/两原帖与全部评论保持；四PR仍未合并，6505 compare=diverged，6510仅收窄ENAMETOOLONG、保留权限/I/O异常。分支不当正式修复，未重跑三组/安装SDK，原文checkedAt11-23及11-30/12-23保持，见[今日来源](reviews/2026-11-25.md#t15跟进分支不改写固定发行实验)。
+
 **11-22 底层 SDK 验证增量**：当日官方 Files/Quickstart、1.0.7 Release/PyPI、两原帖及全部评论、#6481/#6448 已只读复核，状态/固定 head 同昨晚，未合并，不作正式修复。实际安装官方固定 1.0.7 wheel，四份已安装源文件指纹与 wheel 相同、`pip check` 通过；用包内 build_agent/Session/run 和真实 ModelRetry 做三组交付循环：旧文件可被预设成功交付但任务哈希不符，当前文件匹配，缺失链接触发第二次预设正确响应后匹配。均为预写 CSV/合成 FunctionModel，success=True 明确由合成响应给出，非自主识错或文件生成；收紧环境后二轮记录一致，仍只计三组、每轮四响应。Browser 构造、worker、联网尝试 0；不是顶层 Agent 或浏览器任务，未收集 result.downloads，详见[实际范围](reviews/2026-11-22.md#t15增加底层-sdk-交付循环对照)。
 
 **11-22 晚间版本与边界增量**：官方 [1.0.8 Release](https://github.com/browser-use/browser-use/releases/tag/1.0.8)原发 11-22 03:30:41 UTC，[wheel](https://pypi.org/pypi/browser-use/1.0.8/json)上传 03:44:53.401216 UTC；固定 753d629d76eb2b670f4cf467f3355bbe750f6845，300,909 字节、SHA-256 `87d70b39cd57f8115743d3fc81cf36e190848e753ef40de88ceb16256569dadb`，实际保存匹配。四份源码与固定 Raw 相同，选定交付/命名函数 AST 与 1.0.7 一致，仅静态解析，未安装或运行新版；Quickstart 仍 1.0.6。#6447 在 20:04:19 新增[接手计划](https://github.com/browser-use/browser-use/issues/6447#issuecomment-7078855387)，无执行/恢复证据，不增独立需求；#6481/#6448 head 与早间相同且未合并。晨间 21 项 SDK 证据指纹保全、不重跑；完整浏览器任务仍是成稿前置，见[晚间范围](reviews/2026-11-22.md#t15午间-108-与评论增量只作来源研究)。
@@ -296,6 +300,11 @@
 - **深度与选择**：以待审历史→批准→业务提交→新历史→重启展开任务；固定源码解释重新进入工具，比较普通写入、事务与未知外部结果；公开脚本/依赖已交付。同类写法实际阅读 Malcolm Featonby / AWS [idempotent APIs](https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/)（原日未确认，只作写法参考），六项编辑复核见当日报告。不按品牌配额选入，不写版本流水；浏览器点击下载回执因工具不可用未取得；正式发布及 HTTP 文件保存/执行已按 9360b0f 核验。原首发 11-17，11-24 / 12-17 回看。
 
 ## 11-08 新方向：T20 n8n 的审批、工具结果与业务回读
+
+- **11-25 独立子方向：人工校对后的资料交付（研究入池，暂缓成稿）。** 目标为客户资料提取/校对队列维护者，主问题是执行前批准绑定到哪版字段、是否过期，区别于T23提交后历史重放；普通Wait/自建队列也不补作旧内建Chat第二需求。
+- **当日两份独立需求**：[operantsolo原帖](https://community.n8n.io/t/for-human-approval-in-n8n-do-you-prefer-the-wait-form-or-slack-send-and-wait-for-response/328231)，原发11-11 21:08:08.565 UTC，作者本地报告迟到批准得到确认但无效果；[liz7up原帖](https://community.n8n.io/t/for-those-who-deliver-pdf-doc-extraction-to-clients-what-happens-after-your-review-queue/329724)，原发11-20 11:08:14.093 UTC，旧校对页覆盖新修正、重复建队列，作者自述pre-scale。11-25原文与可得23/19帖已读，隐藏占位未采；同作者跨帖/推广不重复计数，不当本站实测或故障率。
+- **官方与版本**：11-25读[Wait](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.wait/)、[Respond](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.respondtowebhook/)及正式[n8n2.49.5](https://github.com/n8n-io/n8n/releases/tag/n8n%402.49.5)，原发11-23 15:25:29 UTC、固定049e3e0ebb36e4ce9f27ada61d7aa19556394f84；当前文档首发日未知，尚须对齐实际所选节点/表单实现。新Agents durable-review后端的已合并状态不当普通Wait/Chat修复。
+- **成果、验证与选择**：拟交付合成单记录→真实本地校对表单→revision/期限条件转换→冻结批准快照→loopback假CRM回读的固定工作流和失败矩阵；比较仅收到批准就写与绑定版本/期限再写，代价是状态表、版本和界面维护。正常/拒绝/双标签旧提交/过期/重复批准均需完整输入输出证据；不接客户系统、Slack/邮箱或付费模型。本轮仅资料/固定源码，没有安装/导入/运行工作流，不能拿旧函数/SQL夹具冒充客户端成功；暂缓理由和后续条件见[今日研究](reviews/2026-11-25.md#t20-新子方向人工校对后的资料交付)。
 
 - **11-17 轮换**：官方 Human Review / 原始 Markdown 与 Latest 2.47.7（原发 11-13 09:44:36 UTC）重读，global credentials 变更不作审批修复。近三十天 human review / chatHitlTool 检索各 0，approval chat 仅 #42667；原文/三回复仍为新 Agents Telegram，不补内建 Chat 第二需求。旧 #25491、已恢复 #34645 排除；未装/运行或重跑旧函数对照，继续留池，见[本日研究](reviews/2026-11-17.md#研究轮换t20-暂缓选入-t23)。
 
