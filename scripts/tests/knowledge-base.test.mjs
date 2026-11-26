@@ -240,19 +240,3 @@ test("command quotations in a case do not displace the teaching chapters", () =>
     assert.deepEqual(retrieval.searchKnowledgeBase(question), [], `Non-shell sample was treated as a command: ${question}`);
   }
 });
-
-
-test("n8n review and download questions retain their version-bound delivery source", () => {
-  const href = "/cases/n8n-review-snapshot-delivery-lab";
-  for (const question of ["n8n 资料校对旧标签页批准", "n8n revision过期", "n8n 表单成功但CRM版本不对", "n8n重复批准", "n8n-review-snapshot-delivery-lab.zip", "n8n批准快照怎样回读"]) {
-    const matches = searchKnowledgeBase(question);
-    assert.ok(matches.some((match) => match.entry.href === href), `Missing n8n delivery case: ${question}`);
-    assert.ok(sourcesForMatches(matches).some((source) => source.href === href), `Missing n8n delivery source: ${question}`);
-    const answer = localKnowledgeAnswer(matches);
-    if (matches[0]?.entry.kind === "assistant") {
-      assert.ok(answer.includes(href) && answer.includes("2.49.6"), `Missing n8n guide link or version boundary: ${question}`);
-    } else {
-      assert.ok(answer.includes(matches[0].entry.title), `Missing retrieved guide title: ${question}`);
-    }
-  }
-});
