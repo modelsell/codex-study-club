@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-23",
+  "checkedAt": "2026-11-26",
   "identity": {
     "name": "Agent 实践室",
     "parent": "CODEX STUDY CLUB",
@@ -29,6 +29,16 @@
       "description": "沿接收、授权、工单、PR 与回传拆开团队 Agent 的交接，比较人工派发、脚本与常驻原型。",
       "outcome": "任务路径图 · 三组核心模拟 · 方案选择表",
       "scope": "固定源码与内存替身模拟；Harness 客户端未运行。",
+      "research": true
+    },
+    {
+      "href": "/cases/n8n-review-snapshot-delivery-lab",
+      "title": "旧标签页批准了，交付的是哪一版？",
+      "tool": "n8n",
+      "kind": "工具实践",
+      "description": "沿资料修正、批准快照与目标回读，比较旧页面、过期和重复批准的实际结果。",
+      "outcome": "十组工作流对照 · 双标签任务 · 完整复现包",
+      "scope": "固定n8n、自建页/DB守卫与本地假CRM实际执行；资料及审核选择合成，模型/原生Form/Wait未测。",
       "research": true
     },
     {
@@ -192,11 +202,27 @@
         "/cases/codex-broken-link-workflow",
         "/cases/browser-use-download-delivery-lab",
         "/cases/email-agent-coverage-audit",
-        "/cases/pydantic-ai-approval-replay-lab"
+        "/cases/pydantic-ai-approval-replay-lab",
+        "/cases/n8n-review-snapshot-delivery-lab"
       ]
     }
   ],
   "toolkits": [
+    {
+      "id": "n8n-review-snapshot-delivery",
+      "title": "资料校对与批准版本交付",
+      "category": "复现实验",
+      "description": "比较保存修正、旧页批准、期限和重复派发，读回批准快照与目标字段；附两条工作流和十组验收。",
+      "environment": "macOS arm64 / Docker Desktop · 固定Linux arm64镜像 · Python3.9+ · 合成资料/本地CRM",
+      "source": "/cases/n8n-review-snapshot-delivery-lab",
+      "files": [
+        {
+          "href": "/templates/n8n-review-snapshot-delivery-lab.zip",
+          "label": "完整实验包与使用说明",
+          "format": "ZIP"
+        }
+      ]
+    },
     {
       "id": "browser-download-delivery",
       "title": "浏览器下载与文件交付",
