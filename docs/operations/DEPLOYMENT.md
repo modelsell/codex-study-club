@@ -18,6 +18,9 @@ gh api repos/modelsell/codex-study-club/commits/<提交SHA>/check-runs \
 ```
 
 4. 分别记录 `Content, lint and build` 和 `Workers Builds: codex-study-club` 的结果。没有检查记录或仍在运行时标注待核验。当前未配置“质量检查成功后才能部署”的串行门禁，不能把二者独立成功理解为发布前强制阻断。
+   **Workers 的查询入口（2026-11-28 补核）**：Cloudflare 在该提交的 `check-runs` 中登记 `Workers Builds: codex-study-club`；它不是本站 Actions 列表中的独立工作流。`gh run list` 或 Actions 工作流列表没有 Workers，不能据此认定没有同 SHA 的平台检查记录，应继续读取第 3 步的提交检查接口。
+   默认结果用于核对最新同名检查的 `head_sha`、`status`、`conclusion`、ID 与 `html_url`；需要保留较早同名运行时，再查 `commits/<提交SHA>/check-runs?filter=all&per_page=100`，有下一页则继续读取。默认 `filter=latest` 和每页最多 100 条已对照 [GitHub 检查接口文档](https://docs.github.com/en/rest/checks/runs#list-check-runs-for-a-git-reference)核对。最新成功与较早仍在进行的记录分别保留，不将旧记录当作最新结果，也不为补证据手动重触发或取消运行。
+   同 SHA 的 Workers 成功、正式正文/文件核对与活动 Worker revision API 是不同证据。没有读取后者时仍注明未读，不因找到了 check-run 就声称活动版本 API、分支保护或串行部署门禁已核实。
 5. 打开变更页面，核对 HTTP 状态、标题及本次新增的独特正文，同时检查案例列表和 Sitemap。刚推送后的 404 可能是部署尚未完成；构建成功但持续不可见时，再查缓存、域名和部署版本，不盲目重复推送。
 6. 在当日复盘记录提交、检查链接与线上验证时间。
 
